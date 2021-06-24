@@ -1,0 +1,100 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Regular font family
+/// @type List
+
+$text-font-stack: "Cairo", sans-serif !default;
+
+/// @type List
+$code-font-stack: "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+  "Monaco", monospace !default;
+
+/// Copy text color
+/// @type Color
+$text-color: rgb(34, 34, 34) !default;
+
+$text-color-navigation: #a7a9ba;
+
+/// Main brand color
+/// @type Color
+$brand-color: #fa6401 !default;
+
+$brand-color-white: #ffffff;
+
+$brand-color-light: #feded2;
+
+$primary-color-opacity: rgba(249, 99, 50, 0.3) !default;
+$success-color-opacity: rgba(24, 206, 15, 0.3) !default;
+$success-color-opacity: rgba(24, 206, 15, 0.3) !default;
+$warning-color: #fbc658 !default;
+$warning-color-opacity: rgba(255, 178, 54, 0.3) !default;
+$danger-color-opacity: rgba(255, 54, 54, 0.3) !default;
+$danger-color: #f5593d !default;
+$success-color: #6bd098 !default;
+$white-bg: #ffffff !default;
+$medium-gray: #dddddd !default;
+$smoke-bg: #f5f5f5 !default;
+$light-gray: #e3e3e3 !default;
+$primary-color: #fa6401 !default;
+$black-color: #333333 !default;
+$dark-gray: #9a9a9a !default;
+$link-disabled-color: #666666 !default;
+$info-color: #217ce0 !default;
+$info-color-opacity: rgba(44, 168, 255, 0.3) !default;
+$opacity-gray-8: rgba(222, 222, 222, 0.8) !default;
+/// Light grey
+/// @type Color
+$light-grey: rgb(237, 237, 237) !default;
+
+/// Medium grey
+/// @type Color
+$mid-grey: rgb(153, 153, 153) !default;
+
+/// Dark grey
+/// @type Color
+$dark-grey: rgb(68, 68, 68) !default;
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1180px !default;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  "ultra-tiny": (
+    min-width: 360px,
+  ),
+  "tiny": (
+    min-width: 400px,
+  ),
+  "small": (
+    min-width: 500px,
+  ),
+  "medium": (
+    min-width: 768px,
+  ),
+  "large": (
+    min-width: 1000px,
+  ),
+  "huge": (
+    min-width: 1180px,
+  ),
+  "ultra-huge": (
+    min-width: 1440px,
+  ),
+  "mighty": (
+    min-width: 2160px,
+  ),
+  "ultra-mighty": (
+    min-width: 3840px,
+  ),
+) !default;
+
+/// Relative or absolute URL where all assets are served from
+/// @type String
+/// @example scss - When using a CDN
+///   $base-url: 'http://cdn.example.com/assets/';
+$base-url: "/assets/" !default;

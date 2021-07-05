@@ -84,9 +84,7 @@ const Sidebar = (props) => {
       className="navbar-vertical fixed-left navbar-light bg-white"
       expand="md"
       style={{
-        height: 'min-content',
-        paddingBottom: '100px',
-        maxWidth: '350px',
+        minWidth: '300px',
       }}
       id="sidenav-main">
       <Container fluid>

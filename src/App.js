@@ -22,41 +22,36 @@ function App() {
   }, []);
   return (
     <div>
-      {/* <Offline>
+      <Offline>
         <OfflinePage />
-      </Offline> */}
-      {/* <Online> */}
-      <Router history={history}>
-        <Switch>
-          <Route
-            path="/login"
-            render={(props) => (
-              <Provider store={configureStore()}>
-                <LoginPage {...props} />{' '}
-              </Provider>
-            )}></Route>
-          <Route
-            path="/admin"
-            render={
-              (props) => (
+      </Offline>
+      <Online>
+        <Router history={history}>
+          <Switch>
+            <Route
+              path="/login"
+              render={(props) => (
                 <Provider store={configureStore()}>
-                  <DashboardPage {...props} />
+                  <LoginPage {...props} />{' '}
                 </Provider>
-              )
-              // isAuthenticated() ? (
-              //   <Provider store={configureStore()}>
-              //     <DashboardPage {...props} />
-              //   </Provider>
-              // ) : (
-              //   <Redirect to="/login"></Redirect>
-              // )
-            }></Route>
-          <Route path="/">
-            <AppLoading />
-          </Route>
-        </Switch>
-      </Router>
-      {/* </Online> */}
+              )}></Route>
+            <Route
+              path="/admin"
+              render={(props) =>
+                isAuthenticated() ? (
+                  <Provider store={configureStore()}>
+                    <DashboardPage {...props} />
+                  </Provider>
+                ) : (
+                  <Redirect to="/login"></Redirect>
+                )
+              }></Route>
+            <Route path="/">
+              <AppLoading />
+            </Route>
+          </Switch>
+        </Router>
+      </Online>
     </div>
   );
 }

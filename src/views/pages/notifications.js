@@ -1,8 +1,8 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import NotificationsTable from '../../components/Tables/NotificationsTable';
 
 const Notifications = () => {
-  return <UserTable />;
+  return <NotificationsTable />;
 };
 
 export default Notifications;

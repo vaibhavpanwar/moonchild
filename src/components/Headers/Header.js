@@ -1,7 +1,10 @@
 import React from 'react';
 
 import {Card, CardBody, CardTitle, Container, Row, Col} from 'reactstrap';
-
+import userIcon from '../../assets/images/icons/card-user-icon.svg';
+import bellIcon from '../../assets/images/icons/card-bell-icon.svg';
+import chatIcon from '../../assets/images/icons/card-chat-icon.svg';
+import incomeIcon from '../../assets/images/icons/card-income-icon.svg';
 const Header = ({cardsVisible = true}) => {
   return (
     <>
@@ -22,16 +25,14 @@ const Header = ({cardsVisible = true}) => {
                           <CardTitle
                             tag="h5"
                             className="text-uppercase text-muted mb-0">
-                            Traffic
+                            TOTAL REGISTERED USERS
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                             350,897
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <div className="icon icon-shape bg-danger text-white rounded-circle shadow">
-                            <i className="fas fa-chart-bar" />
-                          </div>
+                          <img className="card-icon" src={userIcon} />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
@@ -51,16 +52,14 @@ const Header = ({cardsVisible = true}) => {
                           <CardTitle
                             tag="h5"
                             className="text-uppercase text-muted mb-0">
-                            New users
+                            NUMBER OF ADS
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                             2,356
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <div className="icon icon-shape bg-warning text-white rounded-circle shadow">
-                            <i className="fas fa-chart-pie" />
-                          </div>
+                          <img className="card-icon" src={bellIcon} />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
@@ -80,14 +79,12 @@ const Header = ({cardsVisible = true}) => {
                           <CardTitle
                             tag="h5"
                             className="text-uppercase text-muted mb-0">
-                            Sales
+                            NUMBER OF CHATS
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">924</span>
                         </div>
                         <Col className="col-auto">
-                          <div className="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                            <i className="fas fa-users" />
-                          </div>
+                          <img className="card-icon" src={chatIcon} />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
@@ -107,16 +104,14 @@ const Header = ({cardsVisible = true}) => {
                           <CardTitle
                             tag="h5"
                             className="text-uppercase text-muted mb-0">
-                            Performance
+                            TOTAL INCOME
                           </CardTitle>
                           <span className="h2 font-weight-bold mb-0">
                             49,65%
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <div className="icon icon-shape bg-info text-white rounded-circle shadow">
-                            <i className="fas fa-percent" />
-                          </div>
+                          <img className="card-icon" src={incomeIcon} />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">

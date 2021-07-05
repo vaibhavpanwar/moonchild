@@ -1,7 +1,7 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import PaymentsTable from '../../components/Tables/PaymentsTable';
 const Payments = () => {
-  return <UserTable />;
+  return <PaymentsTable />;
 };
 
 export default Payments;

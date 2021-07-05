@@ -1,7 +1,7 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import ContactUsTable from '../../components/Tables/ContactUsTable';
 const ContactUs = () => {
-  return <UserTable />;
+  return <ContactUsTable />;
 };
 
 export default ContactUs;

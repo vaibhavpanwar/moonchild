@@ -17,40 +17,46 @@ import {configureStore} from './redux/store';
 export const history = createHashHistory();
 function App() {
   useEffect(() => {
+    //axios headers
     headerSetup();
   }, []);
   return (
     <div>
-      <Offline>
+      {/* <Offline>
         <OfflinePage />
-      </Offline>
-      <Online>
-        <Router history={history}>
-          <Switch>
-            <Route
-              path="/login"
-              render={(props) => (
+      </Offline> */}
+      {/* <Online> */}
+      <Router history={history}>
+        <Switch>
+          <Route
+            path="/login"
+            render={(props) => (
+              <Provider store={configureStore()}>
+                <LoginPage {...props} />{' '}
+              </Provider>
+            )}></Route>
+          <Route
+            path="/admin"
+            render={
+              (props) => (
                 <Provider store={configureStore()}>
-                  <LoginPage {...props} />{' '}
+                  <DashboardPage {...props} />
                 </Provider>
-              )}></Route>
-            <Route
-              path="/admin"
-              render={(props) =>
-                isAuthenticated() ? (
-                  <Provider store={configureStore()}>
-                    <DashboardPage {...props} />
-                  </Provider>
-                ) : (
-                  <Redirect to="/login"></Redirect>
-                )
-              }></Route>
-            <Route path="/">
-              <AppLoading />
-            </Route>
-          </Switch>
-        </Router>
-      </Online>
+              )
+              // isAuthenticated() ? (
+              //   <Provider store={configureStore()}>
+              //     <DashboardPage {...props} />
+              //   </Provider>
+              // ) : (
+              //   <Redirect to="/login"></Redirect>
+              // )
+            }></Route>
+          <Route path="/">
+            <AppLoading />
+          </Route>
+        </Switch>
+      </Router>
+      {/* </Online> */}
     </div>
   );
 }

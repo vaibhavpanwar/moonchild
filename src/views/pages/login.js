@@ -20,6 +20,7 @@ function LoginPage(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
+
   const {logingInUser, loading} = useAuth();
   const {t} = useTranslation();
   const auth = useSelector((state) => state.auth);

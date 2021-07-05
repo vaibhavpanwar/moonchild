@@ -1,0 +1,164 @@
+.activeCustom {
+  color: #fff !important;
+  background-color: #3096f7 !important;
+}
+
+.chart-buttons {
+  background-color: #fff;
+  border: 1px solid #3096f7;
+  color: #3096f7;
+}
+
+// icons
+@mixin sideNavIcons {
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 25px;
+  width: 25px;
+  position: relative;
+  top: -4px;
+}
+.user-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/usersicon.svg');
+}
+.dashboard-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/dashboard.svg');
+}
+.category-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/categories.svg');
+}
+.sub-category-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/sub-categories.svg');
+}
+.notification-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/notification-bell.svg');
+}
+.banner-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/banner.svg');
+}
+.ad-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/ad.svg');
+}
+.payment-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/payment.svg');
+}
+.contact-us-icon {
+  @include sideNavIcons();
+  background: url('../../../images/icons/contact-us.svg');
+}
+
+.nav-links-wrapper {
+  display: flex;
+  padding: 15px 10px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 5px;
+  background-color: #fff;
+  margin: 10px auto;
+  width: 70%;
+  cursor: pointer;
+  &.nav-links-active {
+    background-color: $primary;
+    p {
+      color: #fff;
+    }
+    .user-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/user-active.svg');
+    }
+    .dashboard-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/dashboard-active.svg');
+    }
+    .category-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/category-active.svg');
+    }
+    .sub-category-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/sub-category-active.svg');
+    }
+    .notification-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/bell-active.svg');
+    }
+    .banner-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/banner-active.svg');
+    }
+    .ad-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/ad-active.svg');
+    }
+    .payment-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/payment-active.svg');
+    }
+    .contact-us-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/contact-us-active.svg');
+    }
+  }
+
+  span {
+    color: white;
+  }
+
+  p {
+    color: #455571;
+    text-decoration: none;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  &:hover {
+    background-color: $primary;
+    .dashboard-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/dashboard-active.svg');
+    }
+
+    p {
+      color: #fff;
+    }
+
+    .category-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/category-active.svg');
+    }
+    .sub-category-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/sub-category-active.svg');
+    }
+    .notification-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/bell-active.svg');
+    }
+    .banner-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/banner-active.svg');
+    }
+    .ad-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/ad-active.svg');
+    }
+    .payment-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/payment-active.svg');
+    }
+    .contact-us-icon {
+      @include sideNavIcons();
+      background: url('../../../images/icons/contact-us-active.svg');
+    }
+  }
+}

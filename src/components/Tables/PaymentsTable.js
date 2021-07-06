@@ -2,29 +2,18 @@ import React from 'react';
 
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
-import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
-import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 
 const Tables = () => {
   return (

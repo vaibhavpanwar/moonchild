@@ -2,23 +2,15 @@ import React from 'react';
 
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
@@ -65,7 +57,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -75,7 +71,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -85,7 +85,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -95,7 +99,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -105,7 +113,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -115,7 +127,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -125,7 +141,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -135,7 +155,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -145,7 +169,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <img className="td-action-img" src={roundIcon} />
+                      <img
+                        alt={'Gulf Workers'}
+                        className="td-action-img"
+                        src={roundIcon}
+                      />
                     </td>
                   </tr>
                 </tbody>

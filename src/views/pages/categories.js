@@ -1,7 +1,7 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import CategoriesTable from '../../components/Tables/CategoriesTable';
 const Categories = () => {
-  return <UserTable />;
+  return <CategoriesTable />;
 };
 
 export default Categories;

@@ -32,7 +32,11 @@ const Header = ({cardsVisible = true}) => {
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <img className="card-icon" src={userIcon} />
+                          <img
+                            alt={'Gulf workers'}
+                            className="card-icon"
+                            src={userIcon}
+                          />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
@@ -59,7 +63,11 @@ const Header = ({cardsVisible = true}) => {
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <img className="card-icon" src={bellIcon} />
+                          <img
+                            alt={'Gulf workers'}
+                            className="card-icon"
+                            src={bellIcon}
+                          />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
@@ -84,7 +92,11 @@ const Header = ({cardsVisible = true}) => {
                           <span className="h2 font-weight-bold mb-0">924</span>
                         </div>
                         <Col className="col-auto">
-                          <img className="card-icon" src={chatIcon} />
+                          <img
+                            alt={'Gulf workers'}
+                            className="card-icon"
+                            src={chatIcon}
+                          />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
@@ -111,7 +123,11 @@ const Header = ({cardsVisible = true}) => {
                           </span>
                         </div>
                         <Col className="col-auto">
-                          <img className="card-icon" src={incomeIcon} />
+                          <img
+                            alt={'Gulf workers'}
+                            className="card-icon"
+                            src={incomeIcon}
+                          />
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">

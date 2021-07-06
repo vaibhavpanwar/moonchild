@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
-import {NavLink as NavLinkRRD, Link} from 'react-router-dom';
-
-import {PropTypes} from 'prop-types';
+import {Link} from 'react-router-dom';
 
 // reactstrap components
 import {
@@ -18,16 +16,12 @@ import {
   Media,
   NavbarBrand,
   Navbar,
-  NavItem,
-  NavLink,
   Nav,
   Container,
   Row,
   Col,
 } from 'reactstrap';
 import routes from '../../layout/routes';
-
-var ps;
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
@@ -45,10 +39,11 @@ const Sidebar = (props) => {
 
   const navigateTo = (route) => props.history.push(route);
 
-  // closes the collapse
-  const closeCollapse = () => {
-    setCollapseOpen(false);
-  };
+  // // closes the collapse
+  // const closeCollapse = () => {
+  //   setCollapseOpen(false);
+  // };
+
   // creates the links that appear in the left menu / Sidebar
   const createLinks = (routes) => {
     return routes.map((item, key) => {
@@ -63,20 +58,6 @@ const Sidebar = (props) => {
       );
     });
   };
-
-  //   const { bgColor, logo } = props;
-  //   let navbarBrandProps;
-  //   if (logo && logo.innerLink) {
-  //     navbarBrandProps = {
-  //       to: logo.innerLink,
-  //       tag: Link,
-  //     };
-  //   } else if (logo && logo.outterLink) {
-  //     navbarBrandProps = {
-  //       href: logo.outterLink,
-  //       target: "_blank",
-  //     };
-  //   }
 
   return (
     // CUSTOM STYLE HERE
@@ -205,26 +186,5 @@ const Sidebar = (props) => {
     </Navbar>
   );
 };
-
-// Sidebar.defaultProps = {
-//   routes: [{}],
-// };
-
-// Sidebar.propTypes = {
-//   // links that will be displayed inside the component
-//   routes: PropTypes.arrayOf(PropTypes.object),
-//   logo: PropTypes.shape({
-//     // innerLink is for links that will direct the user within the app
-//     // it will be rendered as <Link to="...">...</Link> tag
-//     innerLink: PropTypes.string,
-//     // outterLink is for links that will direct the user outside the app
-//     // it will be rendered as simple <a href="...">...</a> tag
-//     outterLink: PropTypes.string,
-//     // the image src of the logo
-//     imgSrc: PropTypes.string.isRequired,
-//     // the alt for the img
-//     imgAlt: PropTypes.string.isRequired,
-//   }),
-// };
 
 export default Sidebar;

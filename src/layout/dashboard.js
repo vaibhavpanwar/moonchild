@@ -4,23 +4,14 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import routes from './routes';
 import Sidebar from '../components/Navbars/SideNavbar';
 import AdminNavbar from '../components/Navbars/AdminNavbar';
-import {Container} from 'reactstrap';
 
 const Admin = (props) => {
   const mainContent = useRef(null);
-  const [state, setState] = useState({
+  const [state] = useState({
     backgroundColor: 'white',
     activeColor: 'white',
     sidebarMini: false,
   });
-  const handleMiniClick = () => {
-    if (document.body.classList.contains('sidebar-mini')) {
-      setState({...state, sidebarMini: false});
-    } else {
-      setState({...state, sidebarMini: true});
-    }
-    document.body.classList.toggle('sidebar-mini');
-  };
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {

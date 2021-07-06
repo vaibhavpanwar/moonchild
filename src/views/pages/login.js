@@ -21,8 +21,11 @@ function LoginPage(props) {
   const [password, setPassword] = useState('');
   const [show, setShow] = useState(false);
 
+  // eslint-disable-next-line
   const {logingInUser, loading} = useAuth();
   const {t} = useTranslation();
+
+  // eslint-disable-next-line
   const auth = useSelector((state) => state.auth);
   const validateForm = () => {
     return email.length > 0 && password.length > 0;

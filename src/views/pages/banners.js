@@ -1,8 +1,8 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import BannersTable from '../../components/Tables/BannersTable';
 
 const Banners = () => {
-  return <UserTable />;
+  return <BannersTable />;
 };
 
 export default Banners;

@@ -1,4 +1,3 @@
-import React from 'react';
 import DashboardPage from '../views/pages/dashboard';
 import Users from '../views/pages/user';
 import Categories from '../views/pages/categories';
@@ -8,7 +7,7 @@ import Banner from '../views/pages/banners';
 import Payments from '../views/pages/payments';
 import Notifications from '../views/pages/notifications';
 import ContactUs from '../views/pages/contact-us';
-import {ReactComponent as StatisticIcon} from '../assets/images/statistic.svg';
+
 let routes = [
   {
     path: '/admin/dashboard',

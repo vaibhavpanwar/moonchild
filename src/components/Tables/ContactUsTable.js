@@ -2,27 +2,19 @@ import React from 'react';
 
 // reactstrap components
 import {
-  Badge,
   Card,
   CardHeader,
   CardFooter,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  DropdownToggle,
-  Media,
   Pagination,
   PaginationItem,
   PaginationLink,
-  Progress,
   Table,
   Container,
   Row,
-  UncontrolledTooltip,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
-import roundIcon from '../../assets/images/icons/table/table-notifications-action-icon.svg';
+import nonReplyIcon from '../../assets/images/icons/table/table-non-reply.svg';
 
 const Tables = () => {
   return (
@@ -72,7 +64,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <p className="replied">Replied</p>
+                      <img
+                        alt="Gulf workers"
+                        className="table-non-reply"
+                        src={nonReplyIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -102,7 +98,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <p className="replied">Replied</p>
+                      <img
+                        alt="Gulf workers"
+                        className="table-non-reply"
+                        src={nonReplyIcon}
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -112,7 +112,11 @@ const Tables = () => {
                     <td>17/12/2015</td>
 
                     <td>
-                      <p className="replied">Replied</p>
+                      <img
+                        alt="Gulf workers"
+                        className="table-non-reply"
+                        src={nonReplyIcon}
+                      />
                     </td>
                   </tr>
                   <tr>

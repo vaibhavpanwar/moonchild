@@ -14,9 +14,13 @@ import {
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
+import SwitchSlider from '../Switch/SwitchSlider.js';
+import domesticIcon from '../../assets/images/icons/table/table-domestic-icon.svg';
+import techIcon from '../../assets/images/icons/table/table-tech-icon.svg';
+import medicalIcon from '../../assets/images/icons/table/table-medical-icon.svg';
 
 const Tables = () => {
   return (
@@ -43,27 +47,28 @@ const Tables = () => {
                 <thead className="thead-light thead-custom">
                   <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Registration Date</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Last Date Active</th>
-                    <th scope="col">Number of Ads</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">Icons</th>
+                    <th scope="col">Status</th>
+
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Technician</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
+                        className=".table-sub-category-icon"
+                        src={domesticIcon}
                       />
+                    </td>
+
+                    <td>
+                      <SwitchSlider />{' '}
+                    </td>
+
+                    <td>
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"
@@ -77,18 +82,19 @@ const Tables = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Technician</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
+                        className=".table-sub-category-icon"
+                        src={medicalIcon}
                       />
+                    </td>
+                    <td>
+                      <SwitchSlider />{' '}
+                    </td>
+
+                    <td>
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"
@@ -102,18 +108,19 @@ const Tables = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Technician</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
+                        className=".table-sub-category-icon"
+                        src={domesticIcon}
                       />
+                    </td>
+                    <td>
+                      <SwitchSlider />{' '}
+                    </td>
+
+                    <td>
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"
@@ -127,18 +134,19 @@ const Tables = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Medical</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
+                        className=".table-sub-category-icon"
+                        src={domesticIcon}
                       />
+                    </td>
+                    <td>
+                      <SwitchSlider />{' '}
+                    </td>
+
+                    <td>
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"
@@ -152,18 +160,19 @@ const Tables = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Domestic</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
+                        className=".table-sub-category-icon"
+                        src={techIcon}
                       />
+                    </td>
+                    <td>
+                      <SwitchSlider />{' '}
+                    </td>
+
+                    <td>
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"
@@ -177,18 +186,19 @@ const Tables = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Technician</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
+                        className=".table-sub-category-icon"
+                        src={domesticIcon}
                       />
+                    </td>
+                    <td>
+                      <SwitchSlider />{' '}
+                    </td>
+
+                    <td>
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"
@@ -202,93 +212,19 @@ const Tables = () => {
                     </td>
                   </tr>
                   <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
+                    <td>Technician</td>
                     <td>
                       <img
                         alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
+                        className=".table-sub-category-icon"
+                        src={domesticIcon}
                       />
                     </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
                     <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
+                      <SwitchSlider />{' '}
                     </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
 
                     <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
                       <img
                         alt={'Gulf Workers'}
                         className="td-action-img"

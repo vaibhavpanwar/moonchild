@@ -1,7 +1,7 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import AdsTable from '../../components/Tables/AdsTable';
 const Ads = () => {
-  return <UserTable />;
+  return <AdsTable />;
 };
 
 export default Ads;

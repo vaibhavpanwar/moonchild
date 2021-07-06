@@ -242,6 +242,12 @@ td {
   cursor: pointer;
   font-weight: 450;
   background-color: #fff;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: $primary;
+    color: white;
+  }
 }
 .replied {
   color: #1ca838;
@@ -342,4 +348,84 @@ input:checked + .slider:before {
 }
 .slider.round:before {
   border-radius: 50%;
+}
+
+// chart
+
+.doughnut-chart {
+  height: 210px;
+}
+
+.doughnut-chart-footer {
+  background-color: #fff;
+  padding: 16px;
+  width: 100%;
+}
+.doughnut-chart-footer-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+
+  p {
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #4d4f5c;
+    font-size: 0.8rem;
+  }
+}
+
+@mixin doughnutCircle {
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+}
+
+.doughnut-red-circle {
+  @include doughnutCircle();
+  border: 3px solid #f64456;
+}
+.doughnut-green-circle {
+  @include doughnutCircle();
+  border: 3px solid #35cdef;
+}
+.doughnut-green-2-circle {
+  @include doughnutCircle();
+  border: 3px solid #4bce98;
+}
+.doughnut-blue-circle {
+  @include doughnutCircle();
+  border: 3px solid #7769e4;
+}
+
+.doughnut-chart-footer-left {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.chart-1 {
+  position: relative !important;
+  padding: 0px 30px !important;
+  padding-bottom: 30px !important;
+}
+
+.vertical-tag {
+  position: absolute;
+
+  bottom: -28px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4d4f5c;
+  font-size: 0.8rem;
+}
+.horizontal-tag {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translate(-50%, -50%);
+  color: #4d4f5c;
+  font-size: 0.8rem;
+  display: inline-block;
+  transform: rotate(268deg);
 }

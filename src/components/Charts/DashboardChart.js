@@ -55,10 +55,13 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-light ls-1 mb-1">
                       Overview
                     </h6>
-                    <h2 className="text-white mb-0">Sales value</h2>
+                    <h2 className="text-black mb-0">Active Ads</h2>
                   </div>
                   <div className="col">
-                    <Nav className="justify-content-end" pills>
+                    <Nav
+                      className="justify-content-end"
+                      style={{display: 'flex', gap: '5px'}}
+                      pills>
                       <NavItem>
                         <NavLink
                           className={classnames('chart-buttons py-2 px-3', {
@@ -99,12 +102,14 @@ const Index = (props) => {
               </CardHeader>
               <CardBody>
                 {/* Chart */}
-                <div className="chart">
+                <div className="chart chart-1">
                   <Line
                     data={chartExample1[chartExample1Data]}
                     options={chartExample1.options}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />
+                  <p className="vertical-tag">Months</p>
+                  <p className="horizontal-tag">Number Of Ads</p>
                 </div>
               </CardBody>
             </Card>
@@ -117,17 +122,48 @@ const Index = (props) => {
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
                       Performance
                     </h6>
-                    <h2 className="mb-0">Total orders</h2>
+                    <h2 className="mb-0">Ads per category</h2>
                   </div>
                 </Row>
               </CardHeader>
               <CardBody>
                 {/* Chart */}
-                <div className="chart">
+                <div className="chart doughnut-chart">
                   <Doughnut
                     data={chartExample2.data}
                     options={chartExample2.options}
                   />
+                </div>
+                <div className="doughnut-chart-footer">
+                  <div className="doughnut-chart-footer-info">
+                    <div className="doughnut-chart-footer-left">
+                      <div className="doughnut-red-circle" /> <p>Technician</p>
+                    </div>
+
+                    <p>7666</p>
+                  </div>
+                  <div className="doughnut-chart-footer-info">
+                    <div className="doughnut-chart-footer-left">
+                      <div className="doughnut-green-circle" /> <p>Medical</p>
+                    </div>
+
+                    <p>7666</p>
+                  </div>
+                  <div className="doughnut-chart-footer-info">
+                    <div className="doughnut-chart-footer-left">
+                      <div className="doughnut-blue-circle" /> <p>Education</p>
+                    </div>
+
+                    <p>7666</p>
+                  </div>
+                  <div className="doughnut-chart-footer-info">
+                    <div className="doughnut-chart-footer-left">
+                      <div className="doughnut-green-2-circle" />{' '}
+                      <p>Spa- Salon</p>
+                    </div>
+
+                    <p>7666</p>
+                  </div>
                 </div>
               </CardBody>
             </Card>
@@ -139,3 +175,6 @@ const Index = (props) => {
 };
 
 export default Index;
+
+// padding right and bottomm to bada chart
+// div class chart height reduce

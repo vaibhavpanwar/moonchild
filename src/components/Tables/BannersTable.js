@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {useHistory} from 'react-router';
 
 // reactstrap components
 import {
@@ -17,16 +18,32 @@ import Header from '../Headers/Header.js';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
-import image1 from '../../assets/images/icons/table/table-banner-image1.png';
-import image2 from '../../assets/images/icons/table/table-banner-image2.png';
-import {useDispatch} from 'react-redux';
-import {listBanners} from '../../redux/actions/banners.actions.js';
+
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  deleteBanner,
+  listBanners,
+} from '../../redux/actions/banners.actions.js';
 
 const Tables = () => {
   const dispatch = useDispatch();
+  //import loading and errors as well
+  const {banners} = useSelector((state) => state.bannersReducer);
+
+  const history = useHistory();
+
+  const navigateTo = (route) => history.push(route);
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteBanner(id));
+    } else return;
+  };
 
   useEffect(() => {
     dispatch(listBanners());
+
+    // eslint-disable-next-line
   }, [dispatch]);
 
   return (
@@ -46,7 +63,11 @@ const Tables = () => {
                     type={'text'}
                   />
 
-                  <button className="mb-0 table-header-button">{'Add'}</button>
+                  <button
+                    className="mb-0 table-header-button"
+                    onClick={() => navigateTo('/admin/banners/add')}>
+                    {'Add'}
+                  </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
@@ -60,286 +81,47 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image1}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
+                  {banners?.map((item) => (
+                    <tr key={item?._id}>
+                      <td>
+                        <img
+                          alt={'Gulf workers'}
+                          className="table-banner-image"
+                          src={`https://api.gccworkers.app/common/v1/resizer/${item?.icon}/80/80`}
+                        />
+                      </td>
+                      <td>
+                        <a
+                          className="table-banner-link"
+                          href={item?.link}
+                          target="_blank"
+                          rel={'noreferrer'}>
+                          {item?.link}
+                        </a>
+                      </td>
 
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
+                      <td>
+                        <SwitchSlider checked={item?.status} name={item?.id} />{' '}
+                      </td>
 
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image2}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image1}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image2}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image1}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image1}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image1}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="table-banner-image"
-                        src={image1}
-                      />
-                    </td>
-                    <td>
-                      <a
-                        className="table-banner-link"
-                        href={'https://google.com'}
-                        target="_blank"
-                        rel={'noreferrer'}>
-                        https://google.com
-                      </a>
-                    </td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
+                      <td>
+                        <img
+                          alt={'Gulf workers'}
+                          className="td-action-img"
+                          src={editIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/banners/edit/${item._id}`)
+                          }
+                        />
+                        <img
+                          alt={'Gulf workers'}
+                          className="td-action-img"
+                          onClick={() => deleteHandler(item?._id)}
+                          src={deleteIcon}
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
               <CardFooter className="py-4">

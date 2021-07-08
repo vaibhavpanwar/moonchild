@@ -1,7 +1,7 @@
 import React from 'react';
-
-const addBanner = () => {
-  return <div>add Banner</div>;
+import AddForm from '../../../components/Forms/banners/addForm';
+const addBanner = ({history}) => {
+  return <AddForm history={history} />;
 };
 
 export default addBanner;

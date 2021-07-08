@@ -43,6 +43,7 @@ const DashboardForm = () => {
                           name="email"
                           id="exampleEmail"
                           placeholder="Enter name"
+                          value={name}
                           onChange={(e) => setName(e.target.value)}
                         />
                       </FormGroup>

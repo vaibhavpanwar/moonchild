@@ -15,12 +15,34 @@ import {
   InputGroup,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
+import {imageUploader} from '../../../utils/imageUpload.js';
+import {useDispatch} from 'react-redux';
+import {bannersConstants} from '../../../redux/constants';
+import {addBanner} from '../../../redux/actions/banners.actions.js';
 
-const DashboardForm = () => {
+const DashboardForm = ({history}) => {
+  //redux
+  const dispatch = useDispatch();
+
   const [icon, setIcon] = useState(null);
   const [url, setUrl] = useState('');
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
+
+  const validateForm = () => icon && url;
+
+  const submitHandler = async () => {
+    dispatch({type: bannersConstants.BANNER_LOADING});
+    const formData = new FormData();
+    formData.append('image', icon);
+
+    const imageUrl = await imageUploader(formData);
+    if (imageUrl) {
+      dispatch(addBanner({link: url, icon: imageUrl}, history));
+    } else {
+      // pop and error
+    }
+  };
 
   return (
     <>
@@ -31,26 +53,13 @@ const DashboardForm = () => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Category</h2>
+              <h2 className="dashboard-form-header">Add Banner</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name</Label>
-                        <Input
-                          type="text"
-                          name="email"
-                          id="exampleEmail"
-                          placeholder="Enter name"
-                          onChange={(e) => setName(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-
-                    <Col lg={4} md={6} sm={12}>
-                      <FormGroup>
-                        <Label for="examplePassword">Upload Icon </Label>
+                        <Label for="examplePassword">Image </Label>
                         <InputGroup>
                           <label className="form-control chooseFile">
                             {' '}
@@ -76,12 +85,30 @@ const DashboardForm = () => {
                         </InputGroup>
                       </FormGroup>
                     </Col>
+
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Url</Label>
+                        <Input
+                          type="text"
+                          name="url"
+                          placeholder="Enter url"
+                          value={url}
+                          onChange={(e) => setUrl(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
                   </Row>
                 </Form>
               </div>
               <div className="dashboard-form-footer">
                 <button className="form-cancel-button">Cancel</button>
-                <button className="table-header-button">Add</button>
+                <button
+                  onClick={submitHandler}
+                  className="table-header-button"
+                  disabled={!validateForm()}>
+                  Add
+                </button>
               </div>
             </div>
           </div>

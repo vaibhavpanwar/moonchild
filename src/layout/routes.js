@@ -9,6 +9,7 @@ import Ads from '../views/pages/ads';
 import AdsAdd from '../views/pages/ads/addAd';
 import Banner from '../views/pages/banners';
 import BannerAdd from '../views/pages/banners/addBanner';
+import BannerEdit from '../views/pages/banners/editBanner';
 import Payments from '../views/pages/payments';
 import Notifications from '../views/pages/notifications';
 import NotificationsAdd from '../views/pages/notifications/addNotifications';
@@ -106,10 +107,19 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/banners',
+    path: '/admin/banners/add',
     name: 'Banners',
     icon: 'banner-icon',
     component: BannerAdd,
+    svg: true,
+    layout: '/admin',
+    sideBar: false,
+  },
+  {
+    path: '/admin/banners/edit/:id',
+    name: 'Banners',
+    icon: 'banner-icon',
+    component: BannerEdit,
     svg: true,
     layout: '/admin',
     sideBar: false,
@@ -139,7 +149,7 @@ let routes = [
     component: NotificationsAdd,
     svg: true,
     layout: '/admin',
-    sideBar: true,
+    sideBar: false,
   },
   {
     path: '/admin/contact-us',

@@ -272,7 +272,7 @@ td {
 }
 
 .table-banner-image {
-  max-width: 150px;
+  max-width: 100px;
   overflow: hidden;
 }
 
@@ -521,6 +521,13 @@ input[type='file'] {
   left: 10px;
   font-size: 0.8rem;
   color: #737373;
+}
+
+button[disabled] {
+  border: 1px solid #999999 !important;
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed !important;
 }
 
 // upload

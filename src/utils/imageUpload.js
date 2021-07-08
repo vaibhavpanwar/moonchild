@@ -1,4 +1,4 @@
-import API from '../services/auth';
+import {API} from '../services/auth';
 
 export const imageUploader = async (formData) => {
   try {

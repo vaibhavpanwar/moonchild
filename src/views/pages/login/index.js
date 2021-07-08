@@ -11,11 +11,11 @@ import {
 } from 'react-bootstrap';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
-import {useAuth} from '../../redux/actions/auth';
-import CoverImage from '../../assets/images/home-background.png';
-import Logo from '../../assets/images/logo.png';
-import {ReactComponent as EyeOpenIcon} from '../../assets/images/ic_eyeopen.svg';
-import {ReactComponent as EyeCloseIcon} from '../../assets/images/ic_eyeclose.svg';
+import {useAuth} from '../../../redux/actions/auth';
+import CoverImage from '../../../assets/images/home-background.png';
+import Logo from '../../../assets/images/logo.png';
+import {ReactComponent as EyeOpenIcon} from '../../../assets/images/ic_eyeopen.svg';
+import {ReactComponent as EyeCloseIcon} from '../../../assets/images/ic_eyeclose.svg';
 function LoginPage(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

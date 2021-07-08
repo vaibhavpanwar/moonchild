@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // reactstrap components
 import {
@@ -19,8 +19,16 @@ import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
 import image1 from '../../assets/images/icons/table/table-banner-image1.png';
 import image2 from '../../assets/images/icons/table/table-banner-image2.png';
+import {useDispatch} from 'react-redux';
+import {listBanners} from '../../redux/actions/banners.actions.js';
 
 const Tables = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listBanners());
+  }, [dispatch]);
+
   return (
     <>
       <Header cardsVisible={false} />

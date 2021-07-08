@@ -71,11 +71,14 @@ export const getUserType = () => {
 export const getToken = () => {
   try {
     let encrypted = localStorage.getItem('@gulf-worker-uni/auth-key');
+
     if (encrypted) {
       const key = new NodeRSA(private_key);
       const user = key.decrypt(encrypted, 'utf8');
-      if (user && user.token && user.token !== '') {
-        return user.token;
+
+      const parsedUser = JSON.parse(user);
+      if (parsedUser?.token !== '') {
+        return parsedUser.token;
       }
     }
     return false;
@@ -93,14 +96,19 @@ export const i18nextLng = () => {
   return lang;
 };
 
+export const API = axios.create({
+  baseURL: 'https://api.gccworkers.app/',
+});
+
 export const headerSetup = async (setSession) => {
   try {
     const token = await getToken();
     const lng = await i18nextLng();
-    axios.defaults.headers.common['Accept'] = 'application/json';
-    axios.defaults.headers.common['Content-Type'] = 'application/json';
-    axios.defaults.headers.common['Authorization'] = token ? token : '';
-    axios.defaults.headers.common['accept-language'] = lng ? lng : 'en';
+    API.defaults.headers.common['Accept'] = 'application/json';
+
+    API.defaults.headers.common['Content-Type'] = 'application/json';
+    API.defaults.headers.common['Authorization'] = token ? token.trim() : '';
+    API.defaults.headers.common['accept-language'] = lng ? lng : 'en';
   } catch (err) {
     console.log(err);
   }

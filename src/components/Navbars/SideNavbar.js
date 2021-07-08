@@ -49,12 +49,14 @@ const Sidebar = (props) => {
     return routes.map((item, key) => {
       return (
         //CUSTOME STYLE HERE
-        <div
-          onClick={() => navigateTo(item.path)}
-          className={`nav-links-wrapper ${activeRoute(item.path)}`}>
-          <span className={item.icon} />
-          <p>{item.name}</p>
-        </div>
+        item?.sideBar && (
+          <div
+            onClick={() => navigateTo(item.path)}
+            className={`nav-links-wrapper ${activeRoute(item.path)}`}>
+            <span className={item.icon} />
+            <p>{item.name}</p>
+          </div>
+        )
       );
     });
   };

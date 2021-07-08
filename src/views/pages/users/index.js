@@ -1,5 +1,5 @@
 import React from 'react';
-import UserTable from '../../components/Tables/UserTable';
+import UserTable from '../../../components/Tables/UserTable';
 const Users = () => {
   return <UserTable />;
 };

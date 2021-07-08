@@ -1,5 +1,5 @@
 import React from 'react';
-import NotificationsTable from '../../components/Tables/NotificationsTable';
+import NotificationsTable from '../../../components/Tables/NotificationsTable';
 
 const Notifications = () => {
   return <NotificationsTable />;

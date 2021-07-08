@@ -1,5 +1,5 @@
 import React from 'react';
-import PaymentsTable from '../../components/Tables/PaymentsTable';
+import PaymentsTable from '../../../components/Tables/PaymentsTable';
 const Payments = () => {
   return <PaymentsTable />;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import BannersTable from '../../components/Tables/BannersTable';
+import BannersTable from '../../../components/Tables/BannersTable';
 
 const Banners = () => {
   return <BannersTable />;

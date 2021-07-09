@@ -128,3 +128,28 @@ export const deleteBanner = (id) => async (dispatch) => {
     });
   }
 };
+
+export const editBannerStatus = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: bannersConstants.BANNER_LOADING});
+
+  try {
+    const {
+      data: {data},
+    } = await API.patch(`admin/v1/activeInnactiveBanner/${id}`);
+
+    if (data) {
+      dispatch({
+        type: bannersConstants.BANNER_EDIT_SUCCESS,
+        payload: data,
+      });
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(parsedError, err, 'error');
+    dispatch({
+      type: bannersConstants.BANNER_ERROR,
+      payload: parsedError,
+    });
+  }
+};

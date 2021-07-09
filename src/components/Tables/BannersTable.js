@@ -22,6 +22,7 @@ import SwitchSlider from '../Switch/SwitchSlider.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   deleteBanner,
+  editBannerStatus,
   listBanners,
 } from '../../redux/actions/banners.actions.js';
 
@@ -38,6 +39,10 @@ const Tables = () => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteBanner(id));
     } else return;
+  };
+
+  const activeInactiveBanner = (id) => {
+    dispatch(editBannerStatus(id));
   };
 
   useEffect(() => {
@@ -101,7 +106,11 @@ const Tables = () => {
                       </td>
 
                       <td>
-                        <SwitchSlider checked={item?.status} name={item?.id} />{' '}
+                        <SwitchSlider
+                          clicked={() => activeInactiveBanner(item?._id)}
+                          checked={item?.status === 2}
+                          name={item?.id}
+                        />{' '}
                       </td>
 
                       <td>

@@ -13,16 +13,18 @@ import {
   Label,
   Input,
   InputGroup,
+  Spinner,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 import {imageUploader} from '../../../utils/imageUpload.js';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {bannersConstants} from '../../../redux/constants';
 import {addBanner} from '../../../redux/actions/banners.actions.js';
 
 const DashboardForm = ({history}) => {
   //redux
   const dispatch = useDispatch();
+  const {loading} = useSelector((state) => state.bannersReducer);
 
   const [icon, setIcon] = useState(null);
   const [url, setUrl] = useState('');
@@ -102,12 +104,16 @@ const DashboardForm = ({history}) => {
                 </Form>
               </div>
               <div className="dashboard-form-footer">
-                <button className="form-cancel-button">Cancel</button>
+                <button
+                  className="form-cancel-button"
+                  onClick={() => history.push('/admin/banners')}>
+                  Cancel
+                </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
-                  disabled={!validateForm()}>
-                  Add
+                  disabled={!validateForm() || loading}>
+                  {loading ? <Spinner color={'info'} /> : 'Add'}
                 </button>
               </div>
             </div>

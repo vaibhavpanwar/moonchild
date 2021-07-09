@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // reactstrap components
 import {
@@ -11,6 +11,7 @@ import {
   Table,
   Container,
   Row,
+  Spinner,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
@@ -18,7 +19,40 @@ import Header from '../Headers/Header.js';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  listCategories,
+  editCategoryStatus,
+  deleteCategory,
+} from '../../redux/actions/categories.actions';
+import {useHistory} from 'react-router-dom';
+
 const Tables = () => {
+  //redux
+  const {categories, loading} = useSelector((state) => state.categoriesReducer);
+
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const navigateTo = (route) => history.push(route);
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteCategory(id));
+    } else return;
+  };
+
+  const activeInactiveCategory = (id) => {
+    dispatch(editCategoryStatus(id));
+  };
+
+  useEffect(() => {
+    dispatch(listCategories());
+
+    // eslint-disable-next-line
+  }, [dispatch]);
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -35,159 +69,63 @@ const Tables = () => {
                     className="table-header-input"
                     type={'text'}
                   />
-
-                  <button className="mb-0 table-header-button">{'Add'}</button>
+                  {loading && (
+                    <div className="table-loader">
+                      <Spinner color={'info'} />
+                    </div>
+                  )}
+                  <button
+                    className="mb-0 table-header-button"
+                    onClick={() => navigateTo('/admin/categories/add')}>
+                    {'Add'}
+                  </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">Icon</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>$2,500 USD</td>
+                  {categories?.map((item) => (
+                    <tr key={item?._id}>
+                      <td>{item?.name?.en}</td>
+                      <td>
+                        <img
+                          alt={'Gulf workers'}
+                          className="table-banner-image"
+                          src={`https://api.gccworkers.app/common/v1/resizer/${item?.icon}/50/50`}
+                        />
+                      </td>
+                      <td>
+                        <SwitchSlider
+                          clicked={() => activeInactiveCategory(item?._id)}
+                          checked={item?.status === 2}
+                        />{' '}
+                      </td>
 
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
+                      <td>
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={editIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/categories/edit/${item._id}`)
+                          }
+                        />
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={deleteIcon}
+                          onClick={() => deleteHandler(item?._id)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
               <CardFooter className="py-4">

@@ -168,6 +168,7 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  position: relative;
 }
 .table-shadow {
   box-shadow: 0px 3px 6px #fafafa !important;
@@ -531,3 +532,11 @@ button[disabled] {
 }
 
 // upload
+.table-loader {
+  position: absolute;
+  top: 20px;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  color: #4d4f5c;
+  font-size: 0.8rem;
+}

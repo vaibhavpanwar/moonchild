@@ -1,18 +1,27 @@
 import DashboardPage from '../views/pages/dashboard';
+
 import Users from '../views/pages/users';
 import UsersAdd from '../views/pages/users/addUser';
+
 import Categories from '../views/pages/categories';
 import CategoriesAdd from '../views/pages/categories/addCategory';
+import CategoriesEdit from '../views/pages/categories/editCategory';
+
 import SubCategories from '../views/pages/sub-categories';
 import SubCategoriesAdd from '../views/pages/sub-categories/addSubCategory';
+
 import Ads from '../views/pages/ads';
 import AdsAdd from '../views/pages/ads/addAd';
+
 import Banner from '../views/pages/banners';
 import BannerAdd from '../views/pages/banners/addBanner';
 import BannerEdit from '../views/pages/banners/editBanner';
+
 import Payments from '../views/pages/payments';
+
 import Notifications from '../views/pages/notifications';
 import NotificationsAdd from '../views/pages/notifications/addNotifications';
+
 import ContactUs from '../views/pages/contact-us';
 
 let routes = [
@@ -57,6 +66,15 @@ let routes = [
     name: 'Categories',
     icon: 'category-icon',
     component: CategoriesAdd,
+    svg: true,
+    layout: '/admin',
+    sideBar: false,
+  },
+  {
+    path: '/admin/categories/edit/:id',
+    name: 'Categories',
+    icon: 'category-icon',
+    component: CategoriesEdit,
     svg: true,
     layout: '/admin',
     sideBar: false,

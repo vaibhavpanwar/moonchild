@@ -12,6 +12,7 @@ import {
   Table,
   Container,
   Row,
+  Spinner,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
@@ -29,7 +30,7 @@ import {
 const Tables = () => {
   const dispatch = useDispatch();
   //import loading and errors as well
-  const {banners} = useSelector((state) => state.bannersReducer);
+  const {banners, loading} = useSelector((state) => state.bannersReducer);
 
   const history = useHistory();
 
@@ -67,6 +68,11 @@ const Tables = () => {
                     className="table-header-input"
                     type={'text'}
                   />
+                  {loading && (
+                    <div className="table-loader">
+                      <Spinner color={'info'} />
+                    </div>
+                  )}
 
                   <button
                     className="mb-0 table-header-button"

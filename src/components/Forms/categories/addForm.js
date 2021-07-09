@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
 
-// reactstrap components
-
-// core components
 import Header from '../../Headers/Header.js';
 import {
   Col,
@@ -13,14 +10,47 @@ import {
   Label,
   Input,
   InputGroup,
+  Spinner,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
+import {imageUploader} from '../../../utils/imageUpload.js';
+import {useDispatch, useSelector} from 'react-redux';
+import {categoriesConstants} from '../../../redux/constants';
 
-const DashboardForm = () => {
+import {addCategory} from '../../../redux/actions/categories.actions.js';
+
+const DashboardForm = ({history}) => {
+  //redux
+  const dispatch = useDispatch();
+  const {loading} = useSelector((state) => state.categoriesReducer);
+
   const [icon, setIcon] = useState(null);
   const [name, setName] = useState('');
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
+
+  const validateForm = () => icon && name;
+
+  const submitHandler = async () => {
+    dispatch({type: categoriesConstants.CATEGORY_LOADING});
+    const formData = new FormData();
+    formData.append('image', icon);
+
+    const imageUrl = await imageUploader(formData);
+    if (imageUrl) {
+      dispatch(
+        addCategory(
+          {
+            name: {en: name, ar: 'string', hi: 'string', ph: 'string'},
+            icon: imageUrl,
+          },
+          history,
+        ),
+      );
+    } else {
+      // pop and error
+    }
+  };
 
   return (
     <>
@@ -40,15 +70,13 @@ const DashboardForm = () => {
                         <Label for="exampleEmail">Name</Label>
                         <Input
                           type="text"
-                          name="email"
-                          id="exampleEmail"
+                          name="url"
                           placeholder="Enter name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                         />
                       </FormGroup>
                     </Col>
-
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Upload Icon </Label>
@@ -81,8 +109,17 @@ const DashboardForm = () => {
                 </Form>
               </div>
               <div className="dashboard-form-footer">
-                <button className="form-cancel-button">Cancel</button>
-                <button className="table-header-button">Add</button>
+                <button
+                  className="form-cancel-button"
+                  onClick={() => history.push('/admin/banners')}>
+                  Cancel
+                </button>
+                <button
+                  onClick={submitHandler}
+                  className="table-header-button"
+                  disabled={!validateForm() || loading}>
+                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                </button>
               </div>
             </div>
           </div>

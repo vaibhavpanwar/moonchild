@@ -13,6 +13,7 @@ import {
   Label,
   Input,
   InputGroup,
+  Spinner,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 import {imageUploader} from '../../../utils/imageUpload.js';
@@ -29,7 +30,7 @@ const DashboardForm = ({history}) => {
   const dispatch = useDispatch();
 
   //import loading and error as well
-  const {banner} = useSelector((state) => state.bannersReducer);
+  const {banner, loading} = useSelector((state) => state.bannersReducer);
 
   const [icon, setIcon] = useState(null);
   const [url, setUrl] = useState('');
@@ -43,7 +44,9 @@ const DashboardForm = ({history}) => {
     } else {
       setUrl(banner?.link);
     }
-  }, [dispatch, id, banner]);
+
+    // eslint-disable-next-line
+  }, [dispatch, id, banner?.link]);
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
@@ -133,12 +136,16 @@ const DashboardForm = ({history}) => {
                 </Form>
               </div>
               <div className="dashboard-form-footer">
-                <button className="form-cancel-button">Cancel</button>
+                <button
+                  className="form-cancel-button"
+                  onClick={() => history.push('/admin/banners')}>
+                  Cancel
+                </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
-                  disabled={!validateForm()}>
-                  Update
+                  disabled={!validateForm() || loading}>
+                  {loading ? <Spinner color={'info'} /> : 'Update'}
                 </button>
               </div>
             </div>

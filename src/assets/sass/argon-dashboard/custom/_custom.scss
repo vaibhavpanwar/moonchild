@@ -559,3 +559,42 @@ label {
     line-height: 0;
   }
 }
+
+// pagination
+.custom-pagination {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    background-color: transparent;
+    cursor: pointer;
+    color: #666666;
+    font-size: 1.1rem;
+    border: none;
+    outline: none;
+    margin: 0 5px;
+  }
+
+  .pagination-items span {
+    margin: 0 5px;
+    color: black;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .pagination-items .active {
+    background: #3096f7 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 20px #00000008;
+    border-radius: 10px;
+    color: #fff;
+  }
+}

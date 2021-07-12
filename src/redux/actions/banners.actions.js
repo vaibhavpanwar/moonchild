@@ -2,29 +2,31 @@ import {API, headerSetup} from '../../services/auth';
 import {bannersConstants} from '../constants';
 import {errorParser} from './errorParser';
 
-export const listBanners = () => async (dispatch) => {
-  await headerSetup();
-  dispatch({type: bannersConstants.BANNER_LOADING});
+export const listBanners =
+  (perPage = 4, page = 1) =>
+  async (dispatch) => {
+    await headerSetup();
+    dispatch({type: bannersConstants.BANNER_LOADING});
 
-  try {
-    const {
-      data: {data},
-    } = await API.get('admin/v1/listBanner');
+    try {
+      const {
+        data: {data},
+      } = await API.get(`admin/v1/listBanner?perPage${perPage}?page=${page}`);
 
-    if (data) {
+      if (data) {
+        dispatch({
+          type: bannersConstants.BANNER_LIST_SUCCESS,
+          payload: data?.listing,
+        });
+      }
+    } catch (err) {
+      const parsedError = await errorParser(err);
       dispatch({
-        type: bannersConstants.BANNER_LIST_SUCCESS,
-        payload: data?.listing,
+        type: bannersConstants.BANNER_ERROR,
+        payload: parsedError,
       });
     }
-  } catch (err) {
-    const parsedError = await errorParser(err);
-    dispatch({
-      type: bannersConstants.BANNER_ERROR,
-      payload: parsedError,
-    });
-  }
-};
+  };
 
 export const getSingleBanner = (id) => async (dispatch) => {
   await headerSetup();

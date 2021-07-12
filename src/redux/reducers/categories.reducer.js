@@ -10,7 +10,8 @@ const categoriesReducer = (state = {categories: [], category: {}}, action) => {
         ...state,
         loading: false,
         error: null,
-        categories: action.payload,
+        categories: action.payload.listing,
+        count: action.payload.count,
       };
 
     case categoriesConstants.CATEGORY_ADD_SUCCESS:
@@ -19,6 +20,7 @@ const categoriesReducer = (state = {categories: [], category: {}}, action) => {
         loading: false,
         error: null,
         categories: [action.payload, ...state.categories],
+        count: action.payload.count + 1,
       };
 
     case categoriesConstants.CATEGORY_DELETE_SUCCESS:
@@ -27,6 +29,7 @@ const categoriesReducer = (state = {categories: [], category: {}}, action) => {
         loading: false,
         error: null,
         categories: state.categories.filter((i) => i?._id !== action.payload),
+        count: action.payload.count - 1,
       };
     case categoriesConstants.CATEGORY_EDIT_SUCCESS:
       return {

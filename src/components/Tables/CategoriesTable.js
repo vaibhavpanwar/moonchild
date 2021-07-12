@@ -1,13 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 // reactstrap components
 import {
   Card,
   CardHeader,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
@@ -20,6 +17,7 @@ import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
 import {useSelector, useDispatch} from 'react-redux';
+import Pagination from '../Pagination/paginate';
 import {
   listCategories,
   editCategoryStatus,
@@ -29,8 +27,12 @@ import {useHistory} from 'react-router-dom';
 import {getImageUrl} from '../../utils/renderImage.js';
 
 const Tables = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(2);
   //redux
-  const {categories, loading} = useSelector((state) => state.categoriesReducer);
+  const {categories, loading, count} = useSelector(
+    (state) => state.categoriesReducer,
+  );
 
   const dispatch = useDispatch();
 
@@ -48,11 +50,13 @@ const Tables = () => {
     dispatch(editCategoryStatus(id));
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   useEffect(() => {
-    dispatch(listCategories());
+    dispatch(listCategories(postsPerPage, currentPage));
 
     // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, currentPage, postsPerPage]);
 
   return (
     <>
@@ -130,50 +134,15 @@ const Tables = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4">
-                <nav aria-label="...">
+                {count > postsPerPage && (
                   <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0">
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1">
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+                    postsPerPage={postsPerPage}
+                    totalPosts={count}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    paginate={paginate}
+                  />
+                )}
               </CardFooter>
             </Card>
           </div>

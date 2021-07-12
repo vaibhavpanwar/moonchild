@@ -2,29 +2,33 @@ import {API, headerSetup} from '../../services/auth';
 import {categoriesConstants} from '../constants';
 import {errorParser} from './errorParser';
 
-export const listCategories = () => async (dispatch) => {
-  await headerSetup();
-  dispatch({type: categoriesConstants.CATEGORY_LOADING});
+export const listCategories =
+  (perPage = 4, page = 1) =>
+  async (dispatch) => {
+    await headerSetup();
+    dispatch({type: categoriesConstants.CATEGORY_LOADING});
 
-  try {
-    const {
-      data: {data},
-    } = await API.get('admin/v1/listCategory');
+    try {
+      const {
+        data: {data},
+      } = await API.get(
+        `admin/v1/listCategory?perPage=${perPage}&page=${page}`,
+      );
 
-    if (data) {
+      if (data) {
+        dispatch({
+          type: categoriesConstants.CATEGORY_LIST_SUCCESS,
+          payload: {listing: data?.listing, count: data?.count},
+        });
+      }
+    } catch (err) {
+      const parsedError = await errorParser(err);
       dispatch({
-        type: categoriesConstants.CATEGORY_LIST_SUCCESS,
-        payload: data?.listing,
+        type: categoriesConstants.CATEGORY_ERROR,
+        payload: parsedError,
       });
     }
-  } catch (err) {
-    const parsedError = await errorParser(err);
-    dispatch({
-      type: categoriesConstants.CATEGORY_ERROR,
-      payload: parsedError,
-    });
-  }
-};
+  };
 
 export const getSingleCategory = (id) => async (dispatch) => {
   await headerSetup();

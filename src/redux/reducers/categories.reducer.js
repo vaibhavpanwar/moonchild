@@ -48,7 +48,7 @@ const categoriesReducer = (state = {categories: [], category: {}}, action) => {
     case categoriesConstants.CATEGORY_RESET_SINGLE:
       return {
         ...state,
-
+        loading: false,
         category: {},
       };
 

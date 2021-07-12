@@ -26,6 +26,7 @@ import {
   deleteCategory,
 } from '../../redux/actions/categories.actions';
 import {useHistory} from 'react-router-dom';
+import {getImageUrl} from '../../utils/renderImage.js';
 
 const Tables = () => {
   //redux
@@ -98,13 +99,13 @@ const Tables = () => {
                         <img
                           alt={'Gulf workers'}
                           className="table-banner-image"
-                          src={`https://api.gccworkers.app/common/v1/resizer/${item?.icon}/50/50`}
+                          src={getImageUrl(item?.icon, 50, 50)}
                         />
                       </td>
                       <td>
                         <SwitchSlider
                           clicked={() => activeInactiveCategory(item?._id)}
-                          checked={item?.status === 2}
+                          checked={item?.status === 1}
                         />{' '}
                       </td>
 

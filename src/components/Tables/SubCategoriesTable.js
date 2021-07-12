@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // reactstrap components
 import {
@@ -11,6 +11,7 @@ import {
   Table,
   Container,
   Row,
+  Spinner,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
@@ -18,11 +19,43 @@ import Header from '../Headers/Header.js';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
-import domesticIcon from '../../assets/images/icons/table/table-domestic-icon.svg';
-import techIcon from '../../assets/images/icons/table/table-tech-icon.svg';
-import medicalIcon from '../../assets/images/icons/table/table-medical-icon.svg';
+
+import {useSelector, useDispatch} from 'react-redux';
+import {
+  deleteSubCategory,
+  editSubCategoryStatus,
+  listSubCategories,
+} from '../../redux/actions/sub-categories.actions.js';
+import {getImageUrl} from '../../utils/renderImage.js';
+import {useHistory} from 'react-router-dom';
 
 const Tables = () => {
+  //redux
+  const {subCategories, loading} = useSelector(
+    (state) => state.subCategoriesReducer,
+  );
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const navigateTo = (route) => history.push(route);
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteSubCategory(id));
+    } else return;
+  };
+
+  const activeInactiveCategory = (id) => {
+    dispatch(editSubCategoryStatus(id));
+  };
+
+  useEffect(() => {
+    dispatch(listSubCategories());
+
+    // eslint-disable-next-line
+  }, [dispatch]);
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -39,8 +72,16 @@ const Tables = () => {
                     className="table-header-input"
                     type={'text'}
                   />
-
-                  <button className="mb-0 table-header-button">{'Add'}</button>
+                  {loading && (
+                    <div className="table-loader">
+                      <Spinner color={'info'} />
+                    </div>
+                  )}
+                  <button
+                    className="mb-0 table-header-button"
+                    onClick={() => navigateTo('/admin/sub-categories/add')}>
+                    {'Add'}
+                  </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
@@ -54,189 +95,42 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Technician</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={domesticIcon}
-                      />
-                    </td>
+                  {subCategories?.map((item) => (
+                    <tr key={item?._id}>
+                      <td>{item?.name?.en}</td>
+                      <td>
+                        <img
+                          alt={'Gulf Workers'}
+                          className=".table-sub-category-icon"
+                          src={getImageUrl(item?.icon, 50, 50)}
+                        />
+                      </td>
 
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
+                      <td>
+                        <SwitchSlider
+                          clicked={() => activeInactiveCategory(item?._id)}
+                          checked={item?.status === 1}
+                        />{' '}
+                      </td>
 
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Technician</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={medicalIcon}
-                      />
-                    </td>
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Technician</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={domesticIcon}
-                      />
-                    </td>
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Medical</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={domesticIcon}
-                      />
-                    </td>
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Domestic</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={techIcon}
-                      />
-                    </td>
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Technician</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={domesticIcon}
-                      />
-                    </td>
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Technician</td>
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className=".table-sub-category-icon"
-                        src={domesticIcon}
-                      />
-                    </td>
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
+                      <td>
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={editIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/sub-categories/edit/${item._id}`)
+                          }
+                        />
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={deleteIcon}
+                          onClick={() => deleteHandler(item?._id)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </Table>
               <CardFooter className="py-4">

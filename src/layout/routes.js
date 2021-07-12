@@ -9,6 +9,7 @@ import CategoriesEdit from '../views/pages/categories/editCategory';
 
 import SubCategories from '../views/pages/sub-categories';
 import SubCategoriesAdd from '../views/pages/sub-categories/addSubCategory';
+import SubCategoriesEdit from '../views/pages/sub-categories/editSubCategory';
 
 import Ads from '../views/pages/ads';
 import AdsAdd from '../views/pages/ads/addAd';
@@ -93,6 +94,15 @@ let routes = [
     name: 'Sub-Categories',
     icon: 'sub-category-icon',
     component: SubCategoriesAdd,
+    svg: true,
+    layout: '/admin',
+    sideBar: false,
+  },
+  {
+    path: '/admin/sub-categories/edit/:id',
+    name: 'Sub-Categories',
+    icon: 'sub-category-icon',
+    component: SubCategoriesEdit,
     svg: true,
     layout: '/admin',
     sideBar: false,

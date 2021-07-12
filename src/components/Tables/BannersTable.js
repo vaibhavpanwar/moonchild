@@ -26,6 +26,7 @@ import {
   editBannerStatus,
   listBanners,
 } from '../../redux/actions/banners.actions.js';
+import {getImageUrl} from '../../utils/renderImage.js';
 
 const Tables = () => {
   const dispatch = useDispatch();
@@ -98,7 +99,7 @@ const Tables = () => {
                         <img
                           alt={'Gulf workers'}
                           className="table-banner-image"
-                          src={`https://api.gccworkers.app/common/v1/resizer/${item?.icon}/80/80`}
+                          src={getImageUrl(item?.icon)}
                         />
                       </td>
                       <td>

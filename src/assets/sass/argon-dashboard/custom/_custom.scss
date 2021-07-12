@@ -540,3 +540,22 @@ button[disabled] {
   color: #4d4f5c;
   font-size: 0.8rem;
 }
+
+label {
+  color: #000 !important;
+  font-weight: 800 !important;
+}
+.input-group-append {
+  .btn-secondary {
+    background-color: $primary;
+    color: #fff;
+    border-radius: 0px 10px 10px 0px !important;
+  }
+  p {
+    display: inline-block;
+    transform: rotate(90deg);
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+  }
+}

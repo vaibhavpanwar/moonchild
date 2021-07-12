@@ -9,13 +9,10 @@ import {
   FormGroup,
   Label,
   Input,
-  InputGroup,
   Spinner,
 } from 'reactstrap';
-import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
-import {imageUploader} from '../../../utils/imageUpload.js';
+
 import {useDispatch, useSelector} from 'react-redux';
-import {categoriesConstants} from '../../../redux/constants';
 
 import {addCategory} from '../../../redux/actions/categories.actions.js';
 
@@ -24,32 +21,29 @@ const DashboardForm = ({history}) => {
   const dispatch = useDispatch();
   const {loading} = useSelector((state) => state.categoriesReducer);
 
-  const [icon, setIcon] = useState(null);
-  const [name, setName] = useState('');
+  const [name, setName] = useState({
+    en: '',
+    hi: '',
+    ar: '',
+    ph: '',
+  });
 
-  const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
+  const {en, hi, ar, ph} = name;
 
-  const validateForm = () => icon && name;
+  const onChangeHandler = (e) =>
+    setName({...name, [e.target.name]: e.target.value});
+
+  const validateForm = () => !!name;
 
   const submitHandler = async () => {
-    dispatch({type: categoriesConstants.CATEGORY_LOADING});
-    const formData = new FormData();
-    formData.append('image', icon);
-
-    const imageUrl = await imageUploader(formData);
-    if (imageUrl) {
-      dispatch(
-        addCategory(
-          {
-            name: {en: name, ar: 'string', hi: 'string', ph: 'string'},
-            icon: imageUrl,
-          },
-          history,
-        ),
-      );
-    } else {
-      // pop and error
-    }
+    dispatch(
+      addCategory(
+        {
+          name,
+        },
+        history,
+      ),
+    );
   };
 
   return (
@@ -67,42 +61,52 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name</Label>
+                        <Label for="exampleEmail">Name (English)</Label>
                         <Input
                           type="text"
-                          name="url"
                           placeholder="Enter name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
+                          value={en}
+                          name={'en'}
+                          onChange={onChangeHandler}
                         />
                       </FormGroup>
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Upload Icon </Label>
-                        <InputGroup>
-                          <label className="form-control chooseFile">
-                            {' '}
-                            <Input
-                              type="file"
-                              name="icon-upload"
-                              placeholder="Ppload file"
-                              onChange={inputFileHandler}>
-                              {' '}
-                            </Input>
-                            {icon && (
-                              <p className="file-input-name">{icon?.name}</p>
-                            )}
-                          </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
-                        </InputGroup>
+                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={ar}
+                          name={'ar'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={hi}
+                          name={'hi'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={ph}
+                          name={'ph'}
+                          onChange={onChangeHandler}
+                        />
                       </FormGroup>
                     </Col>
                   </Row>

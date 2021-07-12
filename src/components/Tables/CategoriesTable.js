@@ -24,7 +24,6 @@ import {
   deleteCategory,
 } from '../../redux/actions/categories.actions';
 import {useHistory} from 'react-router-dom';
-import {getImageUrl} from '../../utils/renderImage.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -90,7 +89,7 @@ const Tables = () => {
                 <thead className="thead-light thead-custom">
                   <tr>
                     <th scope="col">Name</th>
-                    <th scope="col">Icon</th>
+
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                   </tr>
@@ -99,13 +98,7 @@ const Tables = () => {
                   {categories?.map((item) => (
                     <tr key={item?._id}>
                       <td>{item?.name?.en}</td>
-                      <td>
-                        <img
-                          alt={'Gulf workers'}
-                          className="table-banner-image"
-                          src={getImageUrl(item?.icon, 50, 50)}
-                        />
-                      </td>
+
                       <td>
                         <SwitchSlider
                           clicked={() => activeInactiveCategory(item?._id)}

@@ -24,12 +24,10 @@ const Header = ({cardsVisible = true}) => {
                         <div className="col">
                           <CardTitle
                             tag="h5"
-                            className="text-uppercase text-muted mb-0">
+                            className="card-stats-heading-custom">
                             TOTAL REGISTERED USERS
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                            350,897
-                          </span>
+                          <span className="card-stats-custom">350,897</span>
                         </div>
                         <Col className="col-auto">
                           <img
@@ -43,7 +41,9 @@ const Header = ({cardsVisible = true}) => {
                         <span className="text-success mr-2">
                           <i className="fa fa-arrow-up" /> 3.48%
                         </span>{' '}
-                        <span className="text-nowrap">Since last month</span>
+                        <span className="card-footer-text-custom">
+                          Since last month
+                        </span>
                       </p>
                     </CardBody>
                   </Card>
@@ -55,12 +55,10 @@ const Header = ({cardsVisible = true}) => {
                         <div className="col">
                           <CardTitle
                             tag="h5"
-                            className="text-uppercase text-muted mb-0">
+                            className="card-stats-heading-custom">
                             NUMBER OF ADS
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                            2,356
-                          </span>
+                          <span className="card-stats-custom">2,356</span>
                         </div>
                         <Col className="col-auto">
                           <img
@@ -74,7 +72,9 @@ const Header = ({cardsVisible = true}) => {
                         <span className="text-danger mr-2">
                           <i className="fas fa-arrow-down" /> 3.48%
                         </span>{' '}
-                        <span className="text-nowrap">Since last week</span>
+                        <span className="card-footer-text-custom">
+                          Since last week
+                        </span>
                       </p>
                     </CardBody>
                   </Card>
@@ -86,10 +86,10 @@ const Header = ({cardsVisible = true}) => {
                         <div className="col">
                           <CardTitle
                             tag="h5"
-                            className="text-uppercase text-muted mb-0">
+                            className="card-stats-heading-custom">
                             NUMBER OF CHATS
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">924</span>
+                          <span className="card-stats-custom">924</span>
                         </div>
                         <Col className="col-auto">
                           <img
@@ -103,7 +103,9 @@ const Header = ({cardsVisible = true}) => {
                         <span className="text-warning mr-2">
                           <i className="fas fa-arrow-down" /> 1.10%
                         </span>{' '}
-                        <span className="text-nowrap">Since yesterday</span>
+                        <span className="card-footer-text-custom">
+                          Since yesterday
+                        </span>
                       </p>
                     </CardBody>
                   </Card>
@@ -115,12 +117,10 @@ const Header = ({cardsVisible = true}) => {
                         <div className="col">
                           <CardTitle
                             tag="h5"
-                            className="text-uppercase text-muted mb-0">
+                            className="card-stats-heading-custom">
                             TOTAL INCOME
                           </CardTitle>
-                          <span className="h2 font-weight-bold mb-0">
-                            49,65%
-                          </span>
+                          <span className="card-stats-custom">49,65%</span>
                         </div>
                         <Col className="col-auto">
                           <img
@@ -134,7 +134,9 @@ const Header = ({cardsVisible = true}) => {
                         <span className="text-success mr-2">
                           <i className="fas fa-arrow-up" /> 12%
                         </span>{' '}
-                        <span className="text-nowrap">Since last month</span>
+                        <span className="card-footer-text-custom">
+                          Since last month
+                        </span>
                       </p>
                     </CardBody>
                   </Card>

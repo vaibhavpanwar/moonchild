@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
+import logoImage from '../../assets/images/logo.png';
 
 // reactstrap components
 import {
@@ -82,7 +83,14 @@ const Sidebar = (props) => {
         {/* Brand */}
 
         <NavbarBrand className="pt-0">
-          <h4>Logo</h4>
+          <div style={{marginTop: '30px'}} />
+          <img
+            alt="logo"
+            src={logoImage}
+            className="web-logo-custom"
+            style={{cursor: 'pointer'}}
+            onClick={() => navigateTo('/admin/dashboard')}
+          />
           {/* change logo here */}
         </NavbarBrand>
 
@@ -151,7 +159,12 @@ const Sidebar = (props) => {
           <div className="navbar-collapse-header d-md-none">
             <Row>
               <Col className="collapse-brand" xs="6">
-                <h4>logo</h4>
+                <img
+                  src={logoImage}
+                  alt="logo"
+                  style={{cursor: 'pointer'}}
+                  onClick={() => navigateTo('/admin/dashboard')}
+                />
               </Col>
 
               <Col className="collapse-close" xs="6">

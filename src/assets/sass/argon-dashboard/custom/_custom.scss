@@ -257,6 +257,7 @@ td {
 .main-content {
   @media (max-width: 768px) {
     margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }
 
@@ -611,7 +612,11 @@ label {
 .custom-breadcrumb {
   display: flex;
   gap: 8px;
-  padding-top: 20px;
+  padding: 20px 10px;
+  @media only screen and (max-width: 600px) {
+    position: relative;
+    top: -10px;
+  }
 
   .breadcrumb-item-custom {
     font: normal normal bold 1.3rem Noto Sans;
@@ -640,4 +645,33 @@ label {
       background: $primary !important;
     }
   }
+}
+
+// logo image
+.navbar-vertical .navbar-brand-img,
+.navbar-vertical .navbar-brand > img {
+  max-width: 100%;
+  height: 80px !important;
+  max-height: 4rem !important;
+}
+
+.web-logo-custom {
+  @media only screen and (max-width: 600px) {
+    display: none !important;
+  }
+}
+
+.card-stats-heading-custom {
+  color: #8898aa;
+  font-size: 0.85rem;
+}
+
+.card-stats-custom {
+  color: #4d4f5c;
+  font-size: 1.2rem;
+}
+
+.card-footer-text-custom {
+  color: #4d4f5c;
+  font-size: 0.7rem;
 }

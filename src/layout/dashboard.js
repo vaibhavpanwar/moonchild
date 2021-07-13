@@ -39,7 +39,7 @@ const Admin = (props) => {
         />
         <div
           className="main-content"
-          style={{marginLeft: '400px'}}
+          style={{marginLeft: '340px', marginRight: '60px'}}
           ref={mainContent}>
           <AdminNavbar {...props} />
           <Switch>

@@ -11,28 +11,42 @@ import {
   Container,
   Media,
 } from 'reactstrap';
+import {useHistory} from 'react-router-dom';
 
 const AdminNavbar = (props) => {
+  const history = useHistory();
   const getCurrentPage = () => props.location.pathname?.split('/')?.[2];
-  const getCurrentPage2 = () => props.location.pathname?.split('/')?.[3];
+  const getCurrentSubPage = () => props.location.pathname?.split('/')?.[3];
+
+  const navigationHandler = () => {
+    history.push(`/admin/${getCurrentPage()}`);
+  };
+
+  const subNavigationHandler = () => {
+    history.push(`/admin/${getCurrentPage()}/${getCurrentSubPage()}`);
+  };
 
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
         <Container fluid>
-          <p
-            className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            href="/"
-            style={{
-              fontSize: '1.2rem',
-              fontWeight: 'bold',
-              textTransform: 'uppercase',
-            }}
-            disabled>
-            {/* CUSTOM STYLES HERE */}
-            {getCurrentPage()}{' '}
-            {getCurrentPage2() && `> ${getCurrentPage2()} ${getCurrentPage()}`}
-          </p>
+          <div className="custom-breadcrumb">
+            <p
+              className={`breadcrumb-item-custom ${
+                getCurrentSubPage() && 'disabled-breadcrumb '
+              }`}
+              onClick={navigationHandler}>
+              {getCurrentPage()?.replaceAll('-', ' ')}
+            </p>
+            {getCurrentSubPage() && (
+              <p
+                className="breadcrumb-item-custom"
+                onClick={subNavigationHandler}>
+                {'> '}
+                {getCurrentSubPage()?.replaceAll('-', ' ')} {getCurrentPage()}
+              </p>
+            )}
+          </div>
 
           <Nav className="align-items-center d-none d-md-flex" navbar>
             {/* CUSTOM STYLES */}

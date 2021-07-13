@@ -29,7 +29,7 @@ import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
   //redux
   const {categories, loading, count} = useSelector(

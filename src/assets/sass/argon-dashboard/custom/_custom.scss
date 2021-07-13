@@ -607,3 +607,37 @@ label {
   cursor: not-allowed;
   pointer-events: none;
 }
+
+.custom-breadcrumb {
+  display: flex;
+  gap: 8px;
+  padding-top: 20px;
+
+  .breadcrumb-item-custom {
+    font: normal normal bold 1.3rem Noto Sans;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .disabled-breadcrumb {
+    opacity: 60%;
+    &:hover {
+      opacity: 100%;
+    }
+  }
+}
+
+// welcome
+.welcome-back-header {
+  display: inline-block !important;
+  &::first-letter {
+    color: $primary !important;
+  }
+
+  .back {
+    &:nth-child(2) {
+      background: $primary !important;
+    }
+  }
+}

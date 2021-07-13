@@ -30,7 +30,7 @@ import Pagination from '../Pagination/paginate';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
   //redux
   const {subCategories, loading, count} = useSelector(

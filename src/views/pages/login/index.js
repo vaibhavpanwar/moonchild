@@ -43,6 +43,7 @@ function LoginPage(props) {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            background: '#fff',
           }}
           md={7}>
           <Form onSubmit={handleSubmit}>
@@ -53,23 +54,44 @@ function LoginPage(props) {
             </Form.Group>
             <Form.Group controlId="welcomeback">
               <Form.Text
+                className="welcome-back-header"
                 style={{
-                  fontSize: 35,
-                  fontWeight: '500',
+                  fontSize: '3.2rem',
+                  fontWeight: '600',
                   marginTop: 30,
                   marginBottom: 30,
                 }}>
-                {t('welcomeBack')}
+                {t('welcome')}
+              </Form.Text>
+              &nbsp; &nbsp;
+              <Form.Text
+                className="welcome-back-header back"
+                style={{
+                  fontSize: '3.2rem',
+                  fontWeight: '600',
+                  marginTop: 30,
+                  marginBottom: 30,
+                }}>
+                {t('back')}
               </Form.Text>
             </Form.Group>
-            <Form.Group>
+            <Form.Group controlId="welcomeback">
               <InputGroup>
                 <FormControl
-                  style={{width: '30vw', height: 50}}
+                  style={{
+                    width: '30vw',
+                    height: 60,
+                    background: '#DDDDDD',
+                    opacity: '55%',
+                    border: 'none',
+                    outline: 'none',
+                    color: 'rgb(0,0,0)',
+                  }}
                   autoFocus
                   type="email"
                   id="email"
                   value={email}
+                  placeholder={'email'}
                   onChange={(e) => setEmail(e.target.value)}
                   aria-describedby="basic-addon3"
                 />
@@ -78,11 +100,18 @@ function LoginPage(props) {
             <Form.Group>
               <InputGroup>
                 <FormControl
+                  FormControl
                   style={{
-                    height: 50,
-                    borderRight: 0,
+                    width: '30vw',
+                    height: 60,
+                    background: '#DDDDDD',
+                    opacity: '55%',
+                    border: 'none',
+                    outline: 'none',
+                    color: 'rgb(0,0,0)',
                   }}
                   id="password"
+                  placeholder={'password'}
                   type={show ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -90,7 +119,8 @@ function LoginPage(props) {
                 />
                 <InputGroup.Append
                   style={{
-                    backgroundColor: 'transparent',
+                    backgroundColor: '#ddd',
+                    opacity: '55%',
                     border: 'none',
                     cursor: 'pointer',
                     borderLeft: 0,
@@ -110,7 +140,6 @@ function LoginPage(props) {
             </Form.Group>
             <Form.Group
               style={{display: 'flex', justifyContent: 'space-between'}}>
-              <Form.Text className="text-muted">{t('rememberMe')}</Form.Text>
               <Form.Text className="text-muted">{t('forgot')}</Form.Text>
             </Form.Group>
             <Form.Group>
@@ -126,7 +155,10 @@ function LoginPage(props) {
           </Form>
         </Col>
         <Col style={{padding: 0}} md={5}>
-          <Image src={CoverImage} style={{width: '100%', objectFit: 'cover'}} />
+          <Image
+            src={CoverImage}
+            style={{width: '100%', objectFit: 'cover', height: '100vh'}}
+          />
         </Col>
       </Row>
     </Container>

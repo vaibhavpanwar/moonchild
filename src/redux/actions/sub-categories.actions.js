@@ -2,29 +2,33 @@ import {API, headerSetup} from '../../services/auth';
 import {subCategoriesConstants} from '../constants';
 import {errorParser} from './errorParser';
 
-export const listSubCategories = () => async (dispatch) => {
-  await headerSetup();
-  dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
+export const listSubCategories =
+  (perPage = 4, page = 1, search = '') =>
+  async (dispatch) => {
+    await headerSetup();
+    dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
 
-  try {
-    const {
-      data: {data},
-    } = await API.get('admin/v1/listSubCategory');
+    try {
+      const {
+        data: {data},
+      } = await API.get(
+        `admin/v1/listSubCategory?perPage=${perPage}&page=${page}&search=${search}`,
+      );
 
-    if (data) {
+      if (data) {
+        dispatch({
+          type: subCategoriesConstants.SUB_CATEGORY_LIST_SUCCESS,
+          payload: {listing: data?.listing, count: data?.count},
+        });
+      }
+    } catch (err) {
+      const parsedError = await errorParser(err);
       dispatch({
-        type: subCategoriesConstants.SUB_CATEGORY_LIST_SUCCESS,
-        payload: data?.listing,
+        type: subCategoriesConstants.SUB_CATEGORY_ERROR,
+        payload: parsedError,
       });
     }
-  } catch (err) {
-    const parsedError = await errorParser(err);
-    dispatch({
-      type: subCategoriesConstants.SUB_CATEGORY_ERROR,
-      payload: parsedError,
-    });
-  }
-};
+  };
 
 export const getSingleSubCategory = (id) => async (dispatch) => {
   await headerSetup();

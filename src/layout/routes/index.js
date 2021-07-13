@@ -5,8 +5,8 @@ import bannersRoutes from './banners.routes';
 import notificationsRoutes from './notifications.routes';
 import paymentRoutes from './payments.routes';
 import usersRoutes from './users.routes';
-import dashboardRoutes from './users.routes';
-import contactUsRoutes from './users.routes';
+import dashboardRoutes from './dashboard.routes';
+import contactUsRoutes from './contactUs.routes';
 
 const routes = [
   ...dashboardRoutes,

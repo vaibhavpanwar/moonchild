@@ -1,4 +1,4 @@
-import ContactUs from '../views/pages/contact-us';
+import ContactUs from '../../views/pages/contact-us';
 
 let routes = [
   {

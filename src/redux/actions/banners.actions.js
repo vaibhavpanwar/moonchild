@@ -3,7 +3,7 @@ import {bannersConstants} from '../constants';
 import {errorParser} from './errorParser';
 
 export const listBanners =
-  (perPage = 4, page = 1) =>
+  (perPage = 4, page = 1, search = '') =>
   async (dispatch) => {
     await headerSetup();
     dispatch({type: bannersConstants.BANNER_LOADING});
@@ -11,12 +11,14 @@ export const listBanners =
     try {
       const {
         data: {data},
-      } = await API.get(`admin/v1/listBanner?perPage=${perPage}&page=${page}`);
+      } = await API.get(
+        `admin/v1/listBanner?perPage=${perPage}&page=${page}&search=${search}`,
+      );
 
       if (data) {
         dispatch({
           type: bannersConstants.BANNER_LIST_SUCCESS,
-          payload: data?.listing,
+          payload: {listing: data?.listing, count: data?.count},
         });
       }
     } catch (err) {

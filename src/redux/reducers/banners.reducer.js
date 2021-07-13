@@ -6,7 +6,13 @@ const bannersReducer = (state = {banners: [], banner: {}}, action) => {
       return {...state, loading: true};
 
     case bannersConstants.BANNER_LIST_SUCCESS:
-      return {...state, loading: false, error: null, banners: action.payload};
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        banners: action.payload.listing,
+        count: action.payload.count,
+      };
 
     case bannersConstants.BANNER_ADD_SUCCESS:
       return {

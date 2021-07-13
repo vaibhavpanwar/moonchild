@@ -13,7 +13,9 @@ const subCategoriesReducer = (
         ...state,
         loading: false,
         error: null,
-        subCategories: action.payload,
+        subCategories: action.payload.listing,
+
+        count: action.payload.count,
       };
 
     case subCategoriesConstants.SUB_CATEGORY_ADD_SUCCESS:

@@ -14,6 +14,7 @@ import {
 
 const AdminNavbar = (props) => {
   const getCurrentPage = () => props.location.pathname?.split('/')?.[2];
+  const getCurrentPage2 = () => props.location.pathname?.split('/')?.[3];
 
   return (
     <>
@@ -29,7 +30,8 @@ const AdminNavbar = (props) => {
             }}
             disabled>
             {/* CUSTOM STYLES HERE */}
-            {getCurrentPage()}
+            {getCurrentPage()}{' '}
+            {getCurrentPage2() && `> ${getCurrentPage2()} ${getCurrentPage()}`}
           </p>
 
           <Nav className="align-items-center d-none d-md-flex" navbar>

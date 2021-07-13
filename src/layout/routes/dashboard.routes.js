@@ -1,4 +1,4 @@
-import DashboardPage from '../views/pages/dashboard';
+import DashboardPage from '../../views/pages/dashboard';
 
 let routes = [
   {

@@ -12,7 +12,7 @@ export const listCategories =
       const {
         data: {data},
       } = await API.get(
-        `admin/v1/listCategory?perPage=${perPage}&page=${page}`,
+        `admin/v1/listCategory?perPage=${perPage}&page=${page}&search=${search}`,
       );
 
       if (data) {

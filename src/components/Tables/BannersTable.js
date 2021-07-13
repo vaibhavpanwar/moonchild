@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router';
 
 // reactstrap components
@@ -6,9 +6,6 @@ import {
   Card,
   CardHeader,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
@@ -27,11 +24,18 @@ import {
   listBanners,
 } from '../../redux/actions/banners.actions.js';
 import {getImageUrl} from '../../utils/renderImage.js';
+import Pagination from '../Pagination/paginate';
 
 const Tables = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(2);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   const dispatch = useDispatch();
   //import loading and errors as well
-  const {banners, loading} = useSelector((state) => state.bannersReducer);
+  const {banners, loading, count} = useSelector(
+    (state) => state.bannersReducer,
+  );
 
   const history = useHistory();
 
@@ -46,12 +50,13 @@ const Tables = () => {
   const activeInactiveBanner = (id) => {
     dispatch(editBannerStatus(id));
   };
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    dispatch(listBanners());
+    dispatch(listBanners(postsPerPage, currentPage, searchKeyword));
 
     // eslint-disable-next-line
-  }, [dispatch]);
+  }, [dispatch, currentPage, postsPerPage, searchKeyword]);
 
   return (
     <>
@@ -68,6 +73,8 @@ const Tables = () => {
                     placeholder={'Search...'}
                     className="table-header-input"
                     type={'text'}
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
                   />
                   {loading && (
                     <div className="table-loader">
@@ -141,50 +148,15 @@ const Tables = () => {
                 </tbody>
               </Table>
               <CardFooter className="py-4">
-                <nav aria-label="...">
+                {count > postsPerPage && (
                   <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0">
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1">
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+                    postsPerPage={postsPerPage}
+                    totalPosts={count}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    paginate={paginate}
+                  />
+                )}
               </CardFooter>
             </Card>
           </div>

@@ -27,7 +27,8 @@ import {useHistory} from 'react-router-dom';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(10);
+  const [searchKeyword, setSearchKeyword] = useState('');
   //redux
   const {categories, loading, count} = useSelector(
     (state) => state.categoriesReducer,
@@ -52,7 +53,7 @@ const Tables = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
-    dispatch(listCategories(postsPerPage, currentPage));
+    dispatch(listCategories(postsPerPage, currentPage, searchKeyword));
 
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage]);
@@ -72,6 +73,8 @@ const Tables = () => {
                     placeholder={'Search...'}
                     className="table-header-input"
                     type={'text'}
+                    value={searchKeyword}
+                    onChange={(e) => setSearchKeyword(e.target.value)}
                   />
                   {loading && (
                     <div className="table-loader">

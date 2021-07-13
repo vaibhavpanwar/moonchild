@@ -45,9 +45,14 @@ const DashboardForm = ({history}) => {
 
   //local state
   const [icon, setIcon] = useState(null);
-  const [name, setName] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [dropdownOpen, setdropDowOpen] = useState(false);
+  const [name, setName] = useState({
+    en: '',
+    hi: '',
+    ar: '',
+    ph: '',
+  });
 
   const {id} = useParams();
 
@@ -56,15 +61,20 @@ const DashboardForm = ({history}) => {
   useEffect(() => {
     dispatch(listCategories());
     dispatch(getSingleSubCategory(id));
-    if (!subCategory) {
-      dispatch(getSingleSubCategory(id));
-    } else {
-      setName(subCategory?.name?.en);
-      setSelectedCategory(getCategory(subCategory?.categoryId));
-    }
 
     // eslint-disable-next-line
-  }, [dispatch, id, subCategory?.name?.en]);
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (!!subCategory?.name) {
+      setName(subCategory?.name);
+      setSelectedCategory(getCategory(subCategory?.categoryId));
+    }
+    // eslint-disable-next-line
+  }, [subCategory?.name, subCategory?.categoryId]);
+
+  const onChangeHandler = (e) =>
+    setName({...name, [e.target.name]: e.target.value});
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
@@ -85,7 +95,7 @@ const DashboardForm = ({history}) => {
       dispatch(
         editSubCategory(
           {
-            name: {en: name, ar: 'string', hi: 'string', ph: 'string'},
+            name,
             icon: imageUrl,
             categoryId: selectedCategory._id,
             subCategoryId: id,
@@ -102,7 +112,7 @@ const DashboardForm = ({history}) => {
     dispatch(
       editSubCategory(
         {
-          name: {en: name, ar: 'string', hi: 'string', ph: 'string'},
+          name,
           icon: subCategory?.icon,
           categoryId: selectedCategory._id,
           subCategoryId: id,
@@ -128,16 +138,57 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name</Label>
+                        <Label for="exampleEmail">Name (English)</Label>
                         <Input
                           type="text"
-                          value={name}
-                          name="name"
-                          placeholder="Enter url"
-                          onChange={(e) => setName(e.target.value)}
+                          placeholder="Enter name"
+                          value={name?.en}
+                          name={'en'}
+                          onChange={onChangeHandler}
                         />
                       </FormGroup>
                     </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={name?.ar}
+                          name={'ar'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={name?.hi}
+                          name={'hi'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={name?.ph}
+                          name={'ph'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+
+                  <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Icon </Label>
@@ -172,8 +223,6 @@ const DashboardForm = ({history}) => {
                         src={getImageUrl(subCategory?.icon, 50, 50)}
                       />
                     </Col>
-                  </Row>
-                  <Row>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Category </Label>

@@ -30,10 +30,20 @@ const DashboardForm = ({history}) => {
   const {categories} = useSelector((state) => state.categoriesReducer);
   const {loading} = useSelector((state) => state.subCategoriesReducer);
 
-  const [name, setName] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [dropdownOpen, setdropDowOpen] = useState(false);
   const [icon, setIcon] = useState(null);
+  const [name, setName] = useState({
+    en: '',
+    hi: '',
+    ar: '',
+    ph: '',
+  });
+
+  const {en, hi, ar, ph} = name;
+
+  const onChangeHandler = (e) =>
+    setName({...name, [e.target.name]: e.target.value});
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
@@ -54,7 +64,7 @@ const DashboardForm = ({history}) => {
       dispatch(
         addSubCategory(
           {
-            name: {en: name, ar: 'string', hi: 'string', ph: 'string'},
+            name,
             icon: imageUrl,
             categoryId: selectedCategory._id,
           },
@@ -79,22 +89,63 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Ads</h2>
+              <h2 className="dashboard-form-header">Add Sub Category</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name</Label>
+                        <Label for="exampleEmail">Name (English)</Label>
                         <Input
                           type="text"
-                          name="url"
                           placeholder="Enter name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
+                          value={en}
+                          name={'en'}
+                          onChange={onChangeHandler}
                         />
                       </FormGroup>
                     </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={ar}
+                          name={'ar'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={hi}
+                          name={'hi'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Input
+                          type="text"
+                          placeholder="Enter name"
+                          value={ph}
+                          name={'ph'}
+                          onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Category </Label>
@@ -124,8 +175,6 @@ const DashboardForm = ({history}) => {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                  </Row>
-                  <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Upload Icon </Label>

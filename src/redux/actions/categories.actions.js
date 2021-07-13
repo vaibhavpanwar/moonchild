@@ -3,7 +3,7 @@ import {categoriesConstants} from '../constants';
 import {errorParser} from './errorParser';
 
 export const listCategories =
-  (perPage = 4, page = 1) =>
+  (perPage = 4, page = 1, search = '') =>
   async (dispatch) => {
     await headerSetup();
     dispatch({type: categoriesConstants.CATEGORY_LOADING});

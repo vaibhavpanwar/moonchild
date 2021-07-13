@@ -28,6 +28,7 @@ import {
 } from '../../redux/actions/sub-categories.actions.js';
 import {getImageUrl} from '../../utils/renderImage.js';
 import {useHistory} from 'react-router-dom';
+import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 
 const Tables = () => {
   //redux
@@ -114,6 +115,14 @@ const Tables = () => {
                       </td>
 
                       <td>
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={eyeIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/sub-categories/view/${item._id}`)
+                          }
+                        />
                         <img
                           alt={'Gulf Workers'}
                           className="td-action-img"

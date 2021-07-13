@@ -6,10 +6,12 @@ import UsersAdd from '../views/pages/users/addUser';
 import Categories from '../views/pages/categories';
 import CategoriesAdd from '../views/pages/categories/addCategory';
 import CategoriesEdit from '../views/pages/categories/editCategory';
+import CategoriesView from '../views/pages/categories/viewCategory';
 
 import SubCategories from '../views/pages/sub-categories';
 import SubCategoriesAdd from '../views/pages/sub-categories/addSubCategory';
 import SubCategoriesEdit from '../views/pages/sub-categories/editSubCategory';
+import SubCategoriesView from '../views/pages/sub-categories/viewSubCategory';
 
 import Ads from '../views/pages/ads';
 import AdsAdd from '../views/pages/ads/addAd';
@@ -35,6 +37,7 @@ let routes = [
     layout: '/admin',
     sideBar: true,
   },
+
   {
     path: '/admin/users',
     name: 'Users',
@@ -53,6 +56,7 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
+
   {
     path: '/admin/categories',
     name: 'Categories',
@@ -81,6 +85,16 @@ let routes = [
     sideBar: false,
   },
   {
+    path: '/admin/categories/view/:id',
+    name: 'Categories',
+    icon: 'category-icon',
+    component: CategoriesView,
+    svg: true,
+    layout: '/admin',
+    sideBar: false,
+  },
+
+  {
     path: '/admin/sub-categories',
     name: 'Sub-Categories',
     icon: 'sub-category-icon',
@@ -108,6 +122,16 @@ let routes = [
     sideBar: false,
   },
   {
+    path: '/admin/sub-categories/view/:id',
+    name: 'Sub-Categories',
+    icon: 'sub-category-icon',
+    component: SubCategoriesView,
+    svg: true,
+    layout: '/admin',
+    sideBar: false,
+  },
+
+  {
     path: '/admin/ads',
     name: 'Ads',
     icon: 'ad-icon',
@@ -125,6 +149,7 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
+
   {
     path: '/admin/banners',
     name: 'Banners',
@@ -152,6 +177,7 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
+
   {
     path: '/admin/payments',
     name: 'Payments',
@@ -161,6 +187,7 @@ let routes = [
     layout: '/admin',
     sideBar: true,
   },
+
   {
     path: '/admin/notifications',
     name: 'Notifications',
@@ -170,6 +197,7 @@ let routes = [
     layout: '/admin',
     sideBar: true,
   },
+
   {
     path: '/admin/notifications/add',
     name: 'Notifications',
@@ -179,6 +207,7 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
+
   {
     path: '/admin/contact-us',
     name: 'Contact-us',

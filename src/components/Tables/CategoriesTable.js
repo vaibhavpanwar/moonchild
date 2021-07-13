@@ -25,6 +25,8 @@ import {
 } from '../../redux/actions/categories.actions';
 import {useHistory} from 'react-router-dom';
 
+import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
@@ -110,6 +112,14 @@ const Tables = () => {
                       </td>
 
                       <td>
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={eyeIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/categories/view/${item._id}`)
+                          }
+                        />
                         <img
                           alt={'Gulf Workers'}
                           className="td-action-img"

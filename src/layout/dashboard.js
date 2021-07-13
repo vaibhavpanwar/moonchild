@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
-import routes from './routes';
+import routes from './routes/index';
 import Sidebar from '../components/Navbars/SideNavbar';
 import AdminNavbar from '../components/Navbars/AdminNavbar';
 

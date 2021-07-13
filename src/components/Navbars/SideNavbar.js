@@ -21,7 +21,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import routes from '../../layout/routes';
+import routes from '../../layout/routes/index';
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();

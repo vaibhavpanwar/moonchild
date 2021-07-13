@@ -11,7 +11,7 @@ export const listBanners =
     try {
       const {
         data: {data},
-      } = await API.get(`admin/v1/listBanner?perPage${perPage}?page=${page}`);
+      } = await API.get(`admin/v1/listBanner?perPage=${perPage}&page=${page}`);
 
       if (data) {
         dispatch({

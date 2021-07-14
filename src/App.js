@@ -17,6 +17,7 @@ import {configureStore} from './redux/store';
 export const history = createHashHistory();
 function App() {
   useEffect(() => {
+    //axios headers
     headerSetup();
   }, []);
   return (

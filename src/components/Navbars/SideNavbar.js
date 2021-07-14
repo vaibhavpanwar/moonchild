@@ -1,0 +1,205 @@
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import logoImage from '../../assets/images/logo.png';
+
+// reactstrap components
+import {
+  Collapse,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  DropdownToggle,
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Media,
+  NavbarBrand,
+  Navbar,
+  Nav,
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
+import routes from '../../layout/routes/index';
+
+const Sidebar = (props) => {
+  const [collapseOpen, setCollapseOpen] = useState();
+
+  // verifies if routeName is the one active (in browser input)
+  const activeRoute = (routeName) => {
+    return props.location.pathname.indexOf(routeName) > -1
+      ? 'nav-links-active'
+      : '';
+  };
+  // toggles collapse between opened and closed (true/false)
+  const toggleCollapse = () => {
+    setCollapseOpen((data) => !data);
+  };
+
+  const navigateTo = (route) => props.history.push(route);
+
+  // // closes the collapse
+  // const closeCollapse = () => {
+  //   setCollapseOpen(false);
+  // };
+
+  // creates the links that appear in the left menu / Sidebar
+  const createLinks = (routes) => {
+    return routes.map((item, key) => {
+      return (
+        //CUSTOME STYLE HERE
+        item?.sideBar && (
+          <div
+            onClick={() => navigateTo(item.path)}
+            className={`nav-links-wrapper ${activeRoute(item.path)}`}>
+            <span className={item.icon} />
+            <p>{item.name}</p>
+          </div>
+        )
+      );
+    });
+  };
+
+  return (
+    // CUSTOM STYLE HERE
+    <Navbar
+      className="navbar-vertical fixed-left navbar-light bg-white"
+      expand="md"
+      style={{
+        minWidth: '300px',
+      }}
+      id="sidenav-main">
+      <Container fluid>
+        {/* Toggler */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={toggleCollapse}>
+          <span className="navbar-toggler-icon" />
+          {/* {mobike hamburger change here} */}
+        </button>
+        {/* Brand */}
+
+        <NavbarBrand className="pt-0">
+          <div style={{marginTop: '30px'}} />
+          <img
+            alt="logo"
+            src={logoImage}
+            className="web-logo-custom"
+            style={{cursor: 'pointer'}}
+            onClick={() => navigateTo('/admin/dashboard')}
+          />
+          {/* change logo here */}
+        </NavbarBrand>
+
+        {/* User */}
+        <Nav className="align-items-center d-md-none">
+          <UncontrolledDropdown nav>
+            <DropdownToggle nav className="nav-link-icon">
+              <i className="ni ni-bell-55" />
+            </DropdownToggle>
+            <DropdownMenu
+              aria-labelledby="navbar-default_dropdown_1"
+              className="dropdown-menu-arrow"
+              right>
+              {/* MOBILE NOTIFICATION BELL HERE */}
+              <DropdownItem>Action</DropdownItem>
+              <DropdownItem>Another action</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>Something else here</DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          <UncontrolledDropdown nav>
+            <DropdownToggle nav>
+              <Media className="align-items-center">
+                <span className="avatar avatar-sm rounded-circle">
+                  <img
+                    alt="..."
+                    src={
+                      require('../../assets/img/theme/team-1-800x800.jpg')
+                        .default
+                    }
+                  />
+                </span>
+              </Media>
+            </DropdownToggle>
+            <DropdownMenu className="dropdown-menu-arrow" right>
+              <DropdownItem className="noti-title" header tag="div">
+                <h6 className="text-overflow m-0">Welcome!</h6>
+              </DropdownItem>
+              <DropdownItem to="/admin/user-profile" tag={Link}>
+                <i className="ni ni-single-02" />
+                <span>My profile</span>
+              </DropdownItem>
+              <DropdownItem to="/admin/user-profile" tag={Link}>
+                <i className="ni ni-settings-gear-65" />
+                <span>Settings</span>
+              </DropdownItem>
+              <DropdownItem to="/admin/user-profile" tag={Link}>
+                <i className="ni ni-calendar-grid-58" />
+                <span>Activity</span>
+              </DropdownItem>
+              <DropdownItem to="/admin/user-profile" tag={Link}>
+                <i className="ni ni-support-16" />
+                <span>Support</span>
+              </DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <i className="ni ni-user-run" />
+                <span>Logout</span>
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </Nav>
+        {/* Collapse */}
+        <Collapse navbar isOpen={collapseOpen}>
+          {/* Collapse header */}
+          <div className="navbar-collapse-header d-md-none">
+            <Row>
+              <Col className="collapse-brand" xs="6">
+                <img
+                  src={logoImage}
+                  alt="logo"
+                  style={{cursor: 'pointer'}}
+                  onClick={() => navigateTo('/admin/dashboard')}
+                />
+              </Col>
+
+              <Col className="collapse-close" xs="6">
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  onClick={toggleCollapse}>
+                  <span />
+                  <span />
+                </button>
+              </Col>
+            </Row>
+          </div>
+          {/* Form */}
+          <Form className="mt-4 mb-3 d-md-none">
+            <InputGroup className="input-group-rounded input-group-merge">
+              <Input
+                aria-label="Search"
+                className="form-control-rounded form-control-prepended"
+                placeholder="Search"
+                type="search"
+              />
+              <InputGroupAddon addonType="prepend">
+                <InputGroupText>
+                  <span className="fa fa-search" />
+                </InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+          </Form>
+
+          <Nav navbar>{createLinks(routes)}</Nav>
+        </Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+
+export default Sidebar;

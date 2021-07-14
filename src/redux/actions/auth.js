@@ -1,10 +1,9 @@
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {API_URL, ADMIN_LOGIN} from '../../constants/api';
-import axios from 'axios';
 import {authTypes} from '../reducers/auth';
 import {errorParser} from './errorParser';
-import {login} from '../../services/auth';
+import {API, login} from '../../services/auth';
 import {useHistory} from 'react-router-dom';
 const logingIn = () => {
   return {
@@ -45,12 +44,10 @@ export const useAuth = () => {
   const logingInUser = async (data) => {
     dispatch(logingIn());
     setLoading(true);
-    axios
-      .post(`${API_URL}${ADMIN_LOGIN}`, data)
+    API.post(`${API_URL}${ADMIN_LOGIN}`, data)
       .then((response) => {
         dispatch(loggedInSuccess(response.data.data));
-        axios.defaults.headers.common['authorization'] =
-          response.data.data.token;
+        API.defaults.headers.common['authorization'] = response.data.data.token;
         login(response.data.data);
         setLoading(false);
         history.push(`/admin/dashboard`);

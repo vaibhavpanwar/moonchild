@@ -1,15 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 // reactstrap components
 import {
   Card,
   CardHeader,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
+  Spinner,
   Row,
 } from 'reactstrap';
 // core components
@@ -17,9 +15,19 @@ import Header from '../Headers/Header.js';
 import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
+import {useDispatch, useSelector} from 'react-redux';
+import {listUsers} from '../../redux/actions/users.actions.js';
 
 const Tables = () => {
   const {t} = useTranslation();
+  //redux
+  const dispatch = useDispatch();
+  const {users, loading} = useSelector((state) => state.usersReducer);
+
+  useEffect(() => {
+    dispatch(listUsers());
+  }, [dispatch]);
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -36,6 +44,11 @@ const Tables = () => {
                     className="table-header-input"
                     type={'text'}
                   />
+                  {loading && (
+                    <div className="table-loader">
+                      <Spinner color={'info'} />
+                    </div>
+                  )}
 
                   <button className="mb-0 table-header-button">
                     {t('add')}
@@ -54,304 +67,47 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
+                  {!loading && users?.length === 0 ? (
+                    <tr>
+                      <td rowSpan={6} colSpan={6}>
+                        {' '}
+                        No data found
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {users?.map((item) => (
+                        <tr>
+                          <td>{item?.name}</td>
+                          <td>{item?.createdAt}</td>
+                          <td>{item?.phoneNumber}</td>
+                          <td>{item?.lastActive}</td>
+                          <td>{item?.ads}</td>
 
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-                    <td>$2,500 USD</td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
+                          <td>
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={eyeIcon}
+                            />
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={editIcon}
+                            />
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={deleteIcon}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </Table>
-              <CardFooter className="py-4">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0">
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1">
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
-              </CardFooter>
+              <CardFooter className="py-4"></CardFooter>
             </Card>
           </div>
         </Row>

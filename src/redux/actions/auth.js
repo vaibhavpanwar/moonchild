@@ -5,6 +5,7 @@ import {authTypes} from '../reducers/auth';
 import {errorParser} from './errorParser';
 import {API, login} from '../../services/auth';
 import {useHistory} from 'react-router-dom';
+import {headerSetup} from '../../services/auth';
 const logingIn = () => {
   return {
     type: authTypes.LOGIN,
@@ -50,6 +51,7 @@ export const useAuth = () => {
         API.defaults.headers.common['authorization'] = response.data.data.token;
         login(response.data.data);
         setLoading(false);
+        headerSetup();
         history.push(`/admin/dashboard`);
       })
       .catch(async (error) => {

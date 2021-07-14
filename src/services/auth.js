@@ -26,12 +26,18 @@ const private_key =
   '7MFZnllwMerhULPdf8SmDM4tTQ+PZ4mRC3I5fmtYad+q\n' +
   '-----END RSA PRIVATE KEY-----';
 
+export const API = axios.create({
+  baseURL: 'https://api.gccworkers.app/',
+});
+
 export const login = (user) => {
   try {
     if (user && user.token && user.token !== '') {
+      API.defaults.headers.common['authorization'] = user.token;
       const key = new NodeRSA(public_key);
       const encrypted = key.encrypt(JSON.stringify(user), 'base64');
       localStorage.setItem('@gulf-worker-uni/auth-key', encrypted);
+
       return true;
     }
     return false;
@@ -96,10 +102,6 @@ export const i18nextLng = () => {
   return lang;
 };
 
-export const API = axios.create({
-  baseURL: 'https://api.gccworkers.app/',
-});
-
 export const headerSetup = async (setSession) => {
   try {
     const token = await getToken();
@@ -107,7 +109,7 @@ export const headerSetup = async (setSession) => {
     API.defaults.headers.common['Accept'] = 'application/json';
 
     API.defaults.headers.common['Content-Type'] = 'application/json';
-    API.defaults.headers.common['Authorization'] = token ? token.trim() : '';
+    API.defaults.headers.common['authorization'] = token ? token?.trim() : '';
     API.defaults.headers.common['accept-language'] = lng ? lng : 'en';
   } catch (err) {
     console.log(err);

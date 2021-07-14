@@ -18,7 +18,9 @@ const Header = ({cardsVisible = true}) => {
             {cardsVisible && (
               <Row>
                 <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
+                  <Card
+                    style={{borderRadius: '10px'}}
+                    className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -49,7 +51,9 @@ const Header = ({cardsVisible = true}) => {
                   </Card>
                 </Col>
                 <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
+                  <Card
+                    style={{borderRadius: '10px'}}
+                    className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -80,7 +84,9 @@ const Header = ({cardsVisible = true}) => {
                   </Card>
                 </Col>
                 <Col lg="6" xl="3">
-                  <Card className="card-stats mb-4 mb-xl-0">
+                  <Card
+                    style={{borderRadius: '10px'}}
+                    className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>
                         <div className="col">
@@ -110,7 +116,7 @@ const Header = ({cardsVisible = true}) => {
                     </CardBody>
                   </Card>
                 </Col>
-                <Col lg="6" xl="3">
+                <Col style={{borderRadius: '10px'}} lg="6" xl="3">
                   <Card className="card-stats mb-4 mb-xl-0">
                     <CardBody>
                       <Row>

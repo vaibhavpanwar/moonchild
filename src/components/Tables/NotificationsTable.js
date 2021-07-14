@@ -15,8 +15,10 @@ import {
 // core components
 import Header from '../Headers/Header.js';
 import roundIcon from '../../assets/images/icons/table/table-notifications-action-icon.svg';
+import {useTranslation} from 'react-i18next';
 
 const Tables = () => {
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -29,24 +31,24 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                   />
 
                   <button className="mb-0 table-header-button">
-                    {'Send Notifications'}
+                    {t('sendNotifications')}
                   </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">User Name</th>
-                    <th scope="col">Message</th>
-                    <th scope="col">Sent to</th>
-                    <th scope="col">Sent Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">{t('userName')}</th>
+                    <th scope="col">{t('message')}</th>
+                    <th scope="col">{t('sendTo')}</th>
+                    <th scope="col">{t('sentDate')}</th>
+                    <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -18,7 +18,10 @@ import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
+import {useTranslation} from 'react-i18next';
+
 const Tables = () => {
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -31,23 +34,25 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                   />
 
-                  <button className="mb-0 table-header-button">{'Add'}</button>
+                  <button className="mb-0 table-header-button">
+                    {t('add')}
+                  </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Registration Date</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Sub Category</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">{t('name')}</th>
+                    <th scope="col">{t('registrationDate')}</th>
+                    <th scope="col">{t('category')}</th>
+                    <th scope="col">{t('subCategory')}</th>
+                    <th scope="col">{t('status')}</th>
+                    <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

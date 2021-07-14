@@ -1,4 +1,5 @@
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 
 // reactstrap components
 import {
@@ -16,6 +17,7 @@ import {
 import Header from '../Headers/Header.js';
 
 const Tables = () => {
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -28,7 +30,7 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                   />
@@ -37,10 +39,10 @@ const Tables = () => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">Transaction Id</th>
-                    <th scope="col">Payment Date</th>
-                    <th scope="col">User Name</th>
-                    <th scope="col">Amount</th>
+                    <th scope="col">{t('transactionId')}</th>
+                    <th scope="col">{t('paymentDate')}</th>
+                    <th scope="col">{t('userName')}</th>
+                    <th scope="col">{t('amount')}</th>
                   </tr>
                 </thead>
                 <tbody>

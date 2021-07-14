@@ -15,8 +15,10 @@ import {
 // core components
 import Header from '../Headers/Header.js';
 import nonReplyIcon from '../../assets/images/icons/table/table-non-reply.svg';
+import {useTranslation} from 'react-i18next';
 
 const Tables = () => {
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -29,7 +31,7 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                   />
@@ -38,12 +40,12 @@ const Tables = () => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">User Name</th>
-                    <th scope="col">Email Address</th>
-                    <th scope="col">Phone Number</th>
+                    <th scope="col">{t('userName')}</th>
+                    <th scope="col">{t('emailAddress')}</th>
+                    <th scope="col">{t('phoneNumber')}</th>
 
-                    <th scope="col">Contact Date</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">{t('contactDate')}</th>
+                    <th scope="col">{t('status')}</th>
                   </tr>
                 </thead>
                 <tbody>

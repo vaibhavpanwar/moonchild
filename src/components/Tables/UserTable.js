@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {useTranslation} from 'react-i18next';
 // reactstrap components
 import {
   Card,
@@ -19,6 +19,7 @@ import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 
 const Tables = () => {
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -31,23 +32,25 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                   />
 
-                  <button className="mb-0 table-header-button">{'Add'}</button>
+                  <button className="mb-0 table-header-button">
+                    {t('add')}
+                  </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">Name</th>
-                    <th scope="col">Registration Date</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Last Date Active</th>
-                    <th scope="col">Number of Ads</th>
-                    <th scope="col">Actions</th>
+                    <th scope="col">{t('name')}</th>
+                    <th scope="col">{t('registrationDate')}</th>
+                    <th scope="col">{t('phoneNumber')}</th>
+                    <th scope="col">{t('lastDateActive')}</th>
+                    <th scope="col">{t('numberOfAds')}</th>
+                    <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

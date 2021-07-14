@@ -26,11 +26,13 @@ import {
 import {useHistory} from 'react-router-dom';
 
 import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+import {useTranslation} from 'react-i18next';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
+
   //redux
   const {categories, loading, count} = useSelector(
     (state) => state.categoriesReducer,
@@ -60,6 +62,7 @@ const Tables = () => {
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
 
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -72,7 +75,7 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                     value={searchKeyword}
@@ -86,17 +89,17 @@ const Tables = () => {
                   <button
                     className="mb-0 table-header-button"
                     onClick={() => navigateTo('/admin/categories/add')}>
-                    {'Add'}
+                    {t('add')}
                   </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">Name</th>
+                    <th scope="col">{t('name')}</th>
 
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">{t('status')}</th>
+                    <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

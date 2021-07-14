@@ -4,5 +4,44 @@
   "back": "BACK",
   "loginToContinue": "Login to continue",
   "rememberMe": "Remember me",
-  "forgot": "Forgot password ?"
+  "forgot": "Forgot password ?",
+
+  "ads": "Ads",
+  "dashboard": "Dashboard",
+  "contactUs": "Contact Us",
+  "notifications": "Notifications",
+  "subCategories": "Sub Categories",
+  "subCategory": "Sub Category",
+  "category": "Category",
+  "categories": "Categories",
+  "payments": "Payments",
+  "users": "Users",
+  "banners": "Banners",
+
+  "add": "Add",
+  "name": "Name",
+  "registrationDate": "Registration Date",
+  "phoneNumber": "Phone Number",
+  "lastDateActive": "Last Date Active",
+  "numberOfAds": "Number Of Ads",
+  "actions": "Actions",
+  "search": "Search",
+  "status": "Status",
+  "icons": "Icons",
+
+  "image": "Image",
+  "url": "URL",
+
+  "userName": "User Name",
+  "sendNotifications": "Send Notifications",
+  "message": "Message",
+  "sendTo": "Send To",
+  "sentDate": "Sent Date",
+
+  "emailAddress": "Email Address",
+  "contactDate": "Contact Date",
+
+  "transactionId": "Transaction Id",
+  "paymentDate": "Payment Date",
+  "amount": "amount"
 }

@@ -1,10 +1,11 @@
 import Notifications from '../../views/pages/notifications';
 import NotificationsAdd from '../../views/pages/notifications/addNotifications';
+import i18 from '../../i18n/i18n';
 
 let routes = [
   {
     path: '/admin/notifications',
-    name: 'Notifications',
+    name: i18.t('notifications'),
     icon: 'notification-icon',
     component: Notifications,
     svg: true,
@@ -14,7 +15,7 @@ let routes = [
 
   {
     path: '/admin/notifications/add',
-    name: 'Notifications',
+    name: i18.t('notifications'),
     icon: 'notification-icon',
     component: NotificationsAdd,
     svg: true,

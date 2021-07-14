@@ -1,7 +1,47 @@
 {
-    "login":"تسجيل الدخول",
-    "welcomeBack":"مرحبا بعودتك",
-   "loginToContinue":"تسجيل الدخول للمتابعة",
-   "rememberMe":"تذكرنى",
-   "forgot":"هل نسيت كلمة السر ؟" 
+  "login": "تسجيل الدخول",
+  "welcome": "مرحبا ",
+  "back": " بعودتك",
+  "loginToContinue": "تسجيل الدخول للمتابعة",
+  "rememberMe": "تذكرنى",
+  "forgot": "هل نسيت كلمة السر ؟",
+
+  "ads": "Ads (arab)",
+  "dashboard": "Dashboard(arab)",
+  "contactUs": "Contact Us(arab)",
+  "notifications": "Notifications(arab)",
+  "subCategories": "Sub Categories(arab)",
+  "categories": "Categories(arab)",
+  "subCategory": "Sub Category(arab)",
+  "category": "Category(arab)",
+  "payments": "Payments(arab)",
+  "users": "Users(arab)",
+  "banners": "Banners(arab)",
+
+  "add": "Add (arab)",
+  "name": "Name(arab)",
+  "registrationDate": "Registration Date(arab)",
+  "phoneNumber": "Phone Number (arab)",
+  "lastDateActive": "Last Date Active (arab)",
+  "numberOfAds": "Number Of Ads (arab)",
+  "actions": "Actions (arab)",
+  "search": "Search arabs",
+  "status": "Status arab",
+  "icons": "Icons arab",
+
+  "image": "Image (arb)",
+  "url": "URL (arb)",
+
+  "userName": "User Name arb",
+  "sendNotifications": "Send Notifications arb",
+  "message": "Message arb",
+  "sendTo": "Send To arb",
+  "sentDate": "Sent Date arb",
+
+  "emailAddress": "Email Address (arb)",
+  "contactDate": "Contact Date (arb)",
+
+  "transactionId": "Transaction Id arb",
+  "paymentDate": "Payment Date arb",
+  "amount": "amount arb"
 }

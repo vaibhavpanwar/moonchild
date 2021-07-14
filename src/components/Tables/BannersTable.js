@@ -25,6 +25,7 @@ import {
 } from '../../redux/actions/banners.actions.js';
 import {getImageUrl} from '../../utils/renderImage.js';
 import Pagination from '../Pagination/paginate';
+import {useTranslation} from 'react-i18next';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,6 +59,8 @@ const Tables = () => {
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
 
+  //i18n
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -70,7 +73,7 @@ const Tables = () => {
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
                   <input
-                    placeholder={'Search...'}
+                    placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
                     value={searchKeyword}
@@ -85,18 +88,18 @@ const Tables = () => {
                   <button
                     className="mb-0 table-header-button"
                     onClick={() => navigateTo('/admin/banners/add')}>
-                    {'Add'}
+                    {t('add')}
                   </button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Url</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">{t('image')}</th>
+                    <th scope="col">{t('url')}</th>
+                    <th scope="col">{t('status')}</th>
 
-                    <th scope="col">Action</th>
+                    <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
                 <tbody>

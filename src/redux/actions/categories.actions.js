@@ -1,6 +1,12 @@
 import {API, headerSetup} from '../../services/auth';
 import {categoriesConstants} from '../constants';
 import {errorParser} from './errorParser';
+import {
+  errorAlert,
+  infoAlert,
+  successAlert,
+  warningAlert,
+} from '../../utils/alerts';
 
 export const listCategories =
   (perPage = 4, page = 1, search = '') =>
@@ -27,6 +33,7 @@ export const listCategories =
         type: categoriesConstants.CATEGORY_ERROR,
         payload: parsedError,
       });
+      errorAlert(parsedError);
     }
   };
 
@@ -52,6 +59,7 @@ export const getSingleCategory = (id) => async (dispatch) => {
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -69,6 +77,7 @@ export const addCategory = (formData, history) => async (dispatch) => {
         type: categoriesConstants.CATEGORY_ADD_SUCCESS,
         payload: data,
       });
+      successAlert(`${formData?.name?.en} added successfullt`);
 
       history.push('/admin/categories');
     }
@@ -79,6 +88,7 @@ export const addCategory = (formData, history) => async (dispatch) => {
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -96,7 +106,7 @@ export const editCategory = (formData, history) => async (dispatch) => {
         type: categoriesConstants.CATEGORY_EDIT_SUCCESS,
         payload: data?.data,
       });
-
+      successAlert(`${formData?.name?.en} updated successfullt`);
       history.push('/admin/categories');
       dispatch({
         type: categoriesConstants.CATEGORY_RESET_SINGLE,
@@ -109,6 +119,7 @@ export const editCategory = (formData, history) => async (dispatch) => {
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -123,6 +134,7 @@ export const deleteCategory = (id) => async (dispatch) => {
       type: categoriesConstants.CATEGORY_DELETE_SUCCESS,
       payload: id,
     });
+    warningAlert(`category~ ${id} deleted`);
   } catch (err) {
     const parsedError = await errorParser(err);
 
@@ -130,6 +142,7 @@ export const deleteCategory = (id) => async (dispatch) => {
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -148,6 +161,7 @@ export const editCategoryStatus = (id) => async (dispatch) => {
         payload: data,
       });
     }
+    infoAlert(`category status updated`);
   } catch (err) {
     const parsedError = await errorParser(err);
     console.log(parsedError, err, 'error');
@@ -155,5 +169,6 @@ export const editCategoryStatus = (id) => async (dispatch) => {
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };

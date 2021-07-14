@@ -675,3 +675,7 @@ label {
   color: #4d4f5c;
   font-size: 0.7rem;
 }
+
+#ct-container {
+  z-index: 1000000 !important;
+}

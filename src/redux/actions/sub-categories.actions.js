@@ -1,6 +1,7 @@
 import {API, headerSetup} from '../../services/auth';
 import {subCategoriesConstants} from '../constants';
 import {errorParser} from './errorParser';
+import {errorAlert, successAlert, warningAlert} from '../../utils/alerts';
 
 export const listSubCategories =
   (perPage = 4, page = 1, search = '') =>
@@ -27,6 +28,8 @@ export const listSubCategories =
         type: subCategoriesConstants.SUB_CATEGORY_ERROR,
         payload: parsedError,
       });
+
+      errorAlert(parsedError);
     }
   };
 
@@ -52,6 +55,8 @@ export const getSingleSubCategory = (id) => async (dispatch) => {
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
     });
+
+    errorAlert(parsedError);
   }
 };
 
@@ -70,6 +75,7 @@ export const addSubCategory = (formData, history) => async (dispatch) => {
         payload: data,
       });
 
+      successAlert(`${formData?.name?.en} added successfully`);
       history.push('/admin/sub-categories');
     }
   } catch (err) {
@@ -79,6 +85,8 @@ export const addSubCategory = (formData, history) => async (dispatch) => {
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
     });
+
+    errorAlert(parsedError);
   }
 };
 
@@ -97,6 +105,7 @@ export const editSubCategory = (formData, history) => async (dispatch) => {
         payload: data?.data,
       });
 
+      successAlert(`${formData?.name?.en} updated successfully`);
       history.push('/admin/sub-categories');
       dispatch({
         type: subCategoriesConstants.SUB_CATEGORY_RESET_SINGLE,
@@ -109,6 +118,8 @@ export const editSubCategory = (formData, history) => async (dispatch) => {
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
     });
+
+    errorAlert(parsedError);
   }
 };
 
@@ -123,6 +134,7 @@ export const deleteSubCategory = (id) => async (dispatch) => {
       type: subCategoriesConstants.SUB_CATEGORY_DELETE_SUCCESS,
       payload: id,
     });
+    warningAlert(`Sub Category~${id} deleted`);
   } catch (err) {
     const parsedError = await errorParser(err);
 
@@ -130,6 +142,8 @@ export const deleteSubCategory = (id) => async (dispatch) => {
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
     });
+
+    errorAlert(parsedError);
   }
 };
 
@@ -148,6 +162,7 @@ export const editSubCategoryStatus = (id) => async (dispatch) => {
         payload: data,
       });
     }
+    successAlert(`Status updated for Sub Category~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
     console.log(parsedError, err, 'error');
@@ -155,5 +170,7 @@ export const editSubCategoryStatus = (id) => async (dispatch) => {
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
     });
+
+    errorAlert(parsedError);
   }
 };

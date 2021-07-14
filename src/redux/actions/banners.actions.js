@@ -1,6 +1,7 @@
 import {API, headerSetup} from '../../services/auth';
 import {bannersConstants} from '../constants';
 import {errorParser} from './errorParser';
+import {errorAlert, successAlert, warningAlert} from '../../utils/alerts';
 
 export const listBanners =
   (perPage = 4, page = 1, search = '') =>
@@ -27,6 +28,7 @@ export const listBanners =
         type: bannersConstants.BANNER_ERROR,
         payload: parsedError,
       });
+      errorAlert(parsedError);
     }
   };
 
@@ -52,6 +54,7 @@ export const getSingleBanner = (id) => async (dispatch) => {
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -69,6 +72,7 @@ export const addBanner = (formData, history) => async (dispatch) => {
         type: bannersConstants.BANNER_ADD_SUCCESS,
         payload: data,
       });
+      successAlert(`Banner added successfully`);
 
       history.push('/admin/banners');
     }
@@ -79,6 +83,7 @@ export const addBanner = (formData, history) => async (dispatch) => {
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -97,6 +102,7 @@ export const editBanner = (formData, history) => async (dispatch) => {
         payload: data?.data,
       });
 
+      successAlert(`Banner updated successfully`);
       history.push('/admin/banners');
       dispatch({
         type: bannersConstants.BANNER_RESET_SINGLE,
@@ -109,6 +115,7 @@ export const editBanner = (formData, history) => async (dispatch) => {
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -123,6 +130,8 @@ export const deleteBanner = (id) => async (dispatch) => {
       type: bannersConstants.BANNER_DELETE_SUCCESS,
       payload: id,
     });
+
+    warningAlert(`Banner~${id} deleted`);
   } catch (err) {
     const parsedError = await errorParser(err);
 
@@ -130,6 +139,7 @@ export const deleteBanner = (id) => async (dispatch) => {
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };
 
@@ -148,6 +158,7 @@ export const editBannerStatus = (id) => async (dispatch) => {
         payload: data,
       });
     }
+    successAlert(`Status updated for Banner~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
     console.log(parsedError, err, 'error');
@@ -155,5 +166,6 @@ export const editBannerStatus = (id) => async (dispatch) => {
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,
     });
+    errorAlert(parsedError);
   }
 };

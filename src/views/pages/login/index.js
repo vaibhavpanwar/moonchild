@@ -34,6 +34,7 @@ function LoginPage(props) {
     event.preventDefault();
     logingInUser({email, password});
   };
+
   return (
     <Container fluid>
       <Row>

@@ -79,7 +79,10 @@ const Tables = () => {
                     className="table-header-input"
                     type={'text'}
                     value={searchKeyword}
-                    onChange={(e) => setSearchKeyword(e.target.value)}
+                    onChange={(e) => {
+                      setCurrentPage(1);
+                      setSearchKeyword(e.target.value);
+                    }}
                   />
                   {loading && (
                     <div className="table-loader">
@@ -104,50 +107,65 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {subCategories?.map((item) => (
-                    <tr key={item?._id}>
-                      <td>{item?.name?.en}</td>
-                      <td>
-                        <img
-                          alt={'Gulf Workers'}
-                          className=".table-sub-category-icon"
-                          src={getImageUrl(item?.icon, 50, 50)}
-                        />
-                      </td>
-
-                      <td>
-                        <SwitchSlider
-                          clicked={() => activeInactiveCategory(item?._id)}
-                          checked={item?.status === 1}
-                        />{' '}
-                      </td>
-
-                      <td>
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={eyeIcon}
-                          onClick={() =>
-                            navigateTo(`/admin/sub-categories/view/${item._id}`)
-                          }
-                        />
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={editIcon}
-                          onClick={() =>
-                            navigateTo(`/admin/sub-categories/edit/${item._id}`)
-                          }
-                        />
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={deleteIcon}
-                          onClick={() => deleteHandler(item?._id)}
-                        />
+                  {!loading && subCategories?.length === 0 ? (
+                    <tr>
+                      <td rowSpan={6} colSpan={6}>
+                        {' '}
+                        No data found
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    <>
+                      {subCategories?.map((item) => (
+                        <tr key={item?._id}>
+                          <td>{item?.name?.en}</td>
+                          <td>
+                            <img
+                              alt={'Gulf Workers'}
+                              className=".table-sub-category-icon"
+                              src={getImageUrl(item?.icon, 50, 50)}
+                            />
+                          </td>
+
+                          <td>
+                            <SwitchSlider
+                              clicked={() => activeInactiveCategory(item?._id)}
+                              checked={item?.status === 1}
+                            />{' '}
+                          </td>
+
+                          <td>
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={eyeIcon}
+                              onClick={() =>
+                                navigateTo(
+                                  `/admin/sub-categories/view/${item._id}`,
+                                )
+                              }
+                            />
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={editIcon}
+                              onClick={() =>
+                                navigateTo(
+                                  `/admin/sub-categories/edit/${item._id}`,
+                                )
+                              }
+                            />
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={deleteIcon}
+                              onClick={() => deleteHandler(item?._id)}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </Table>
               <CardFooter className="py-4">

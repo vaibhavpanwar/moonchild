@@ -1,23 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // reactstrap components
 import {
   Card,
   CardHeader,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
+  Spinner,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
 import nonReplyIcon from '../../assets/images/icons/table/table-non-reply.svg';
 import {useTranslation} from 'react-i18next';
+import {useDispatch, useSelector} from 'react-redux';
+import {listContactUs} from '../../redux/actions/contactUs.actions';
 
 const Tables = () => {
+  const dispatch = useDispatch();
+  const {contacts, loading} = useSelector((state) => state.contactUsReducer);
+
+  useEffect(() => {
+    dispatch(listContactUs());
+  }, [dispatch]);
+
   const {t} = useTranslation();
   return (
     <>
@@ -36,6 +43,11 @@ const Tables = () => {
                     type={'text'}
                   />
                 </div>
+                {loading && (
+                  <div className="table-loader">
+                    <Spinner color={'info'} />
+                  </div>
+                )}
               </CardHeader>
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
@@ -49,166 +61,40 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <img
-                        alt="Gulf workers"
-                        className="table-non-reply"
-                        src={nonReplyIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <img
-                        alt="Gulf workers"
-                        className="table-non-reply"
-                        src={nonReplyIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <img
-                        alt="Gulf workers"
-                        className="table-non-reply"
-                        src={nonReplyIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>John Doe</td>
-                    <td>John@test.com</td>
-                    <td>12121121</td>
-                    <td>17/12/2015</td>
-
-                    <td>
-                      <p className="replied">Replied</p>
-                    </td>
-                  </tr>
+                  {!loading && contacts?.length === 0 ? (
+                    <tr>
+                      <td rowSpan={6} colSpan={6}>
+                        {' '}
+                        No data found
+                      </td>
+                    </tr>
+                  ) : (
+                    <>
+                      {contacts?.map((item) => (
+                        <tr>
+                          <td>{item?.name}</td>
+                          <td>{item?.email}</td>
+                          <td>{item?.phoneNumber}</td>
+                          <td>{item?.lastActive}</td>
+                          <td>
+                            {item?.status === 2 ? (
+                              <p className="replied">Replied</p>
+                            ) : (
+                              <img
+                                alt="Gulf workers"
+                                className="table-non-reply"
+                                src={nonReplyIcon}
+                              />
+                            )}
+                          </td>
+                          <td></td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </Table>
-              <CardFooter className="py-4">
-                <nav aria-label="...">
-                  <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0">
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1">
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
-              </CardFooter>
+              <CardFooter className="py-4"></CardFooter>
             </Card>
           </div>
         </Row>

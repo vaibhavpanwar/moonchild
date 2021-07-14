@@ -77,7 +77,10 @@ const Tables = () => {
                     className="table-header-input"
                     type={'text'}
                     value={searchKeyword}
-                    onChange={(e) => setSearchKeyword(e.target.value)}
+                    onChange={(e) => {
+                      setCurrentPage(1);
+                      setSearchKeyword(e.target.value);
+                    }}
                   />
                   {loading && (
                     <div className="table-loader">
@@ -103,51 +106,62 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {banners?.map((item) => (
-                    <tr key={item?._id}>
-                      <td>
-                        <img
-                          alt={'Gulf workers'}
-                          className="table-banner-image"
-                          src={getImageUrl(item?.icon)}
-                        />
-                      </td>
-                      <td>
-                        <a
-                          className="table-banner-link"
-                          href={item?.link}
-                          target="_blank"
-                          rel={'noreferrer'}>
-                          {item?.link}
-                        </a>
-                      </td>
-
-                      <td>
-                        <SwitchSlider
-                          clicked={() => activeInactiveBanner(item?._id)}
-                          checked={item?.status === 2}
-                          name={item?.id}
-                        />{' '}
-                      </td>
-
-                      <td>
-                        <img
-                          alt={'Gulf workers'}
-                          className="td-action-img"
-                          src={editIcon}
-                          onClick={() =>
-                            navigateTo(`/admin/banners/edit/${item._id}`)
-                          }
-                        />
-                        <img
-                          alt={'Gulf workers'}
-                          className="td-action-img"
-                          onClick={() => deleteHandler(item?._id)}
-                          src={deleteIcon}
-                        />
+                  {!loading && banners?.length === 0 ? (
+                    <tr>
+                      <td rowSpan={6} colSpan={6}>
+                        {' '}
+                        No data found
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    <>
+                      {banners?.map((item) => (
+                        <tr key={item?._id}>
+                          <td>
+                            <img
+                              alt={'Gulf workers'}
+                              className="table-banner-image"
+                              src={getImageUrl(item?.icon)}
+                            />
+                          </td>
+                          <td>
+                            <a
+                              className="table-banner-link"
+                              href={item?.link}
+                              target="_blank"
+                              rel={'noreferrer'}>
+                              {item?.link}
+                            </a>
+                          </td>
+
+                          <td>
+                            <SwitchSlider
+                              clicked={() => activeInactiveBanner(item?._id)}
+                              checked={item?.status === 2}
+                              name={item?.id}
+                            />{' '}
+                          </td>
+
+                          <td>
+                            <img
+                              alt={'Gulf workers'}
+                              className="td-action-img"
+                              src={editIcon}
+                              onClick={() =>
+                                navigateTo(`/admin/banners/edit/${item._id}`)
+                              }
+                            />
+                            <img
+                              alt={'Gulf workers'}
+                              className="td-action-img"
+                              onClick={() => deleteHandler(item?._id)}
+                              src={deleteIcon}
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </Table>
               <CardFooter className="py-4">

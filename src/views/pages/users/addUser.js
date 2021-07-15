@@ -1,7 +1,7 @@
 import React from 'react';
-
-const addUser = () => {
-  return <div>add user</div>;
+import AddForm from '../../../components/Forms/users/addForm';
+const addUser = (history) => {
+  return <AddForm history={history} />;
 };
 
 export default addUser;

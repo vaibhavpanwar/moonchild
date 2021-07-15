@@ -1,4 +1,5 @@
 import {API, headerSetup} from '../../services/auth';
+import {errorAlert, successAlert} from '../../utils/alerts';
 import {usersConstants} from '../constants';
 import {errorParser} from './errorParser';
 
@@ -55,32 +56,34 @@ export const listUsers =
 //   }
 // };
 
-// export const addBanner = (formData, history) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: usersConstants.USER_LOADING});
+export const addUser = (formData, history) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: usersConstants.USER_LOADING});
 
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.post('admin/v1/addBanner', formData);
+  try {
+    const {
+      data: {data},
+    } = await API.post('admin/v1/addUser', formData);
 
-//     if (data) {
-//       dispatch({
-//         type: usersConstants.USER_ADD_SUCCESS,
-//         payload: data,
-//       });
+    if (data) {
+      dispatch({
+        type: usersConstants.USER_ADD_SUCCESS,
+        payload: data,
+      });
+      successAlert(`User ${formData?.name} added successfullt`);
+      history.push('/admin/users');
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(err, 'error');
 
-//       history.push('/admin/banners');
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-
-//     dispatch({
-//       type: usersConstants.USER_ERROR,
-//       payload: parsedError,
-//     });
-//   }
-// };
+    dispatch({
+      type: usersConstants.USER_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
 
 // export const editBanner = (formData, history) => async (dispatch) => {
 //   await headerSetup();

@@ -18,7 +18,7 @@ import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import {useDispatch, useSelector} from 'react-redux';
 import {listUsers} from '../../redux/actions/users.actions.js';
 
-const Tables = () => {
+const Tables = ({history}) => {
   const {t} = useTranslation();
   //redux
   const dispatch = useDispatch();
@@ -50,7 +50,9 @@ const Tables = () => {
                     </div>
                   )}
 
-                  <button className="mb-0 table-header-button">
+                  <button
+                    className="mb-0 table-header-button"
+                    onClick={() => history.push('/admin/users/add')}>
                     {t('add')}
                   </button>
                 </div>
@@ -80,7 +82,7 @@ const Tables = () => {
                         <tr>
                           <td>{item?.name}</td>
                           <td>{item?.createdAt}</td>
-                          <td>{item?.phoneNumber}</td>
+                          <td>{item?.fullNumber}</td>
                           <td>{item?.lastActive}</td>
                           <td>{item?.ads}</td>
 

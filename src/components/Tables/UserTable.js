@@ -16,13 +16,21 @@ import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import {useDispatch, useSelector} from 'react-redux';
-import {listUsers} from '../../redux/actions/users.actions.js';
+import {listUsers, deleteUser} from '../../redux/actions/users.actions.js';
 
 const Tables = ({history}) => {
   const {t} = useTranslation();
   //redux
   const dispatch = useDispatch();
   const {users, loading} = useSelector((state) => state.usersReducer);
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteUser(id));
+    } else return;
+  };
+
+  const navigateTo = (route) => history.push(route);
 
   useEffect(() => {
     dispatch(listUsers());
@@ -52,7 +60,7 @@ const Tables = ({history}) => {
 
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => history.push('/admin/users/add')}>
+                    onClick={() => navigateTo('/admin/users/add')}>
                     {t('add')}
                   </button>
                 </div>
@@ -91,16 +99,23 @@ const Tables = ({history}) => {
                               alt={'Gulf Workers'}
                               className="td-action-img"
                               src={eyeIcon}
+                              onClick={() =>
+                                navigateTo(`/admin/users/view/${item._id}`)
+                              }
                             />
                             <img
                               alt={'Gulf Workers'}
                               className="td-action-img"
                               src={editIcon}
+                              onClick={() =>
+                                navigateTo(`/admin/users/edit/${item._id}`)
+                              }
                             />
                             <img
                               alt={'Gulf Workers'}
                               className="td-action-img"
                               src={deleteIcon}
+                              onClick={() => deleteHandler(item?._id)}
                             />
                           </td>
                         </tr>

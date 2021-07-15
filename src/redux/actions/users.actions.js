@@ -1,5 +1,5 @@
 import {API, headerSetup} from '../../services/auth';
-import {errorAlert, successAlert} from '../../utils/alerts';
+import {errorAlert, successAlert, warningAlert} from '../../utils/alerts';
 import {usersConstants} from '../constants';
 import {errorParser} from './errorParser';
 
@@ -31,30 +31,29 @@ export const listUsers =
     }
   };
 
-// export const getSingleBanner = (id) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: usersConstants.USER_LOADING});
+export const getSingleBanner = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: usersConstants.USER_LOADING});
 
-//   console.log(id, 'id');
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.get(`admin/v1/banner/${id}`);
+  try {
+    const {
+      data: {data},
+    } = await API.get(`admin/v1/user/${id}`);
 
-//     if (data) {
-//       dispatch({
-//         type: usersConstants.USER_GET_SINGLE_SUCCESS,
-//         payload: data,
-//       });
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-//     dispatch({
-//       type: usersConstants.USER_ERROR,
-//       payload: parsedError,
-//     });
-//   }
-// };
+    if (data) {
+      dispatch({
+        type: usersConstants.USER_GET_SINGLE_SUCCESS,
+        payload: data,
+      });
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    dispatch({
+      type: usersConstants.USER_ERROR,
+      payload: parsedError,
+    });
+  }
+};
 
 export const addUser = (formData, history) => async (dispatch) => {
   await headerSetup();
@@ -85,78 +84,57 @@ export const addUser = (formData, history) => async (dispatch) => {
   }
 };
 
-// export const editBanner = (formData, history) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: usersConstants.USER_LOADING});
+export const editUser = (formData, history) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: usersConstants.USER_LOADING});
 
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.put('admin/v1/editBanner', formData);
+  try {
+    const {
+      data: {data},
+    } = await API.put('admin/v1/editUser', formData);
 
-//     if (data) {
-//       dispatch({
-//         type: usersConstants.USER_EDIT_SUCCESS,
-//         payload: data?.data,
-//       });
+    if (data) {
+      dispatch({
+        type: usersConstants.USER_EDIT_SUCCESS,
+        payload: data?.data,
+      });
+      successAlert(`${formData?.name} updated successfully`);
 
-//       history.push('/admin/banners');
-//       dispatch({
-//         type: usersConstants.USER_RESET_SINGLE,
-//       });
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-//     console.log(parsedError, err, 'error');
-//     dispatch({
-//       type: usersConstants.USER_ERROR,
-//       payload: parsedError,
-//     });
-//   }
-// };
+      history.push('/admin/banners');
+      dispatch({
+        type: usersConstants.USER_RESET_SINGLE,
+      });
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(parsedError, err, 'error');
+    dispatch({
+      type: usersConstants.USER_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
 
-// export const deleteBanner = (id) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: usersConstants.USER_LOADING});
+export const deleteUser = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: usersConstants.USER_LOADING});
 
-//   try {
-//     await API.delete(`admin/v1/deleteBanner/${id}`);
+  try {
+    await API.delete(`admin/v1/deleteUser/${id}`);
 
-//     dispatch({
-//       type: usersConstants.USER_DELETE_SUCCESS,
-//       payload: id,
-//     });
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
+    dispatch({
+      type: usersConstants.USER_DELETE_SUCCESS,
+      payload: id,
+    });
+    warningAlert(`user ${id} removed`);
+  } catch (err) {
+    const parsedError = await errorParser(err);
 
-//     dispatch({
-//       type: usersConstants.USER_ERROR,
-//       payload: parsedError,
-//     });
-//   }
-// };
-
-// export const editBannerStatus = (id) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: usersConstants.USER_LOADING});
-
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.patch(`admin/v1/activeInnactiveBanner/${id}`);
-
-//     if (data) {
-//       dispatch({
-//         type: usersConstants.USER_EDIT_SUCCESS,
-//         payload: data,
-//       });
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-//     console.log(parsedError, err, 'error');
-//     dispatch({
-//       type: usersConstants.USER_ERROR,
-//       payload: parsedError,
-//     });
-//   }
-// };
+    dispatch({
+      type: usersConstants.USER_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};

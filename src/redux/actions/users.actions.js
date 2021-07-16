@@ -31,14 +31,14 @@ export const listUsers =
     }
   };
 
-export const getSingleBanner = (id) => async (dispatch) => {
+export const getSingleUser = (id) => async (dispatch) => {
   await headerSetup();
   dispatch({type: usersConstants.USER_LOADING});
 
   try {
     const {
       data: {data},
-    } = await API.get(`admin/v1/user/${id}`);
+    } = await API.get(`admin/v1/userDetail?userId=${id}`);
 
     if (data) {
       dispatch({
@@ -100,7 +100,7 @@ export const editUser = (formData, history) => async (dispatch) => {
       });
       successAlert(`${formData?.name} updated successfully`);
 
-      history.push('/admin/banners');
+      history.push('/admin/users');
       dispatch({
         type: usersConstants.USER_RESET_SINGLE,
       });

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 // reactstrap components
 import {
@@ -17,12 +17,17 @@ import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import {useDispatch, useSelector} from 'react-redux';
 import {listUsers, deleteUser} from '../../redux/actions/users.actions.js';
+import Pagination from '../Pagination/paginate';
 
 const Tables = ({history}) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(15);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   const {t} = useTranslation();
   //redux
   const dispatch = useDispatch();
-  const {users, loading} = useSelector((state) => state.usersReducer);
+  const {users, loading, count} = useSelector((state) => state.usersReducer);
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -30,12 +35,15 @@ const Tables = ({history}) => {
     } else return;
   };
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   const navigateTo = (route) => history.push(route);
 
   useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
+    dispatch(listUsers(postsPerPage, currentPage, searchKeyword));
 
+    // eslint-disable-next-line
+  }, [dispatch, currentPage, postsPerPage, searchKeyword]);
   return (
     <>
       <Header cardsVisible={false} />
@@ -51,6 +59,11 @@ const Tables = ({history}) => {
                     placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
+                    value={searchKeyword}
+                    onChange={(e) => {
+                      setCurrentPage(1);
+                      setSearchKeyword(e.target.value);
+                    }}
                   />
                   {loading && (
                     <div className="table-loader">
@@ -92,7 +105,7 @@ const Tables = ({history}) => {
                           <td>{item?.createdAt}</td>
                           <td>{item?.fullNumber}</td>
                           <td>{item?.lastActive}</td>
-                          <td>{item?.ads}</td>
+                          <td>{item?.numberOfAdds}</td>
 
                           <td>
                             <img
@@ -124,7 +137,17 @@ const Tables = ({history}) => {
                   )}
                 </tbody>
               </Table>
-              <CardFooter className="py-4"></CardFooter>
+              <CardFooter className="py-4">
+                {count > postsPerPage && (
+                  <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={count}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    paginate={paginate}
+                  />
+                )}
+              </CardFooter>
             </Card>
           </div>
         </Row>

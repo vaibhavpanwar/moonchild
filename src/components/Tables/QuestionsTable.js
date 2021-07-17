@@ -23,11 +23,14 @@ import {useTranslation} from 'react-i18next';
 import {
   deleteQuestion,
   listQuestions,
+  editQuestionStatus,
+  editQuestionFilterStatus,
 } from '../../redux/actions/questions.actions.js';
 import {listCategories} from '../../redux/actions/categories.actions.js';
 import {listSubCategories} from '../../redux/actions/sub-categories.actions';
 import {finder} from '../../utils/dataHelpers.js';
 import {quesTypes, userTypes} from '../Forms/questions/data.js';
+import SwitchSlider from '../Switch/SwitchSlider.js';
 // core components
 
 const Tables = ({history}) => {
@@ -98,7 +101,9 @@ const Tables = ({history}) => {
                     <th scope="col">{t('quesType')}</th>
                     <th scope="col">{t('category')}</th>
                     <th scope="col">{t('subCategory')}</th>
+                    <th scope="col">{t('featured')}</th>
                     <th scope="col">{t('options')}</th>
+                    <th scope="col">{t('status')}</th>
                     <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
@@ -131,7 +136,31 @@ const Tables = ({history}) => {
                                 ?.en
                             }
                           </td>
+
+                          <td>
+                            <SwitchSlider
+                              clicked={() =>
+                                dispatch(
+                                  editQuestionFilterStatus(
+                                    item?._id,
+                                    !item?.featuredFilter,
+                                  ),
+                                )
+                              }
+                              checked={item?.featuredFilter}
+                              name={item?.id}
+                            />{' '}
+                          </td>
                           <td>{item?.options?.length}</td>
+                          <td>
+                            <SwitchSlider
+                              clicked={() =>
+                                dispatch(editQuestionStatus(item?._id))
+                              }
+                              checked={item?.status === 2}
+                              name={item?.id}
+                            />{' '}
+                          </td>
 
                           <td>
                             <img

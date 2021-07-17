@@ -138,3 +138,57 @@ export const deleteQuestion = (id) => async (dispatch) => {
     errorAlert(parsedError);
   }
 };
+
+export const editQuestionStatus = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: questionsConstants.QUESTION_LOADING});
+
+  try {
+    const {
+      data: {data},
+    } = await API.patch(`admin/v1/activeInactiveQuestion/${id}`);
+    console.log(data, 'status');
+    if (data) {
+      dispatch({
+        type: questionsConstants.QUESTION_EDIT_SUCCESS,
+        payload: data,
+      });
+    }
+    successAlert(`Status updated for question~${id}`);
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(parsedError, err, 'error');
+    dispatch({
+      type: questionsConstants.QUESTION_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
+
+export const editQuestionFilterStatus = (id, filter) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: questionsConstants.QUESTION_LOADING});
+
+  try {
+    const {
+      data: {data},
+    } = await API.patch(`admin/v1/activeInactiveFeatureFilter/${id}/${filter}`);
+    console.log(data, 'filterstatus');
+    if (data) {
+      dispatch({
+        type: questionsConstants.QUESTION_EDIT_SUCCESS,
+        payload: data,
+      });
+    }
+    successAlert(`Featured Filter Status updated for Question~${id}`);
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(parsedError, err, 'error');
+    dispatch({
+      type: questionsConstants.QUESTION_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};

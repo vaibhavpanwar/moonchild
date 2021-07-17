@@ -167,17 +167,17 @@ const DashboardForm = ({history}) => {
   }, [selectedCategory?._id]);
 
   useEffect(() => {
-    if (quesType?.enum === 1) {
+    if (quesType?.enum === 4) {
       setOptions([
+        {
+          name: {en: '', hi: '', ar: '', ph: ''},
+        },
         {
           name: {en: '', hi: '', ar: '', ph: ''},
         },
       ]);
     } else {
       setOptions([
-        {
-          name: {en: '', hi: '', ar: '', ph: ''},
-        },
         {
           name: {en: '', hi: '', ar: '', ph: ''},
         },
@@ -198,37 +198,6 @@ const DashboardForm = ({history}) => {
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
-                    <Col lg={4} md={6} sm={12}>
-                      <FormGroup>
-                        <Label for="examplePassword">Question Type </Label>
-                        <InputGroup>
-                          <Input
-                            style={{background: '#fff'}}
-                            readOnly
-                            placeholder={'select question type'}
-                            value={quesType?.name}
-                          />
-                          <InputGroupButtonDropdown
-                            addonType="append"
-                            isOpen={quesDropdownOpen}
-                            toggle={() =>
-                              setQuesDropdownOpen(!quesDropdownOpen)
-                            }>
-                            <DropdownToggle>
-                              <p>{'>'}</p>
-                            </DropdownToggle>
-                            <DropdownMenu>
-                              {quesTypes?.map((item) => (
-                                <DropdownItem
-                                  onClick={() => quesTypeChangeHandler(item)}>
-                                  {item?.name}
-                                </DropdownItem>
-                              ))}
-                            </DropdownMenu>
-                          </InputGroupButtonDropdown>
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">User Type </Label>
@@ -260,8 +229,6 @@ const DashboardForm = ({history}) => {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                  </Row>
-                  <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Category </Label>
@@ -332,32 +299,39 @@ const DashboardForm = ({history}) => {
                             </InputGroup>
                           </FormGroup>
                         ))}
-                      {/* <FormGroup>
-                        <Label for="examplePassword">Upload Icon </Label>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="examplePassword">Question Type </Label>
                         <InputGroup>
-                          <label className="form-control chooseFile">
-                            {' '}
-                            <Input
-                              type="file"
-                              name="icon-upload"
-                              placeholder="Ppload file"
-                              onChange={inputFileHandler}>
-                              {' '}
-                            </Input>
-                            {icon && (
-                              <p className="file-input-name">{icon?.name}</p>
-                            )}
-                          </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
+                          <Input
+                            style={{background: '#fff'}}
+                            readOnly
+                            placeholder={'select question type'}
+                            value={quesType?.name}
+                          />
+                          <InputGroupButtonDropdown
+                            addonType="append"
+                            isOpen={quesDropdownOpen}
+                            toggle={() =>
+                              setQuesDropdownOpen(!quesDropdownOpen)
+                            }>
+                            <DropdownToggle>
+                              <p>{'>'}</p>
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              {quesTypes?.map((item) => (
+                                <DropdownItem
+                                  onClick={() => quesTypeChangeHandler(item)}>
+                                  {item?.name}
+                                </DropdownItem>
+                              ))}
+                            </DropdownMenu>
+                          </InputGroupButtonDropdown>
                         </InputGroup>
-                      </FormGroup> */}
+                      </FormGroup>
                     </Col>
                   </Row>
                   <hr />
@@ -416,7 +390,8 @@ const DashboardForm = ({history}) => {
                   <hr />
                   <br />
                   {quesType &&
-                    options?.length > 1 &&
+                    quesType?.enum !== 1 &&
+                    options?.length >= 1 &&
                     options.map((item, i) => {
                       return (
                         <>
@@ -432,6 +407,21 @@ const DashboardForm = ({history}) => {
                                   placeholder="Enter option"
                                   value={item?.name?.en}
                                   name={'en'}
+                                  onChange={(e) => handleOptionsChange(e, i)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col lg={3} md={6} sm={12}>
+                              {' '}
+                              <FormGroup>
+                                <Label for="exampleEmail">
+                                  Option{i + 1} (Arabic)
+                                </Label>
+                                <Input
+                                  type="text"
+                                  placeholder="Enter option"
+                                  value={item?.name?.ar}
+                                  name={'ar'}
                                   onChange={(e) => handleOptionsChange(e, i)}
                                 />
                               </FormGroup>
@@ -464,27 +454,12 @@ const DashboardForm = ({history}) => {
                                 />
                               </FormGroup>
                             </Col>
-                            <Col lg={3} md={6} sm={12}>
-                              {' '}
-                              <FormGroup>
-                                <Label for="exampleEmail">
-                                  Option{i + 1} (Arabic)
-                                </Label>
-                                <Input
-                                  type="text"
-                                  placeholder="Enter option"
-                                  value={item?.name?.ar}
-                                  name={'ar'}
-                                  onChange={(e) => handleOptionsChange(e, i)}
-                                />
-                              </FormGroup>
-                            </Col>
                           </Row>
 
                           {quesType?.enum !== 4 && (
                             <>
                               {' '}
-                              {options.length !== 2 && (
+                              {options.length !== 1 && (
                                 <button
                                   className="btn remove-button"
                                   onClick={(e) => {
@@ -514,7 +489,7 @@ const DashboardForm = ({history}) => {
               <div className="dashboard-form-footer">
                 <button
                   className="form-cancel-button"
-                  onClick={() => history.push('/admin/sub-categories')}>
+                  onClick={() => history.push('/admin/questions')}>
                   Cancel
                 </button>
                 <button

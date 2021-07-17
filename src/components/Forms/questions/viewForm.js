@@ -59,23 +59,6 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Question Type </Label>
-                        <InputGroup>
-                          <Input
-                            style={{background: '#fff'}}
-                            readOnly
-                            placeholder={'select question type'}
-                            value={`${
-                              finder(quesTypes, question?.questionType)?.name
-                            } ${
-                              finder(quesTypes, question?.questionType)?.enum
-                            } `}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col lg={4} md={6} sm={12}>
-                      <FormGroup>
                         <Label for="examplePassword">User Type </Label>
                         <InputGroup>
                           <Input
@@ -89,8 +72,6 @@ const DashboardForm = ({history}) => {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                  </Row>
-                  <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">Category </Label>
@@ -117,6 +98,26 @@ const DashboardForm = ({history}) => {
                               finder(subCategories, question?.subCategoryId)
                                 ?.name?.en
                             }
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="examplePassword">Question Type </Label>
+                        <InputGroup>
+                          <Input
+                            style={{background: '#fff'}}
+                            readOnly
+                            placeholder={'select question type'}
+                            value={`${
+                              finder(quesTypes, question?.questionType)?.name
+                            } ${
+                              finder(quesTypes, question?.questionType)?.enum
+                            } `}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -195,6 +196,20 @@ const DashboardForm = ({history}) => {
                           <Col lg={3} md={6} sm={12}>
                             {' '}
                             <FormGroup>
+                              <Label for="exampleEmail">
+                                Option{i + 1} (Arabic)
+                              </Label>
+                              <Input
+                                type="text"
+                                placeholder="Enter option"
+                                value={item?.name?.ar}
+                                readOnly
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col lg={3} md={6} sm={12}>
+                            {' '}
+                            <FormGroup>
                               <Label for="exampleEmail">Option (Hindi)</Label>
                               <Input
                                 type="text"
@@ -214,20 +229,6 @@ const DashboardForm = ({history}) => {
                                 type="text"
                                 placeholder="Enter option"
                                 value={item?.name?.ph}
-                                readOnly
-                              />
-                            </FormGroup>
-                          </Col>
-                          <Col lg={3} md={6} sm={12}>
-                            {' '}
-                            <FormGroup>
-                              <Label for="exampleEmail">
-                                Option{i + 1} (Arabic)
-                              </Label>
-                              <Input
-                                type="text"
-                                placeholder="Enter option"
-                                value={item?.name?.ar}
                                 readOnly
                               />
                             </FormGroup>

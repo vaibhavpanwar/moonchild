@@ -97,6 +97,7 @@ const Tables = ({history}) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
+                    <th scope="col">{t('ques')}</th>
                     <th scope="col">{t('userType')}</th>
                     <th scope="col">{t('quesType')}</th>
                     <th scope="col">{t('category')}</th>
@@ -119,6 +120,7 @@ const Tables = ({history}) => {
                     <>
                       {questions?.map((item) => (
                         <tr key={item?._id}>
+                          <td>{item?.question?.en?.slice(0, 100)} ...</td>
                           <td>
                             {finder(userTypes, item?.userType)?.name}{' '}
                             {finder(userTypes, item?.userType)?.enum}

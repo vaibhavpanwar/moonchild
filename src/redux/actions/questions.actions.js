@@ -91,7 +91,7 @@ export const editQuestion = (formData, history) => async (dispatch) => {
   try {
     const {
       data: {data},
-    } = await API.put('admin/v1/editQuestion', formData);
+    } = await API.put('admin/v1/editQestion', formData);
 
     if (data) {
       dispatch({

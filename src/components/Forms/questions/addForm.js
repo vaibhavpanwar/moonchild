@@ -167,7 +167,7 @@ const DashboardForm = ({history}) => {
   }, [selectedCategory?._id]);
 
   useEffect(() => {
-    if (quesType?.enum === 4) {
+    if (quesType?.enum === 1) {
       setOptions([
         {
           name: {en: '', hi: '', ar: '', ph: ''},
@@ -421,7 +421,7 @@ const DashboardForm = ({history}) => {
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">
-                                  Option (English)
+                                  Option{i + 1} (English)
                                 </Label>
                                 <Input
                                   type="text"
@@ -449,7 +449,7 @@ const DashboardForm = ({history}) => {
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">
-                                  Option (Philipins)
+                                  Option{i + 1} (Philipins)
                                 </Label>
                                 <Input
                                   type="text"
@@ -464,7 +464,7 @@ const DashboardForm = ({history}) => {
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">
-                                  Option (Arabic)
+                                  Option{i + 1} (Arabic)
                                 </Label>
                                 <Input
                                   type="text"
@@ -477,18 +477,26 @@ const DashboardForm = ({history}) => {
                             </Col>
                           </Row>
 
-                          {quesType?.enum !== 1 && (
+                          {quesType?.enum !== 4 && (
                             <>
                               {' '}
                               {options.length !== 2 && (
                                 <button
-                                  className="mr10"
-                                  onClick={() => handleRemoveClick(i)}>
-                                  Remove
+                                  className="btn remove-button"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleRemoveClick(i);
+                                  }}>
+                                  X
                                 </button>
                               )}
                               {options.length - 1 === i && (
-                                <button onClick={handleAddClick}>Add</button>
+                                <button
+                                  className="  btn
+                                add-button"
+                                  onClick={handleAddClick}>
+                                  Add
+                                </button>
                               )}
                             </>
                           )}

@@ -679,3 +679,12 @@ label {
 #ct-container {
   z-index: 1000000 !important;
 }
+
+.remove-button {
+  background-color: transparent;
+  color: #3f3f3f;
+}
+.add-button {
+  background-color: $primary;
+  color: #fff;
+}

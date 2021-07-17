@@ -18,7 +18,7 @@ const userTypes = [
 ];
 const quesTypes = [
   {
-    enum: 1,
+    enum: 4,
     name: 'Boolean',
   },
   {
@@ -30,8 +30,8 @@ const quesTypes = [
     name: 'Mutiple Choice',
   },
   {
-    enum: 4,
-    name: 'Input',
+    enum: 1,
+    name: 'Text Input',
   },
 ];
 

@@ -7,12 +7,14 @@ import paymentRoutes from './payments.routes';
 import usersRoutes from './users.routes';
 import dashboardRoutes from './dashboard.routes';
 import contactUsRoutes from './contactUs.routes';
+import questionsRoutes from './questions.routes';
 
 const routes = [
   ...dashboardRoutes,
   ...usersRoutes,
   ...categoriesRoutes,
   ...subCategoriesRoutes,
+  ...questionsRoutes,
   ...adRoutes,
   ...bannersRoutes,
   ...paymentRoutes,

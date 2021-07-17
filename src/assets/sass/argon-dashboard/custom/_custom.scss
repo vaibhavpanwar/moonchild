@@ -626,9 +626,9 @@ label {
   }
 
   .disabled-breadcrumb {
-    opacity: 60%;
+    color: rgba(256, 256, 256, 0.7);
     &:hover {
-      opacity: 100%;
+      color: rgba(256, 256, 256, 1);
     }
   }
 }

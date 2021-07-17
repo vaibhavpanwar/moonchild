@@ -24,6 +24,10 @@ import {
   deleteQuestion,
   listQuestions,
 } from '../../redux/actions/questions.actions.js';
+import {listCategories} from '../../redux/actions/categories.actions.js';
+import {listSubCategories} from '../../redux/actions/sub-categories.actions';
+import {finder} from '../../utils/dataHelpers.js';
+import {quesTypes, userTypes} from '../Forms/questions/data.js';
 // core components
 
 const Tables = ({history}) => {
@@ -31,6 +35,8 @@ const Tables = ({history}) => {
   const {questions, loading, count} = useSelector(
     (state) => state.questionsReducer,
   );
+  const {categories} = useSelector((state) => state.categoriesReducer);
+  const {subCategories} = useSelector((state) => state.subCategoriesReducer);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
@@ -44,7 +50,10 @@ const Tables = ({history}) => {
       dispatch(deleteQuestion(id));
     } else return;
   };
-
+  useEffect(() => {
+    dispatch(listSubCategories());
+    dispatch(listCategories());
+  }, [dispatch]);
   useEffect(() => {
     dispatch(listQuestions(postsPerPage, currentPage, searchKeyword));
   }, [dispatch, postsPerPage, currentPage, searchKeyword]);
@@ -87,8 +96,8 @@ const Tables = ({history}) => {
                   <tr>
                     <th scope="col">{t('userType')}</th>
                     <th scope="col">{t('quesType')}</th>
-                    <th scope="col">{t('categoryId')}</th>
-                    <th scope="col">{t('suvCategoryId')}</th>
+                    <th scope="col">{t('category')}</th>
+                    <th scope="col">{t('subCategory')}</th>
                     <th scope="col">{t('options')}</th>
                     <th scope="col">{t('actions')}</th>
                   </tr>
@@ -105,11 +114,24 @@ const Tables = ({history}) => {
                     <>
                       {questions?.map((item) => (
                         <tr key={item?._id}>
-                          <td>{item?.userType}</td>
-                          <td>{item?.questionType}</td>
-                          <td>{item?.categoryId}</td>
-                          <td>{item?.subCategoryId}</td>
-                          <td>{item?.options[0]?.name?.en}</td>
+                          <td>
+                            {finder(userTypes, item?.userType)?.name}{' '}
+                            {finder(userTypes, item?.userType)?.enum}
+                          </td>
+                          <td>
+                            {finder(quesTypes, item?.questionType)?.name}{' '}
+                            {finder(quesTypes, item?.questionType)?.enum}
+                          </td>
+                          <td>
+                            {finder(categories, item?.categoryId)?.name?.en}
+                          </td>
+                          <td>
+                            {
+                              finder(subCategories, item?.subCategoryId)?.name
+                                ?.en
+                            }
+                          </td>
+                          <td>{item?.options?.length}</td>
 
                           <td>
                             <img

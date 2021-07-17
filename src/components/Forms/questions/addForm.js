@@ -411,6 +411,10 @@ const DashboardForm = ({history}) => {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <br />
+
+                  <hr />
+                  <br />
                   {quesType &&
                     options?.length > 1 &&
                     options.map((item, i) => {

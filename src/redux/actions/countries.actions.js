@@ -40,7 +40,7 @@ export const getSingleCountry = (id) => async (dispatch) => {
   try {
     const {
       data: {data},
-    } = await API.get(`admin/v1/country/countryId=${id}`);
+    } = await API.get(`admin/v1/country?countryId=${id}`);
 
     if (data) {
       dispatch({

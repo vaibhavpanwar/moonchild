@@ -73,7 +73,7 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Category</h2>
+              <h2 className="dashboard-form-header">Add Country</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
@@ -163,7 +163,7 @@ const DashboardForm = ({history}) => {
               <div className="dashboard-form-footer">
                 <button
                   className="form-cancel-button"
-                  onClick={() => history.push('/admin/banners')}>
+                  onClick={() => history.push('/admin/countries')}>
                   Cancel
                 </button>
                 <button

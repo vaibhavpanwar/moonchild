@@ -8,6 +8,7 @@ import usersRoutes from './users.routes';
 import dashboardRoutes from './dashboard.routes';
 import contactUsRoutes from './contactUs.routes';
 import questionsRoutes from './questions.routes';
+import countriesRoutes from './countries.routes';
 
 const routes = [
   ...dashboardRoutes,
@@ -15,6 +16,8 @@ const routes = [
   ...categoriesRoutes,
   ...subCategoriesRoutes,
   ...questionsRoutes,
+
+  ...countriesRoutes,
   ...adRoutes,
   ...bannersRoutes,
   ...paymentRoutes,

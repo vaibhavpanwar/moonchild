@@ -122,7 +122,7 @@ const DashboardForm = ({history}) => {
       userType: userType?.enum,
       questionType: quesType?.enum,
       question,
-      options,
+      ...(quesType?.enum !== 1 && {options}),
       categoryId: selectedCategory?._id,
       subCategoryId: selectedSubCategory?._id,
     };

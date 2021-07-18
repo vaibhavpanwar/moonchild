@@ -27,8 +27,8 @@ const DashboardForm = ({history}) => {
   const {id} = useParams();
   //redux
   const dispatch = useDispatch();
-  const {categories} = useSelector((state) => state.categoriesReducer);
-  const {subCategories} = useSelector((state) => state.subCategoriesReducer);
+  //const {categories} = useSelector((state) => state.categoriesReducer);
+  //const {subCategories} = useSelector((state) => state.subCategoriesReducer);
   const {loading, question} = useSelector((state) => state.questionsReducer);
 
   useEffect(() => {
@@ -80,9 +80,7 @@ const DashboardForm = ({history}) => {
                             style={{background: '#fff'}}
                             readOnly
                             placeholder={'select category'}
-                            value={
-                              finder(categories, question?.categoryId)?.name?.en
-                            }
+                            value={question?.categoryId?.name?.en}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -94,10 +92,7 @@ const DashboardForm = ({history}) => {
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            value={
-                              finder(subCategories, question?.subCategoryId)
-                                ?.name?.en
-                            }
+                            value={question?.subCategoryId?.name?.en}
                           />
                         </InputGroup>
                       </FormGroup>

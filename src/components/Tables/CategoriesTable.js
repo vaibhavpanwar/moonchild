@@ -27,6 +27,7 @@ import {useHistory} from 'react-router-dom';
 
 import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import {useTranslation} from 'react-i18next';
+import {getImageUrl} from '../../utils/renderImage.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,6 +102,7 @@ const Tables = () => {
                   <tr>
                     <th scope="col">{t('name')}</th>
 
+                    <th scope="col">{t('icon')}</th>
                     <th scope="col">{t('status')}</th>
                     <th scope="col">{t('actions')}</th>
                   </tr>
@@ -118,6 +120,13 @@ const Tables = () => {
                       {categories?.map((item) => (
                         <tr key={item?._id}>
                           <td>{item?.name?.en}</td>
+                          <td>
+                            <img
+                              alt={'Gulf Workers'}
+                              className=".table-sub-category-icon"
+                              src={getImageUrl(item?.icon, 50, 50)}
+                            />
+                          </td>
 
                           <td>
                             <SwitchSlider

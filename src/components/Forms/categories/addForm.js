@@ -10,11 +10,15 @@ import {
   Label,
   Input,
   Spinner,
+  InputGroup,
 } from 'reactstrap';
 
 import {useDispatch, useSelector} from 'react-redux';
 
 import {addCategory} from '../../../redux/actions/categories.actions.js';
+import {categoriesConstants} from '../../../redux/constants/categories.constants.js';
+import {imageUploader} from '../../../utils/imageUpload.js';
+import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -27,23 +31,36 @@ const DashboardForm = ({history}) => {
     ar: '',
     ph: '',
   });
-
+  const [icon, setIcon] = useState(null);
   const {en, hi, ar, ph} = name;
 
   const onChangeHandler = (e) =>
     setName({...name, [e.target.name]: e.target.value});
 
-  const validateForm = () => !!name;
+  const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
+
+  const validateForm = () =>
+    !!name?.en && name?.ar && name?.ph && name?.hi && icon;
 
   const submitHandler = async () => {
-    dispatch(
-      addCategory(
-        {
-          name,
-        },
-        history,
-      ),
-    );
+    dispatch({type: categoriesConstants.CATEGORY_LOADING});
+    const formData = new FormData();
+    formData.append('image', icon);
+
+    const imageUrl = await imageUploader(formData);
+    if (imageUrl) {
+      dispatch(
+        addCategory(
+          {
+            name,
+            icon: imageUrl,
+          },
+          history,
+        ),
+      );
+    } else {
+      // pop and error
+    }
   };
 
   return (
@@ -107,6 +124,36 @@ const DashboardForm = ({history}) => {
                           name={'ph'}
                           onChange={onChangeHandler}
                         />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="examplePassword">Upload Icon </Label>
+                        <InputGroup>
+                          <label className="form-control chooseFile">
+                            {' '}
+                            <Input
+                              type="file"
+                              name="icon-upload"
+                              placeholder="Ppload file"
+                              onChange={inputFileHandler}>
+                              {' '}
+                            </Input>
+                            {icon && (
+                              <p className="file-input-name">{icon?.name}</p>
+                            )}
+                          </label>
+
+                          <div className="upload-icon">
+                            <img
+                              alt={'upload'}
+                              style={{maxWidth: '15px'}}
+                              src={uploadIcon}
+                            />
+                          </div>
+                        </InputGroup>
                       </FormGroup>
                     </Col>
                   </Row>

@@ -38,8 +38,8 @@ const Tables = ({history}) => {
   const {questions, loading, count} = useSelector(
     (state) => state.questionsReducer,
   );
-  const {categories} = useSelector((state) => state.categoriesReducer);
-  const {subCategories} = useSelector((state) => state.subCategoriesReducer);
+  //const {categories} = useSelector((state) => state.categoriesReducer);
+  //const {subCategories} = useSelector((state) => state.subCategoriesReducer);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
@@ -129,15 +129,8 @@ const Tables = ({history}) => {
                             {finder(quesTypes, item?.questionType)?.name}{' '}
                             {finder(quesTypes, item?.questionType)?.enum}
                           </td>
-                          <td>
-                            {finder(categories, item?.categoryId)?.name?.en}
-                          </td>
-                          <td>
-                            {
-                              finder(subCategories, item?.subCategoryId)?.name
-                                ?.en
-                            }
-                          </td>
+                          <td>{item?.categoryId?.name?.en}</td>
+                          <td>{item?.subCategoryId?.name?.en}</td>
 
                           <td>
                             <SwitchSlider

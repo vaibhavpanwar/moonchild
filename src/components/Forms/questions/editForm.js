@@ -132,9 +132,12 @@ const DashboardForm = ({history}) => {
       userType: userType?.enum,
       questionType: quesType?.enum,
       question,
-      options: options?.map((item) => {
-        return {name: item?.name};
+      ...(quesType?.enum !== 1 && {
+        options: options?.map((item) => {
+          return {name: item?.name};
+        }),
       }),
+
       categoryId: selectedCategory?._id,
       subCategoryId: selectedSubCategory?._id,
       questionId: id,

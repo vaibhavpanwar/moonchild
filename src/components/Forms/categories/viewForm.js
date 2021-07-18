@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {useParams} from 'react-router-dom';
 import {getSingleCategory} from '../../../redux/actions/categories.actions.js';
+import {getImageUrl} from '../../../utils/renderImage.js';
 
 const DashboardForm = ({history}) => {
   //import loading and error as well
@@ -81,6 +82,19 @@ const DashboardForm = ({history}) => {
                           name={'ph'}
                         />
                       </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="examplePassword">Icon </Label>
+                      </FormGroup>
+                      <br />
+
+                      <img
+                        alt={'Gulf wrokers'}
+                        src={getImageUrl(category?.icon, 50, 50)}
+                      />
                     </Col>
                   </Row>
                 </Form>

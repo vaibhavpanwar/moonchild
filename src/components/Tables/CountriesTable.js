@@ -49,7 +49,7 @@ const Tables = () => {
     } else return;
   };
 
-  const activeInactiveCategory = (id) => {
+  const activeInactiveCountry = (id) => {
     dispatch(editCountryStatus(id));
   };
 
@@ -91,7 +91,7 @@ const Tables = () => {
                   )}
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/sub-categories/add')}>
+                    onClick={() => navigateTo('/admin/countries/add')}>
                     {t('add')}
                   </button>
                 </div>
@@ -129,7 +129,7 @@ const Tables = () => {
 
                           <td>
                             <SwitchSlider
-                              clicked={() => activeInactiveCategory(item?._id)}
+                              clicked={() => activeInactiveCountry(item?._id)}
                               checked={item?.status === 1}
                             />{' '}
                           </td>
@@ -140,9 +140,7 @@ const Tables = () => {
                               className="td-action-img"
                               src={eyeIcon}
                               onClick={() =>
-                                navigateTo(
-                                  `/admin/sub-categories/view/${item._id}`,
-                                )
+                                navigateTo(`/admin/countries/view/${item._id}`)
                               }
                             />
                             <img
@@ -150,9 +148,7 @@ const Tables = () => {
                               className="td-action-img"
                               src={editIcon}
                               onClick={() =>
-                                navigateTo(
-                                  `/admin/sub-categories/edit/${item._id}`,
-                                )
+                                navigateTo(`/admin/countries/edit/${item._id}`)
                               }
                             />
                             <img

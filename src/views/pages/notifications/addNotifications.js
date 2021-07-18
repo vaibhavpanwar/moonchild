@@ -1,7 +1,7 @@
 import React from 'react';
-
-const addNotifications = () => {
-  return <div>addncation</div>;
+import AddForm from '../../../components/Forms/notifications/addForm';
+const addNotifications = ({history}) => {
+  return <AddForm history={history} />;
 };
 
 export default addNotifications;

@@ -6,6 +6,7 @@ import subCategoriesReducer from './sub-categories.reducer';
 import usersReducer from './users.reducer';
 import contactUsReducer from './contactUs.reducer';
 import questionsReducer from './questions.reducer';
+import notificationsReducer from './notifications.reducer';
 
 const reducers = combineReducers({
   auth,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   usersReducer,
   contactUsReducer,
   questionsReducer,
+  notificationsReducer,
 });
 
 export default reducers;

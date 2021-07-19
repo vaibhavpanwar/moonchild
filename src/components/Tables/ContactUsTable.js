@@ -16,7 +16,7 @@ import nonReplyIcon from '../../assets/images/icons/table/table-non-reply.svg';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {listContactUs} from '../../redux/actions/contactUs.actions';
-
+import moment from 'moment';
 const Tables = () => {
   const dispatch = useDispatch();
   const {contacts, loading} = useSelector((state) => state.contactUsReducer);
@@ -75,7 +75,9 @@ const Tables = () => {
                           <td>{item?.name}</td>
                           <td>{item?.email}</td>
                           <td>{item?.phoneNumber}</td>
-                          <td>{item?.lastActive}</td>
+                          <td>
+                            {moment(item?.createdAt).format('DD/MM/YYYY')}
+                          </td>
                           <td>
                             {item?.status === 2 ? (
                               <p className="replied">Replied</p>

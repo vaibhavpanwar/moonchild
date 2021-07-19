@@ -18,6 +18,7 @@ import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import {useDispatch, useSelector} from 'react-redux';
 import {listUsers, deleteUser} from '../../redux/actions/users.actions.js';
 import Pagination from '../Pagination/paginate';
+import moment from 'moment';
 
 const Tables = ({history}) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,9 +103,14 @@ const Tables = ({history}) => {
                       {users?.map((item) => (
                         <tr>
                           <td>{item?.name}</td>
-                          <td>{item?.createdAt}</td>
+                          <td>
+                            {moment(item?.createdAt).format('DD/MM/YYYY')}
+                          </td>
                           <td>{item?.fullNumber}</td>
-                          <td>{item?.lastOnline}</td>
+                          <td>
+                            {' '}
+                            {moment(item?.lastOnline).format('DD/MM/YYYY')}
+                          </td>
                           <td>{item?.numberOfAdds}</td>
 
                           <td>

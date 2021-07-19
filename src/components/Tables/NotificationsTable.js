@@ -18,6 +18,7 @@ import {listNotifications} from '../../redux/actions/notifications.actions.js';
 import {useDispatch, useSelector} from 'react-redux';
 import Pagination from '../Pagination/paginate';
 import {useHistory} from 'react-router-dom';
+import moment from 'moment';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +87,7 @@ const Tables = () => {
                       <td>{item?.title?.en}</td>
                       <td>{item?.message?.en}</td>
                       <td>{item?.topic}</td>
-                      <td>{item?.createdAt}</td>
+                      <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
                       <td>
                         <img
                           alt={'Gulf Workers'}

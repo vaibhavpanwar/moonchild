@@ -21,6 +21,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Pagination from '../Pagination/paginate';
 import {useHistory} from 'react-router-dom';
 import {listAds} from '../../redux/actions/ads.actions';
+import moment from 'moment';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +87,7 @@ const Tables = () => {
                   {ads?.map((item) => (
                     <tr key={item?._id}>
                       <td>{item?.userId?.name}</td>
-                      <td>{item?.createdAt}</td>
+                      <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
 
                       <td>{item?.categoryId?.name?.en}</td>
                       <td>{item?.subCategoryId?.name?.en}</td>

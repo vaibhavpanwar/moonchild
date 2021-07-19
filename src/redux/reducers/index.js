@@ -8,6 +8,7 @@ import contactUsReducer from './contactUs.reducer';
 import questionsReducer from './questions.reducer';
 import notificationsReducer from './notifications.reducer';
 import countriesReducer from './countries.reducer';
+import adsReducer from './ads.reducer';
 
 const reducers = combineReducers({
   auth,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   contactUsReducer,
   questionsReducer,
   notificationsReducer,
+  adsReducer,
   countriesReducer,
 });
 

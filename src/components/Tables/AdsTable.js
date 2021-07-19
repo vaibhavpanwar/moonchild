@@ -1,16 +1,14 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 // reactstrap components
 import {
   Card,
   CardHeader,
   CardFooter,
-  Pagination,
-  PaginationItem,
-  PaginationLink,
   Table,
   Container,
   Row,
+  Spinner,
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
@@ -19,9 +17,27 @@ import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
 import {useTranslation} from 'react-i18next';
+import {useDispatch, useSelector} from 'react-redux';
+import Pagination from '../Pagination/paginate';
+import {useHistory} from 'react-router-dom';
+import {listAds} from '../../redux/actions/ads.actions';
 
 const Tables = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(15);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
   const {t} = useTranslation();
+  const dispatch = useDispatch();
+  const {ads, loading, count} = useSelector((state) => state.adsReducer);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const history = useHistory();
+  const navigateTo = (route) => history.push(route);
+
+  useEffect(() => {
+    dispatch(listAds(postsPerPage, currentPage, searchKeyword));
+  }, [dispatch, postsPerPage, currentPage, searchKeyword]);
   return (
     <>
       <Header cardsVisible={false} />
@@ -37,9 +53,20 @@ const Tables = () => {
                     placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
+                    value={searchKeyword}
+                    onChange={(e) => {
+                      setCurrentPage(1);
+                      setSearchKeyword(e.target.value);
+                    }}
                   />
-
-                  <button className="mb-0 table-header-button">
+                  {loading && (
+                    <div className="table-loader">
+                      <Spinner color={'info'} />
+                    </div>
+                  )}
+                  <button
+                    className="mb-0 table-header-button"
+                    onClick={() => navigateTo('/admin/ads/add')}>
                     {t('add')}
                   </button>
                 </div>
@@ -56,305 +83,50 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
+                  {ads?.map((item) => (
+                    <tr key={item?._id}>
+                      <td>{item?.userId?.name}</td>
+                      <td>{item?.createdAt}</td>
 
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
+                      <td>{item?.categoryId?.name?.en}</td>
+                      <td>{item?.subCategoryId?.name?.en}</td>
 
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
+                      <td>
+                        <SwitchSlider />{' '}
+                      </td>
 
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Rajesh Koothrapali</td>
-                    <td>12/05/2015</td>
-                    <td>Medical</td>
-                    <td>Compounder</td>
-
-                    <td>
-                      <SwitchSlider />{' '}
-                    </td>
-
-                    <td>
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={eyeIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={editIcon}
-                      />
-                      <img
-                        alt={'Gulf Workers'}
-                        className="td-action-img"
-                        src={deleteIcon}
-                      />
-                    </td>
-                  </tr>
+                      <td>
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={eyeIcon}
+                        />
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={editIcon}
+                        />
+                        <img
+                          alt={'Gulf Workers'}
+                          className="td-action-img"
+                          src={deleteIcon}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                  <tr></tr>
                 </tbody>
               </Table>
               <CardFooter className="py-4">
-                <nav aria-label="...">
+                {count > postsPerPage && (
                   <Pagination
-                    className="pagination justify-content-end mb-0"
-                    listClassName="justify-content-end mb-0">
-                    <PaginationItem className="disabled">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                        tabIndex="-1">
-                        <i className="fas fa-angle-left" />
-                        <span className="sr-only">Previous</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem className="active">
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        3
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}>
-                        <i className="fas fa-angle-right" />
-                        <span className="sr-only">Next</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                  </Pagination>
-                </nav>
+                    postsPerPage={postsPerPage}
+                    totalPosts={count}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    paginate={paginate}
+                  />
+                )}
               </CardFooter>
             </Card>
           </div>

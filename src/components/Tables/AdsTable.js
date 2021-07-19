@@ -66,7 +66,7 @@ const Tables = () => {
                   )}
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/ads/add')}>
+                    onClick={() => navigateTo('/admin/ads/addAd')}>
                     {t('add')}
                   </button>
                 </div>

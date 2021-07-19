@@ -90,7 +90,7 @@ const Tables = () => {
 
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/banners/add')}>
+                    onClick={() => navigateTo('/admin/banners/addBanner')}>
                     {t('add')}
                   </button>
                 </div>
@@ -148,7 +148,9 @@ const Tables = () => {
                               className="td-action-img"
                               src={editIcon}
                               onClick={() =>
-                                navigateTo(`/admin/banners/edit/${item._id}`)
+                                navigateTo(
+                                  `/admin/banners/editBanner/${item._id}`,
+                                )
                               }
                             />
                             <img

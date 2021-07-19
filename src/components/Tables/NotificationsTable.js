@@ -62,7 +62,9 @@ const Tables = () => {
                   />
                   {loading && <Spinner color={'info'} />}
                   <button
-                    onClick={() => navigateTo('/admin/notifications/add')}
+                    onClick={() =>
+                      navigateTo('/admin/notifications/addNotification')
+                    }
                     className="mb-0 table-header-button">
                     {t('sendNotifications')}
                   </button>
@@ -91,7 +93,9 @@ const Tables = () => {
                           className="td-action-img"
                           src={roundIcon}
                           onClick={() =>
-                            navigateTo(`/admin/notifications/add/${item?._id}`)
+                            navigateTo(
+                              `/admin/notifications/addNotification/${item?._id}`,
+                            )
                           }
                         />
                       </td>

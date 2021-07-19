@@ -15,7 +15,7 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/questions/add',
+    path: '/admin/questions/addQuestion',
     name: i18.t('question'),
     icon: 'user-icon',
     component: QuestionsAdd,
@@ -24,7 +24,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/questions/view/:id',
+    path: '/admin/questions/viewQuestion/:id',
     name: i18.t('question'),
     icon: 'user-icon',
     component: QuestionsView,
@@ -33,7 +33,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/questions/edit/:id',
+    path: '/admin/questions/editQuestion/:id',
     name: i18.t('question'),
     icon: 'user-icon',
     component: QuestionsEdit,

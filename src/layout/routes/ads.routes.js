@@ -13,7 +13,7 @@ let adRoutes = [
     sideBar: true,
   },
   {
-    path: '/admin/ads/add',
+    path: '/admin/ads/addAd',
     name: i18.t('ads'),
     icon: 'ad-icon',
     component: AdsAdd,

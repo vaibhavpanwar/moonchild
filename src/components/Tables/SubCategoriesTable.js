@@ -91,7 +91,9 @@ const Tables = () => {
                   )}
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/sub-categories/add')}>
+                    onClick={() =>
+                      navigateTo('/admin/sub-categories/addSubCategory')
+                    }>
                     {t('add')}
                   </button>
                 </div>
@@ -141,7 +143,7 @@ const Tables = () => {
                               src={eyeIcon}
                               onClick={() =>
                                 navigateTo(
-                                  `/admin/sub-categories/view/${item._id}`,
+                                  `/admin/sub-categories/viewSubCategory/${item._id}`,
                                 )
                               }
                             />
@@ -151,7 +153,7 @@ const Tables = () => {
                               src={editIcon}
                               onClick={() =>
                                 navigateTo(
-                                  `/admin/sub-categories/edit/${item._id}`,
+                                  `/admin/sub-categories/editSubCategory/${item._id}`,
                                 )
                               }
                             />

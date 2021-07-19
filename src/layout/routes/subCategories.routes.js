@@ -15,7 +15,7 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/sub-categories/add',
+    path: '/admin/sub-categories/addSubCategory',
     name: i18.t('subCategories'),
     icon: 'sub-category-icon',
     component: SubCategoriesAdd,
@@ -24,7 +24,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/sub-categories/edit/:id',
+    path: '/admin/sub-categories/editSubCategory/:id',
     name: i18.t('subCategories'),
     icon: 'sub-category-icon',
     component: SubCategoriesEdit,
@@ -33,7 +33,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/sub-categories/view/:id',
+    path: '/admin/sub-categories/viewSubCategory/:id',
     name: i18.t('subCategories'),
     icon: 'sub-category-icon',
     component: SubCategoriesView,

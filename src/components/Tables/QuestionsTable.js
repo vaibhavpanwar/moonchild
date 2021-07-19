@@ -89,7 +89,9 @@ const Tables = ({history}) => {
                   )}
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => history.push('/admin/questions/add')}>
+                    onClick={() =>
+                      history.push('/admin/questions/addQuestion')
+                    }>
                     {t('add')}
                   </button>
                 </div>
@@ -163,7 +165,9 @@ const Tables = ({history}) => {
                               className="td-action-img"
                               src={eyeIcon}
                               onClick={() =>
-                                navigateTo(`/admin/questions/view/${item._id}`)
+                                navigateTo(
+                                  `/admin/questions/viewQuestion/${item._id}`,
+                                )
                               }
                             />
                             <img
@@ -171,7 +175,9 @@ const Tables = ({history}) => {
                               className="td-action-img"
                               src={editIcon}
                               onClick={() =>
-                                navigateTo(`/admin/questions/edit/${item._id}`)
+                                navigateTo(
+                                  `/admin/questions/editQuestion/${item._id}`,
+                                )
                               }
                             />
                             <img

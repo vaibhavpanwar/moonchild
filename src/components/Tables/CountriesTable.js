@@ -91,7 +91,7 @@ const Tables = () => {
                   )}
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/countries/add')}>
+                    onClick={() => navigateTo('/admin/countries/addCountry')}>
                     {t('add')}
                   </button>
                 </div>
@@ -140,7 +140,9 @@ const Tables = () => {
                               className="td-action-img"
                               src={eyeIcon}
                               onClick={() =>
-                                navigateTo(`/admin/countries/view/${item._id}`)
+                                navigateTo(
+                                  `/admin/countries/viewCountry/${item._id}`,
+                                )
                               }
                             />
                             <img
@@ -148,7 +150,9 @@ const Tables = () => {
                               className="td-action-img"
                               src={editIcon}
                               onClick={() =>
-                                navigateTo(`/admin/countries/edit/${item._id}`)
+                                navigateTo(
+                                  `/admin/countries/editCountry/${item._id}`,
+                                )
                               }
                             />
                             <img

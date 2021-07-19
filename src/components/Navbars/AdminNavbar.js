@@ -12,18 +12,27 @@ import {
   Media,
 } from 'reactstrap';
 import {useHistory} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 const AdminNavbar = (props) => {
+  const {t} = useTranslation();
   const history = useHistory();
   const getCurrentPage = () => props.location.pathname?.split('/')?.[2];
   const getCurrentSubPage = () => props.location.pathname?.split('/')?.[3];
+  const getCurrentSubPageId = () => props.location.pathname?.split('/')?.[4];
 
   const navigationHandler = () => {
     history.push(`/admin/${getCurrentPage()}`);
   };
 
   const subNavigationHandler = () => {
-    history.push(`/admin/${getCurrentPage()}/${getCurrentSubPage()}`);
+    if (getCurrentSubPageId()) {
+      history.push(
+        `/admin/${getCurrentPage()}/${getCurrentSubPage()}/${getCurrentSubPageId()}`,
+      );
+    } else {
+      history.push(`/admin/${getCurrentPage()}/${getCurrentSubPage()}`);
+    }
   };
 
   return (
@@ -36,14 +45,14 @@ const AdminNavbar = (props) => {
                 getCurrentSubPage() && 'disabled-breadcrumb '
               }`}
               onClick={navigationHandler}>
-              {getCurrentPage()?.replaceAll('-', ' ')}
+              {t(getCurrentPage()?.replaceAll('-', ' '))}
             </p>
             {getCurrentSubPage() && (
               <p
                 className="breadcrumb-item-custom"
                 onClick={subNavigationHandler}>
                 {'> '}
-                {getCurrentSubPage()?.replaceAll('-', ' ')} {getCurrentPage()}
+                {t(getCurrentSubPage()?.replaceAll('-', ' '))}
               </p>
             )}
           </div>

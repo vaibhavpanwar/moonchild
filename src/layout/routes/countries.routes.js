@@ -15,7 +15,7 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/countries/add',
+    path: '/admin/countries/addCountry',
     name: i18.t('countries'),
     icon: 'banner-icon',
     component: CountryAdd,
@@ -24,7 +24,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/countries/edit/:id',
+    path: '/admin/countries/editCountry/:id',
     name: i18.t('countries'),
     icon: 'banner-icon',
     component: CountryEdit,
@@ -33,7 +33,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/countries/view/:id',
+    path: '/admin/countries/viewCountry/:id',
     name: i18.t('countries'),
     icon: 'banner-icon',
     component: CountryView,

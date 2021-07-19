@@ -14,7 +14,7 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/users/add',
+    path: '/admin/users/addUser',
     name: i18.t('users'),
     icon: 'user-icon',
     component: UsersAdd,
@@ -23,7 +23,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/users/edit/:id',
+    path: '/admin/users/editUser/:id',
     name: i18.t('users'),
     icon: 'user-icon',
     component: UsersEdit,
@@ -32,7 +32,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/users/view/:id',
+    path: '/admin/users/viewUser/:id',
     name: i18.t('users'),
     icon: 'user-icon',
     component: UsersView,

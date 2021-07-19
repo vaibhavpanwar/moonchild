@@ -92,7 +92,7 @@ const Tables = () => {
                   )}
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/categories/add')}>
+                    onClick={() => navigateTo('/admin/categories/addCategory')}>
                     {t('add')}
                   </button>
                 </div>
@@ -141,7 +141,9 @@ const Tables = () => {
                               className="td-action-img"
                               src={eyeIcon}
                               onClick={() =>
-                                navigateTo(`/admin/categories/view/${item._id}`)
+                                navigateTo(
+                                  `/admin/categories/viewCategory/${item._id}`,
+                                )
                               }
                             />
                             <img
@@ -149,7 +151,9 @@ const Tables = () => {
                               className="td-action-img"
                               src={editIcon}
                               onClick={() =>
-                                navigateTo(`/admin/categories/edit/${item._id}`)
+                                navigateTo(
+                                  `/admin/categories/editCategory/${item._id}`,
+                                )
                               }
                             />
                             <img

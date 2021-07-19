@@ -14,7 +14,7 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/banners/add',
+    path: '/admin/banners/addBanner',
     name: i18.t('banners'),
     icon: 'banner-icon',
     component: BannerAdd,
@@ -23,7 +23,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/banners/edit/:id',
+    path: '/admin/banners/editBanner/:id',
     name: i18.t('banners'),
     icon: 'banner-icon',
     component: BannerEdit,

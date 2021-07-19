@@ -14,7 +14,7 @@ let routes = [
   },
 
   {
-    path: '/admin/notifications/add',
+    path: '/admin/notifications/addNotification',
     name: i18.t('notifications'),
     icon: 'notification-icon',
     component: NotificationsAdd,
@@ -24,7 +24,7 @@ let routes = [
   },
 
   {
-    path: '/admin/notifications/add/:id',
+    path: '/admin/notifications/addNotification/:id',
     name: i18.t('notifications'),
     icon: 'notification-icon',
     component: NotificationsAdd,

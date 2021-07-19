@@ -14,7 +14,7 @@ let routes = [
     sideBar: true,
   },
   {
-    path: '/admin/categories/add',
+    path: '/admin/categories/addCategory',
     name: i18.t('categories'),
     icon: 'category-icon',
     component: CategoriesAdd,
@@ -23,7 +23,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/categories/edit/:id',
+    path: '/admin/categories/editCategory/:id',
     name: i18.t('categories'),
     icon: 'category-icon',
     component: CategoriesEdit,
@@ -32,7 +32,7 @@ let routes = [
     sideBar: false,
   },
   {
-    path: '/admin/categories/view/:id',
+    path: '/admin/categories/viewCategory/:id',
     name: i18.t('categories'),
     icon: 'category-icon',
     component: CategoriesView,

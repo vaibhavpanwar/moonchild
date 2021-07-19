@@ -73,7 +73,7 @@ const Tables = ({history}) => {
 
                   <button
                     className="mb-0 table-header-button"
-                    onClick={() => navigateTo('/admin/users/add')}>
+                    onClick={() => navigateTo('/admin/users/addUser')}>
                     {t('add')}
                   </button>
                 </div>
@@ -113,7 +113,7 @@ const Tables = ({history}) => {
                               className="td-action-img"
                               src={eyeIcon}
                               onClick={() =>
-                                navigateTo(`/admin/users/view/${item._id}`)
+                                navigateTo(`/admin/users/viewUser/${item._id}`)
                               }
                             />
                             <img
@@ -121,7 +121,7 @@ const Tables = ({history}) => {
                               className="td-action-img"
                               src={editIcon}
                               onClick={() =>
-                                navigateTo(`/admin/users/edit/${item._id}`)
+                                navigateTo(`/admin/users/editUser/${item._id}`)
                               }
                             />
                             <img

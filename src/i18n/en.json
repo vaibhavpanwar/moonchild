@@ -10,6 +10,7 @@
   "dashboard": "Dashboard",
   "contactUs": "Contact Us",
   "notifications": "Notifications",
+  "Questions": "Questions",
   "subCategories": "Sub Categories",
   "subCategory": "Sub Category",
   "category": "Category",
@@ -17,6 +18,7 @@
   "payments": "Payments",
   "users": "Users",
   "banners": "Banners",
+  "countries": "Countries",
 
   "add": "Add",
   "name": "Name",
@@ -44,5 +46,32 @@
   "transactionId": "Transaction Id",
   "paymentDate": "Payment Date",
   "amount": "amount",
-  "question": "Questions"
+  "question": "Questions",
+
+  "addAd": "Add Ad",
+  "addBanner": "Add Banner",
+  "addCountry": "Add Country",
+  "addCategory": "Add Category",
+  "addSubCategory": "Add Sub Category",
+  "addNotification": "Add Notification",
+  "addUser": "Add User",
+  "addQuestion": "Add Question",
+
+  "editAd": "Edit Ad",
+  "editBanner": "Edit Banner",
+  "editCountry": "Edit Country",
+  "editCategory": "Edit Category",
+  "editSubCategory": "Edit Sub Category",
+  "editNotification": "Edit Notification",
+  "editUser": "Edit User",
+  "editQuestion": "Edit Question",
+
+  "viewAd": "View Ad",
+  "viewBanner": "View Banner",
+  "viewCountry": "View Country",
+  "viewCategory": "View Category",
+  "viewSubCategory": "View Sub Category",
+  "viewNotification": "View Notification",
+  "viewUser": "View User",
+  "viewQuestion": "View Question"
 }

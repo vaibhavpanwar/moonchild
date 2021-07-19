@@ -56,6 +56,7 @@ export const getSingleQuestion = (id) => async (dispatch) => {
 };
 
 export const addQuestion = (formData, history) => async (dispatch) => {
+  console.log(formData, 'qeus data');
   await headerSetup();
   dispatch({type: questionsConstants.QUESTION_LOADING});
 

@@ -95,6 +95,7 @@ export const getToken = () => {
 
 export const logout = () => {
   localStorage.removeItem('@gulf-worker-uni/auth-key');
+  window.location.href = '/login';
 };
 
 export const i18nextLng = () => {

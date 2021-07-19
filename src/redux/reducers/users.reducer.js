@@ -55,7 +55,14 @@ const usersReducer = (state = {users: [], user: {}}, action) => {
 
     case usersConstants.USER_ERROR:
       return {...state, loading: false, error: action.payload};
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        users: [],
+        user: {},
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }

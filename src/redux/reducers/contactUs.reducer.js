@@ -55,7 +55,14 @@ const contactUsReducers = (state = {contacts: [], contact: {}}, action) => {
 
     case contactUsConstants.CONTACT_US_ERROR:
       return {...state, loading: false, error: action.payload};
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        contacts: [],
+        contact: {},
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }

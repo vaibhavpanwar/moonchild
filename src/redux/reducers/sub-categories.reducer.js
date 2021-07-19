@@ -61,7 +61,14 @@ const subCategoriesReducer = (
 
     case subCategoriesConstants.SUB_CATEGORY_ERROR:
       return {...state, loading: false, error: action.payload};
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        subCategories: [],
+        subCategory: {},
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }

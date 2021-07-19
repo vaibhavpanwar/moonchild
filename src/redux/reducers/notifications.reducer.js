@@ -60,7 +60,14 @@ const notificationsReducer = (
 
     case notificationsConstants.NOTIFICATION_ERROR:
       return {...state, loading: false, error: action.payload};
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        notifications: [],
+        notification: {},
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }

@@ -55,7 +55,14 @@ const countriesReducer = (state = {countries: [], country: {}}, action) => {
 
     case countriesConstants.COUNTRY_ERROR:
       return {...state, loading: false, error: action.payload};
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        countries: [],
+        country: {},
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }

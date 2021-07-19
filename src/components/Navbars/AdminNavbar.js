@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 // reactstrap components
 import {
   DropdownMenu,
@@ -13,8 +13,10 @@ import {
 } from 'reactstrap';
 import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
-
+import {useDispatch} from 'react-redux';
+import {logout} from '../../services/auth';
 const AdminNavbar = (props) => {
+  const dispatch = useDispatch();
   const {t} = useTranslation();
   const history = useHistory();
   const getCurrentPage = () => props.location.pathname?.split('/')?.[2];
@@ -102,7 +104,7 @@ const AdminNavbar = (props) => {
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
+                {/* <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Welcome!</h6>
                 </DropdownItem>
                 <DropdownItem to="/admin/user-profile" tag={Link}>
@@ -125,6 +127,20 @@ const AdminNavbar = (props) => {
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
                   <span>Logout</span>
+                </DropdownItem> */}
+                <DropdownItem
+                  href="#pablo"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch({type: 'LOGOUT'});
+                    logout();
+                  }}>
+                  <i className="ni ni-user-run" />
+                  <span>Logout</span>
+                </DropdownItem>
+                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                  <i className="ni ni-user-run" />
+                  <span>English</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

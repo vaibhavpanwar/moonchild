@@ -56,6 +56,15 @@ const bannersReducer = (state = {banners: [], banner: {}}, action) => {
     case bannersConstants.BANNER_ERROR:
       return {...state, loading: false, error: action.payload};
 
+    case 'LOGOUT':
+      return {
+        ...state,
+        banners: [],
+        banner: {},
+        loading: false,
+        error: null,
+      };
+
     default:
       return state;
   }

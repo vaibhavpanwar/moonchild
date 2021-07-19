@@ -52,7 +52,14 @@ const questionsReducer = (state = {questions: [], question: {}}, action) => {
 
         question: {},
       };
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        questions: [],
+        question: {},
+        loading: false,
+        error: null,
+      };
     case questionsConstants.QUESTION_ERROR:
       return {...state, loading: false, error: action.payload};
 

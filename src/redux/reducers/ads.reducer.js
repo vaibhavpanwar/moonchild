@@ -52,6 +52,14 @@ const adsReducer = (state = {ads: [], ad: {}}, action) => {
 
         ad: {},
       };
+    case 'LOGOUT':
+      return {
+        ...state,
+        ads: [],
+        ad: {},
+        loading: false,
+        error: null,
+      };
 
     case adsConstants.AD_ERROR:
       return {...state, loading: false, error: action.payload};

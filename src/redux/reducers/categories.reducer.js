@@ -57,7 +57,14 @@ const categoriesReducer = (state = {categories: [], category: {}}, action) => {
 
     case categoriesConstants.CATEGORY_ERROR:
       return {...state, loading: false, error: action.payload};
-
+    case 'LOGOUT':
+      return {
+        ...state,
+        ccategories: [],
+        category: {},
+        loading: false,
+        error: null,
+      };
     default:
       return state;
   }

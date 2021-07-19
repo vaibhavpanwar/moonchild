@@ -131,8 +131,16 @@ const Tables = ({history}) => {
                             {finder(quesTypes, item?.questionType)?.name}{' '}
                             {finder(quesTypes, item?.questionType)?.enum}
                           </td>
-                          <td>{item?.categoryId?.name?.en}</td>
-                          <td>{item?.subCategoryId?.name?.en}</td>
+                          <td>
+                            {item?.categoryId?.name?.en
+                              ? item?.categoryId?.name?.en
+                              : 'N/A'}
+                          </td>
+                          <td>
+                            {item?.subCategoryId?.name?.en
+                              ? item?.subCategoryId?.name?.en
+                              : 'N/A'}
+                          </td>
 
                           <td>
                             <SwitchSlider

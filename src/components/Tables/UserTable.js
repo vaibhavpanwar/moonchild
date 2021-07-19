@@ -104,7 +104,7 @@ const Tables = ({history}) => {
                           <td>{item?.name}</td>
                           <td>{item?.createdAt}</td>
                           <td>{item?.fullNumber}</td>
-                          <td>{item?.lastActive}</td>
+                          <td>{item?.lastOnline}</td>
                           <td>{item?.numberOfAdds}</td>
 
                           <td>

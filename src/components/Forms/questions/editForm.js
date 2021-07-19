@@ -36,7 +36,7 @@ const DashboardForm = ({history}) => {
   //redux
   const dispatch = useDispatch();
   const {categories} = useSelector((state) => state.categoriesReducer);
-  const {subCategories} = useSelector((state) => state.subCategoriesReducer);
+  // const {subCategories} = useSelector((state) => state.subCategoriesReducer);
   const {loading, question: questionById} = useSelector(
     (state) => state.questionsReducer,
   );
@@ -166,10 +166,8 @@ const DashboardForm = ({history}) => {
   useEffect(() => {
     if (!!questionById?.question) {
       setQuestion(questionById?.question);
-      setSelectedCategory(finder(categories, questionById?.categoryId));
-      setSelectedSubCategory(
-        finder(subCategories, questionById?.subCategoryId),
-      );
+      setSelectedCategory(questionById?.categoryId);
+      setSelectedSubCategory(questionById?.subCategoryId);
       setUserType(finder(userTypes, questionById?.userType));
       setOptions(questionById?.options);
       setQuesType(finder(quesTypes, questionById?.questionType));

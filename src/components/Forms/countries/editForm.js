@@ -176,6 +176,7 @@ const DashboardForm = ({history}) => {
                             {' '}
                             <Input
                               type="file"
+                              accept="image/png, image/jpg, image/jpeg"
                               name="icon-upload"
                               placeholder="Ppload file"
                               onChange={inputFileHandler}>

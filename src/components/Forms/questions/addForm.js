@@ -57,15 +57,19 @@ const DashboardForm = ({history}) => {
   const {en, hi, ar, ph} = question;
 
   const validateForm = () =>
-    selectedCategory &&
     question?.en &&
     question?.hi &&
     question?.ar &&
     question?.ph &&
     options &&
-    selectedSubCategory &&
     userType &&
-    quesType;
+    quesType &&
+    categAndSubCategValidation();
+
+  const categAndSubCategValidation = () =>
+    ![3, 4].includes(userType?.enum)
+      ? selectedCategory && selectedSubCategory
+      : true;
 
   //dynamic options field
 
@@ -123,8 +127,12 @@ const DashboardForm = ({history}) => {
       questionType: quesType?.enum,
       question,
       ...(quesType?.enum !== 1 && {options}),
-      categoryId: selectedCategory?._id,
-      subCategoryId: selectedSubCategory?._id,
+      ...(![3, 4].includes(userType?.enum) && {
+        categoryId: selectedCategory?._id,
+      }),
+      ...(![3, 4].includes(userType?.enum) && {
+        subCategoryId: selectedSubCategory?._id,
+      }),
     };
     dispatch(addQuestion(formData, history));
 
@@ -229,67 +237,32 @@ const DashboardForm = ({history}) => {
                         </InputGroup>
                       </FormGroup>
                     </Col>
-                    <Col lg={4} md={6} sm={12}>
-                      <FormGroup>
-                        <Label for="examplePassword">Category </Label>
-                        <InputGroup>
-                          <Input
-                            style={{background: '#fff'}}
-                            readOnly
-                            placeholder={'select category'}
-                            value={selectedCategory?.name?.en}
-                          />
-                          <InputGroupButtonDropdown
-                            addonType="append"
-                            isOpen={categoryDropdownOpen}
-                            toggle={() =>
-                              setCategoryDropdownOpen(!categoryDropdownOpen)
-                            }>
-                            <DropdownToggle>
-                              <p>{'>'}</p>
-                            </DropdownToggle>
-                            <DropdownMenu>
-                              {categories?.map((item) => (
-                                <DropdownItem
-                                  onClick={() => categoryChangeHandler(item)}>
-                                  {item?.name?.en}
-                                </DropdownItem>
-                              ))}
-                            </DropdownMenu>
-                          </InputGroupButtonDropdown>
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col lg={4} md={6} sm={12}>
-                      {selectedCategory?._id &&
-                        (subCategoriesList?.length === 0 ? (
-                          <p>No sub categories found</p>
-                        ) : (
+                    {![3, 4].includes(userType?.enum) && (
+                      <>
+                        <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Sub Category </Label>
+                            <Label for="examplePassword">Category </Label>
                             <InputGroup>
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
-                                placeholder={'select sub category'}
-                                value={selectedSubCategory?.name?.en}
+                                placeholder={'select category'}
+                                value={selectedCategory?.name?.en}
                               />
                               <InputGroupButtonDropdown
                                 addonType="append"
-                                isOpen={subCategoryDropdownOpen}
+                                isOpen={categoryDropdownOpen}
                                 toggle={() =>
-                                  setSubCategoryDropdownOpen(
-                                    !subCategoryDropdownOpen,
-                                  )
+                                  setCategoryDropdownOpen(!categoryDropdownOpen)
                                 }>
                                 <DropdownToggle>
                                   <p>{'>'}</p>
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                  {subCategoriesList?.map((item) => (
+                                  {categories?.map((item) => (
                                     <DropdownItem
                                       onClick={() =>
-                                        subCategoryChangeHandler(item)
+                                        categoryChangeHandler(item)
                                       }>
                                       {item?.name?.en}
                                     </DropdownItem>
@@ -298,8 +271,51 @@ const DashboardForm = ({history}) => {
                               </InputGroupButtonDropdown>
                             </InputGroup>
                           </FormGroup>
-                        ))}
-                    </Col>
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          {selectedCategory?._id &&
+                            (subCategoriesList?.length === 0 ? (
+                              <p>No sub categories found</p>
+                            ) : (
+                              <FormGroup>
+                                <Label for="examplePassword">
+                                  Sub Category{' '}
+                                </Label>
+                                <InputGroup>
+                                  <Input
+                                    style={{background: '#fff'}}
+                                    readOnly
+                                    placeholder={'select sub category'}
+                                    value={selectedSubCategory?.name?.en}
+                                  />
+                                  <InputGroupButtonDropdown
+                                    addonType="append"
+                                    isOpen={subCategoryDropdownOpen}
+                                    toggle={() =>
+                                      setSubCategoryDropdownOpen(
+                                        !subCategoryDropdownOpen,
+                                      )
+                                    }>
+                                    <DropdownToggle>
+                                      <p>{'>'}</p>
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                      {subCategoriesList?.map((item) => (
+                                        <DropdownItem
+                                          onClick={() =>
+                                            subCategoryChangeHandler(item)
+                                          }>
+                                          {item?.name?.en}
+                                        </DropdownItem>
+                                      ))}
+                                    </DropdownMenu>
+                                  </InputGroupButtonDropdown>
+                                </InputGroup>
+                              </FormGroup>
+                            ))}
+                        </Col>
+                      </>
+                    )}
                   </Row>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>

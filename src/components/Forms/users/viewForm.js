@@ -63,7 +63,7 @@ const DashboardForm = () => {
                         <Input
                           type="tel"
                           placeholder="Enter full phone numbe"
-                          value={user?.fullName}
+                          value={user?.fullNumber}
                           readOnly
                         />
                       </FormGroup>

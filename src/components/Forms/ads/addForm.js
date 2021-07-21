@@ -19,6 +19,7 @@ import {
   DropdownToggle,
   Spinner,
 } from 'reactstrap';
+import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 
 import {userTypes} from '../questions/data';
 import {getSubCategByCateg} from '../../../utils/subCategory.js';
@@ -27,25 +28,36 @@ import {useDispatch, useSelector} from 'react-redux';
 import {listCategories} from '../../../redux/actions/categories.actions.js';
 import {listCountries} from '../../../redux/actions/countries.actions';
 import {getAdQuestions} from '../../../utils/questions.js';
+import {adsConstants} from '../../../redux/constants/ads.constants.js';
+import {imageUploader} from '../../../utils/imageUpload.js';
+import {addAd} from '../../../redux/actions/ads.actions.js';
+import {useHistory} from 'react-router-dom';
+import {listUsers} from '../../../redux/actions/users.actions.js';
 
 const DashboardForm = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const {categories} = useSelector((state) => state.categoriesReducer);
   const {countries} = useSelector((state) => state.countriesReducer);
+  const {users} = useSelector((state) => state.usersReducer);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [userType, setUserType] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [selectedUserAccount, setSelectedUserAccount] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [subCategoriesList, setSubCategoriesList] = useState([]);
 
   const [countryDropdownOpen, setCountrydropdownOpen] = useState(false);
+  const [userAccountDropdownOpen, setUserAccountDropdownOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [subCategoryDropdownOpen, setSubCategoryDropdownOpen] = useState(false);
 
   const [quesList, setQuesList] = useState([]);
   const [quesLoading, setQuesLoading] = useState(false);
+  const [subCategLoading, setSubCategLoading] = useState(false);
+  const [icon, setIcon] = useState(null);
   // const [name, setName] = useState({
   //   en: '',
   //   hi: '',
@@ -55,6 +67,8 @@ const DashboardForm = () => {
 
   const [answers, setAnswers] = useState([]);
   const [answersT3, setAnswersT3] = useState([]);
+
+  const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
   const userTypeChangeHandler = (item) => {
     setUserType(item);
     setUserDropdownOpen(!userDropdownOpen);
@@ -64,6 +78,11 @@ const DashboardForm = () => {
     setSelectedSubCategory(null);
     setSelectedCategory(i);
     setCategoryDropdownOpen(!categoryDropdownOpen);
+  };
+  const userAccountChangeHandler = (i) => {
+    setSelectedUserAccount(i);
+
+    setUserAccountDropdownOpen(!userAccountDropdownOpen);
   };
   const subCategoryChangeHandler = (i) => {
     setSelectedSubCategory(i);
@@ -75,7 +94,9 @@ const DashboardForm = () => {
   };
 
   const populateSubCategories = async () => {
+    setSubCategLoading(true);
     const res = await getSubCategByCateg(selectedCategory?._id);
+    setSubCategLoading(false);
     setSubCategoriesList(res);
   };
 
@@ -106,8 +127,7 @@ const DashboardForm = () => {
     }
   };
 
-  const setAnswersValue = (questionId, questionType, givenAnswer, optName) => {
-    console.log(questionId, questionType, givenAnswer);
+  const setAnswersValue = (questionId, questionType, givenAnswer) => {
     let newArray = answers;
     let answerObject = {
       questionId: questionId,
@@ -115,8 +135,7 @@ const DashboardForm = () => {
     if (questionType === 1) {
       answerObject.text = givenAnswer;
     } else {
-      answerObject.optionId = givenAnswer;
-      answerObject.optionName = optName;
+      answerObject.optionId = [givenAnswer];
     }
     let currentAnswerIndex = answers?.findIndex(
       (answer) => answer.questionId === questionId,
@@ -139,19 +158,14 @@ const DashboardForm = () => {
       }
     }
   };
-  const setAnswersT3Value = (questionId, givenAnswer, optName) => {
+  const setAnswersT3Value = (questionId, givenAnswer) => {
     console.log(questionId, givenAnswer);
     let newArray = answersT3;
     let answerObject = {
       questionId: questionId,
       optionId: [givenAnswer],
     };
-    // if (questionType === 1) {
-    //   answerObject.text = givenAnswer;
-    // } else {
-    //   answerObject.optionId = givenAnswer;
-    //   answerObject.optionName = optName;
-    // }
+
     const currentQuestion = answersT3?.find(
       (answer) => answer.questionId === questionId,
     );
@@ -168,45 +182,40 @@ const DashboardForm = () => {
           optionId: [...currentQuestion.optionId, givenAnswer],
         };
 
-        setAnswersT3(
-          newArray.map((item) =>
-            item.questionId === questionId ? updatedQues : item,
-          ),
+        const newArray1 = newArray.map((item) =>
+          item.questionId === questionId ? updatedQues : item,
         );
+        setAnswersT3(newArray1);
       } else {
         const newOptArray = currentQuestion.optionId?.filter(
           (e) => e !== givenAnswer,
         );
         if (newOptArray?.length === 0) {
           // remove ques from array
-          setAnswersT3(
-            newArray.filter((item) => item.questionId !== questionId),
+          setAnswersT3((oldState) =>
+            oldState.filter((item) => item.questionId !== questionId),
           );
         } else {
           //remove option from that ques ojects array
           const updatedQuestion = {...currentQuestion, optionId: newOptArray};
-          setAnswersT3(
-            newArray.map((item) =>
-              item.questionId === questionId ? updatedQuestion : item,
-            ),
+          const newArray2 = newArray.map((item) =>
+            item.questionId === questionId ? updatedQuestion : item,
           );
+          setAnswersT3(newArray2);
         }
       }
-
-      // if (questionType === 1 && givenAnswer.length === 0) {
-      //   setAnswers([
-      //     ...newArray.slice(0, currentAnswerIndex),
-      //     ...newArray.slice(currentAnswerIndex + 1),
-      //   ]);
-      // } else {
-      //   setAnswers([
-      //     ...newArray.slice(0, currentAnswerIndex),
-      //     answerObject,
-      //     ...newArray.slice(currentAnswerIndex + 1),
-      //   ]);
-      // }
     }
   };
+
+  const validateForm = () =>
+    userType &&
+    quesList?.length > 0 &&
+    answers?.length + answersT3?.length === quesList?.length &&
+    countryValidate() &&
+    selectedUserAccount;
+
+  const countryValidate = () =>
+    userType?.enum !== 1 ? !!selectedCountry : true;
 
   useEffect(() => {
     if (userType?.enum || selectedCategory || selectedCategory) {
@@ -218,6 +227,7 @@ const DashboardForm = () => {
   useEffect(() => {
     dispatch(listCategories());
     dispatch(listCountries());
+    dispatch(listUsers());
   }, [dispatch]);
 
   useEffect(() => {
@@ -228,6 +238,53 @@ const DashboardForm = () => {
     //eslint-disable-next-line
   }, [selectedCategory?._id]);
 
+  const addWithIcon = async () => {
+    dispatch({type: adsConstants.AD_LOADING});
+    const formData = new FormData();
+    formData.append('image', icon);
+
+    const imageUrl = await imageUploader(formData);
+    if (imageUrl) {
+      dispatch(
+        addAd(
+          {
+            icon: imageUrl,
+            userType: userType?.enum,
+            countryId: selectedCountry?._id,
+            additionalQuestion: [...answers, ...answersT3],
+            userId: selectedUserAccount?._id,
+          },
+          history,
+        ),
+      );
+    } else {
+      // pop and error
+    }
+  };
+  const addWithoutIcon = async () => {
+    dispatch(
+      addAd(
+        {
+          userType: userType?.enum,
+
+          additionalQuestion: [...answers, ...answersT3],
+          ...(![3, 4].includes(userType?.enum) && {
+            categoryId: selectedCategory?._id,
+          }),
+          ...(![3, 4].includes(userType?.enum) && {
+            subCategoryId: selectedSubCategory?._id,
+          }),
+
+          ...(userType?.enum !== 1 && {countryId: selectedCountry?._id}),
+          userId: selectedUserAccount?._id,
+        },
+        history,
+      ),
+    );
+  };
+
+  const submitHandler = async () =>
+    userType?.enum === 3 && icon ? addWithIcon() : addWithoutIcon();
   return (
     <>
       <Header cardsVisible={false} />
@@ -308,8 +365,10 @@ const DashboardForm = () => {
                           </FormGroup>
                         </Col>
                         <Col lg={4} md={6} sm={12}>
+                          {subCategLoading && <Spinner color={'info'} />}
                           {selectedCategory?._id &&
-                            (subCategoriesList?.length === 0 ? (
+                            (!subCategLoading &&
+                            subCategoriesList?.length === 0 ? (
                               <p>No sub categories found</p>
                             ) : (
                               <FormGroup>
@@ -352,6 +411,40 @@ const DashboardForm = () => {
                       </>
                     )}
                   </Row>
+                  {userType?.enum === 3 && (
+                    <Row form>
+                      <Col lg={4} md={6} sm={12}>
+                        <FormGroup>
+                          <Label for="examplePassword">Upload Icon </Label>
+                          <InputGroup>
+                            <label className="form-control chooseFile">
+                              {' '}
+                              <Input
+                                type="file"
+                                accept="image/png, image/jpg, image/jpeg"
+                                name="icon-upload"
+                                placeholder="Ppload file"
+                                onChange={inputFileHandler}>
+                                {' '}
+                              </Input>
+                              {icon && (
+                                <p className="file-input-name">{icon?.name}</p>
+                              )}
+                            </label>
+
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  )}
+
                   <Row form>
                     {![1].includes(userType?.enum) && userType && (
                       <Col lg={4} md={6} sm={12}>
@@ -386,6 +479,42 @@ const DashboardForm = () => {
                         </FormGroup>
                       </Col>
                     )}
+
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="examplePassword">User </Label>
+                        <InputGroup>
+                          <Input
+                            style={{background: '#fff'}}
+                            readOnly
+                            placeholder={'select user'}
+                            value={selectedUserAccount?.name}
+                          />
+                          <InputGroupButtonDropdown
+                            addonType="append"
+                            isOpen={userAccountDropdownOpen}
+                            toggle={() =>
+                              setUserAccountDropdownOpen(
+                                !userAccountDropdownOpen,
+                              )
+                            }>
+                            <DropdownToggle>
+                              <p>{'>'}</p>
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              {users?.map((item) => (
+                                <DropdownItem
+                                  onClick={() =>
+                                    userAccountChangeHandler(item)
+                                  }>
+                                  {item?.name}
+                                </DropdownItem>
+                              ))}
+                            </DropdownMenu>
+                          </InputGroupButtonDropdown>
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
                   </Row>
                   <br />
 
@@ -406,53 +535,6 @@ const DashboardForm = () => {
                     <Row form>
                       {quesList?.map((item) => (
                         <>
-                          {/* {item?.questionType === 4 && (
-                            <Col
-                              style={{marginBottom: '100px'}}
-                              key={item?._id}
-                              lg={4}
-                              md={6}
-                              sm={12}>
-                              <label> {item.question?.en}</label>
-
-                              <br />
-                              <br />
-                              <div
-                                style={{
-                                  display: 'flex',
-                                  gap: '10px',
-                                  alignItems: 'center',
-                                }}>
-                                {item?.options?.map((opt) => (
-                                  <>
-                                    <input
-                                      type="radio"
-                                      value={opt?.name?.en}
-                                      name="gender"
-                                      checked={
-                                        !!item.options.find(
-                                          (val) =>
-                                            val._id ===
-                                            answers.find(
-                                              (e) => e.questionId === item._id,
-                                            )?.optionId,
-                                        )
-                                      }
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        setAnswersValue(
-                                          item?._id,
-                                          item?.questionType,
-                                          opt?._id,
-                                        );
-                                      }}
-                                    />
-                                    {opt?.name?.en}
-                                  </>
-                                ))}
-                              </div>
-                            </Col>
-                          )} */}
                           {item?.questionType === 1 && (
                             <Col
                               style={{marginBottom: '100px'}}
@@ -524,25 +606,17 @@ const DashboardForm = () => {
                                       }}
                                     />
                                     {opt?.name?.en}
-                                    {opt?._id}
                                   </>
                                 ))}
                               </div>
-                              <button
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  console.log(answersT3);
-                                }}>
-                                Show
-                              </button>
                             </Col>
                           )}
                           {[2, 4].includes(item?.questionType) && (
                             <Col
                               style={{marginBottom: '50px'}}
                               key={item?._id}
-                              lg={4}
-                              md={6}
+                              lg={12}
+                              md={12}
                               sm={12}>
                               <label> {item.question?.en}</label>
                               <br />
@@ -567,7 +641,7 @@ const DashboardForm = () => {
                                             val._id ===
                                             answers.find(
                                               (e) => e.questionId === item._id,
-                                            )?.optionId,
+                                            )?.optionId[0],
                                         )?._id === opt?._id
                                       }
                                       onClick={(e) => {
@@ -593,8 +667,19 @@ const DashboardForm = () => {
                 </Form>
               </div>
               <div className="dashboard-form-footer">
-                <button className="form-cancel-button">Cancel</button>
-                <button className="table-header-button">Add</button>
+                <button
+                  onClick={() => {
+                    history.push('/admin/ads');
+                  }}
+                  className="form-cancel-button">
+                  Cancel
+                </button>
+                <button
+                  onClick={submitHandler}
+                  disabled={!validateForm()}
+                  className="table-header-button">
+                  Add
+                </button>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 import {API, headerSetup} from '../../services/auth';
 import {adsConstants} from '../constants';
 import {errorParser} from './errorParser';
-import {errorAlert} from '../../utils/alerts';
+import {errorAlert, successAlert} from '../../utils/alerts';
 
 export const listAds =
   (perPage = 4, page = 1, search = '') =>
@@ -58,34 +58,35 @@ export const listAds =
 //   }
 // };
 
-// export const addBanner = (formData, history) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: adsConstants.AD_LOADING});
+export const addAd = (formData, history) => async (dispatch) => {
+  console.log(formData, 'from');
+  await headerSetup();
+  dispatch({type: adsConstants.AD_LOADING});
 
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.post('admin/v1/addBanner', formData);
+  try {
+    const {
+      data: {data},
+    } = await API.post('admin/v1/addAdvertisement', formData);
 
-//     if (data) {
-//       dispatch({
-//         type: adsConstants.AD_ADD_SUCCESS,
-//         payload: data,
-//       });
-//       successAlert(`Banner added successfully`);
+    if (data) {
+      dispatch({
+        type: adsConstants.AD_ADD_SUCCESS,
+        payload: data,
+      });
+      successAlert(`Adverstisement added successfully`);
 
-//       history.push('/admin/banners');
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
+      history.push('/admin/ads');
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
 
-//     dispatch({
-//       type: adsConstants.AD_ERROR,
-//       payload: parsedError,
-//     });
-//     errorAlert(parsedError);
-//   }
-// };
+    dispatch({
+      type: adsConstants.AD_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
 
 // export const editBanner = (formData, history) => async (dispatch) => {
 //   await headerSetup();

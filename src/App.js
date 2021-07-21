@@ -14,12 +14,25 @@ import {Provider} from 'react-redux';
 import DashboardPage from './layout/dashboard';
 import AppLoading from './components/app-loading';
 import {configureStore} from './redux/store';
+import {useTranslation} from 'react-i18next';
 export const history = createHashHistory();
 function App() {
+  const {i18n} = useTranslation();
   useEffect(() => {
     //axios headers
     headerSetup();
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) {
+      i18n.changeLanguage(savedLang);
+    } else {
+      i18n.language = 'ar';
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('lang', i18n.language);
+  }, [i18n.language]);
+
   return (
     <div>
       <Offline>

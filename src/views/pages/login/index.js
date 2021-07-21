@@ -23,7 +23,7 @@ function LoginPage(props) {
 
   // eslint-disable-next-line
   const {logingInUser, loading} = useAuth();
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
 
   // eslint-disable-next-line
   const auth = useSelector((state) => state.auth);

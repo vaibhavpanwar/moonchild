@@ -1,11 +1,16 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-
+import I18n from 'i18n-js';
 import routes from './routes/index';
 import Sidebar from '../components/Navbars/SideNavbar';
 import AdminNavbar from '../components/Navbars/AdminNavbar';
 
+import {setLanguage} from '../redux/actions/lang.actions';
+import {useTranslation} from 'react-i18next';
+
 const Admin = (props) => {
+  const {i18n} = useTranslation();
+
   const mainContent = useRef(null);
   const [state] = useState({
     backgroundColor: 'white',
@@ -28,6 +33,11 @@ const Admin = (props) => {
     });
   };
 
+  // const changeLang = (lan) => {
+  //   console.log('jaja');
+  //   i18n.changeLanguage(lan);
+  // };
+
   return (
     <>
       <div className="layout--new">
@@ -42,11 +52,22 @@ const Admin = (props) => {
           style={{marginLeft: '340px', marginRight: '60px'}}
           ref={mainContent}>
           <AdminNavbar {...props} />
+
           <Switch>
             {getRoutes(routes)}
 
             <Redirect from="*" to="/admin/dashboard" />
           </Switch>
+          <button
+            onClick={() => {
+              if (i18n.language === 'en') {
+                i18n.changeLanguage('ar');
+              } else {
+                i18n.changeLanguage('en');
+              }
+            }}>
+            change
+          </button>
         </div>
       </div>
     </>

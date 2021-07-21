@@ -58,16 +58,6 @@ const Admin = (props) => {
 
             <Redirect from="*" to="/admin/dashboard" />
           </Switch>
-          <button
-            onClick={() => {
-              if (i18n.language === 'en') {
-                i18n.changeLanguage('ar');
-              } else {
-                i18n.changeLanguage('en');
-              }
-            }}>
-            change
-          </button>
         </div>
       </div>
     </>

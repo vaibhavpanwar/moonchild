@@ -688,3 +688,19 @@ label {
   background-color: $primary;
   color: #fff;
 }
+
+.lang-switch-button {
+  padding: 10px 15px;
+  min-width: 120px;
+  font-size: 15px;
+  color: $primary;
+  background-color: #e8e8e8;
+  position: absolute;
+  bottom: 60px;
+  left: 80px;
+  z-index: 10;
+  cursor: pointer;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}

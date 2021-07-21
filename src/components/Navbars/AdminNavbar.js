@@ -17,7 +17,8 @@ import {useDispatch} from 'react-redux';
 import {logout} from '../../services/auth';
 const AdminNavbar = (props) => {
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   const history = useHistory();
   const getCurrentPage = () => props.location.pathname?.split('/')?.[2];
   const getCurrentSubPage = () => props.location.pathname?.split('/')?.[3];
@@ -140,7 +141,18 @@ const AdminNavbar = (props) => {
                 </DropdownItem>
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
-                  <span>English</span>
+
+                  <span
+                    onClick={() => {
+                      if (lang === 'en') {
+                        i18n.changeLanguage('ar');
+                      } else {
+                        i18n.changeLanguage('en');
+                      }
+                    }}>
+                    {' '}
+                    {lang === 'ar' ? 'English' : 'العربية'}
+                  </span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

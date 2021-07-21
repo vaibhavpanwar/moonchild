@@ -25,6 +25,8 @@ function LoginPage(props) {
   const {logingInUser, loading} = useAuth();
   const {t, i18n} = useTranslation();
 
+  const lang = i18n.language;
+
   // eslint-disable-next-line
   const auth = useSelector((state) => state.auth);
   const validateForm = () => {
@@ -38,6 +40,18 @@ function LoginPage(props) {
   return (
     <Container fluid>
       <Row>
+        <button
+          className="lang-switch-button"
+          onClick={() => {
+            if (lang === 'en') {
+              i18n.changeLanguage('ar');
+            } else {
+              i18n.changeLanguage('en');
+            }
+          }}>
+          {' '}
+          {lang === 'ar' ? 'English' : 'العربية'}
+        </button>
         <Col
           style={{
             padding: 0,

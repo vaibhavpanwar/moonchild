@@ -27,14 +27,14 @@ const adsReducer = (state = {ads: [], ad: {}}, action) => {
         ...state,
         loading: false,
         error: null,
-        ads: state.adsConstants.filter((i) => i?._id !== action.payload),
+        ads: state.ads.filter((i) => i?._id !== action.payload),
       };
     case adsConstants.AD_EDIT_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        ads: state.adsConstants.map((item) =>
+        ads: state.ads.map((item) =>
           item._id === action.payload?._id ? action.payload : item,
         ),
       };

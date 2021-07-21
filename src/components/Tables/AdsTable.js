@@ -20,7 +20,7 @@ import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import Pagination from '../Pagination/paginate';
 import {useHistory} from 'react-router-dom';
-import {listAds} from '../../redux/actions/ads.actions';
+import {deleteAd, editAdStatus, listAds} from '../../redux/actions/ads.actions';
 import moment from 'moment';
 
 const Tables = () => {
@@ -35,6 +35,16 @@ const Tables = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const history = useHistory();
   const navigateTo = (route) => history.push(route);
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteAd(id));
+    } else return;
+  };
+
+  const activeInactiveAd = (id) => {
+    dispatch(editAdStatus(id));
+  };
 
   useEffect(() => {
     dispatch(listAds(postsPerPage, currentPage, searchKeyword));
@@ -93,7 +103,10 @@ const Tables = () => {
                       <td>{item?.subCategoryId?.name?.en}</td>
 
                       <td>
-                        <SwitchSlider />{' '}
+                        <SwitchSlider
+                          clicked={() => activeInactiveAd(item?._id)}
+                          checked={item?.status === 1}
+                        />{' '}
                       </td>
 
                       <td>
@@ -101,16 +114,23 @@ const Tables = () => {
                           alt={'Gulf Workers'}
                           className="td-action-img"
                           src={eyeIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/categories/viewAd/${item._id}`)
+                          }
                         />
                         <img
                           alt={'Gulf Workers'}
                           className="td-action-img"
                           src={editIcon}
+                          onClick={() =>
+                            navigateTo(`/admin/categories/editAd/${item._id}`)
+                          }
                         />
                         <img
                           alt={'Gulf Workers'}
                           className="td-action-img"
                           src={deleteIcon}
+                          onClick={() => deleteHandler(item?._id)}
                         />
                       </td>
                     </tr>

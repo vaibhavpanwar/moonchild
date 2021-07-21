@@ -1,7 +1,7 @@
 import {API, headerSetup} from '../../services/auth';
 import {adsConstants} from '../constants';
 import {errorParser} from './errorParser';
-import {errorAlert, successAlert} from '../../utils/alerts';
+import {errorAlert, successAlert, warningAlert} from '../../utils/alerts';
 
 export const listAds =
   (perPage = 4, page = 1, search = '') =>
@@ -120,53 +120,54 @@ export const addAd = (formData, history) => async (dispatch) => {
 //   }
 // };
 
-// export const deleteBanner = (id) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: adsConstants.AD_LOADING});
+export const deleteAd = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: adsConstants.AD_LOADING});
 
-//   try {
-//     await API.delete(`admin/v1/deleteBanner/${id}`);
+  try {
+    await API.delete(`admin/v1/deleteAdd/${id}`);
 
-//     dispatch({
-//       type: adsConstants.AD_DELETE_SUCCESS,
-//       payload: id,
-//     });
+    dispatch({
+      type: adsConstants.AD_DELETE_SUCCESS,
+      payload: id,
+    });
 
-//     warningAlert(`Banner~${id} deleted`);
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
+    warningAlert(`Ad~${id} deleted`);
+  } catch (err) {
+    const parsedError = await errorParser(err);
 
-//     dispatch({
-//       type: adsConstants.AD_ERROR,
-//       payload: parsedError,
-//     });
-//     errorAlert(parsedError);
-//   }
-// };
+    dispatch({
+      type: adsConstants.AD_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
 
-// export const editBannerStatus = (id) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: adsConstants.AD_LOADING});
+export const editAdStatus = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: adsConstants.AD_LOADING});
 
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.patch(`admin/v1/activeInnactiveBanner/${id}`);
+  try {
+    const {
+      data: {data},
+    } = await API.patch(`admin/v1/activeInnactiveAdd/${id}`);
 
-//     if (data) {
-//       dispatch({
-//         type: adsConstants.AD_EDIT_SUCCESS,
-//         payload: data,
-//       });
-//     }
-//     successAlert(`Status updated for Banner~${id}`);
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-//     console.log(parsedError, err, 'error');
-//     dispatch({
-//       type: adsConstants.AD_ERROR,
-//       payload: parsedError,
-//     });
-//     errorAlert(parsedError);
-//   }
-// };
+    if (data) {
+      dispatch({
+        type: adsConstants.AD_EDIT_SUCCESS,
+        payload: data,
+      });
+    }
+    successAlert(`Status updated for Ad~${id}`);
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(parsedError, err, 'error');
+    dispatch({
+      type: adsConstants.AD_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+    console.log(err, 'error dekho');
+  }
+};

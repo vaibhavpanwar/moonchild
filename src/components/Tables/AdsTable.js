@@ -115,7 +115,7 @@ const Tables = () => {
                           className="td-action-img"
                           src={eyeIcon}
                           onClick={() =>
-                            navigateTo(`/admin/categories/viewAd/${item._id}`)
+                            navigateTo(`/admin/ads/viewAd/${item._id}`)
                           }
                         />
                         <img
@@ -123,7 +123,7 @@ const Tables = () => {
                           className="td-action-img"
                           src={editIcon}
                           onClick={() =>
-                            navigateTo(`/admin/categories/editAd/${item._id}`)
+                            navigateTo(`/admin/ads/editAd/${item._id}`)
                           }
                         />
                         <img

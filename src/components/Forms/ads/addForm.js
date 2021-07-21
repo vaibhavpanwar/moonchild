@@ -574,8 +574,8 @@ const DashboardForm = () => {
                             <Col
                               style={{marginBottom: '100px'}}
                               key={item?._id}
-                              lg={12}
-                              md={12}
+                              lg={4}
+                              md={6}
                               sm={12}>
                               <label> {item.question?.en}</label>
                               <br />
@@ -615,8 +615,8 @@ const DashboardForm = () => {
                             <Col
                               style={{marginBottom: '50px'}}
                               key={item?._id}
-                              lg={12}
-                              md={12}
+                              lg={4}
+                              md={6}
                               sm={12}>
                               <label> {item.question?.en}</label>
                               <br />

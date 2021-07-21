@@ -32,31 +32,31 @@ export const listAds =
     }
   };
 
-// export const getSingleBanner = (id) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: adsConstants.AD_LOADING});
+export const getSingleAd = (id) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: adsConstants.AD_LOADING});
 
-//   console.log(id, 'id');
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.get(`admin/v1/banner/${id}`);
+  console.log(id, 'id');
+  try {
+    const {
+      data: {data},
+    } = await API.get(`admin/v1/advertisementById?addId=${id}`);
 
-//     if (data) {
-//       dispatch({
-//         type: adsConstants.AD_GET_SINGLE_SUCCESS,
-//         payload: data,
-//       });
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-//     dispatch({
-//       type: adsConstants.AD_ERROR,
-//       payload: parsedError,
-//     });
-//     errorAlert(parsedError);
-//   }
-// };
+    if (data) {
+      dispatch({
+        type: adsConstants.AD_GET_SINGLE_SUCCESS,
+        payload: data,
+      });
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    dispatch({
+      type: adsConstants.AD_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
 
 export const addAd = (formData, history) => async (dispatch) => {
   console.log(formData, 'from');

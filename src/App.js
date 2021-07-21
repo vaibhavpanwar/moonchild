@@ -27,6 +27,8 @@ function App() {
     } else {
       i18n.language = 'ar';
     }
+
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

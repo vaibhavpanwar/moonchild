@@ -7,4 +7,4 @@ export * from './questions.constants';
 export * from './notifications.constants';
 export * from './countries.constants';
 export * from './ads.constants';
-export * from './lang.constants';
+export * from './payments.constants';

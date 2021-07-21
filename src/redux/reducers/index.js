@@ -9,7 +9,7 @@ import questionsReducer from './questions.reducer';
 import notificationsReducer from './notifications.reducer';
 import countriesReducer from './countries.reducer';
 import adsReducer from './ads.reducer';
-import langReducer from './lang.reducer';
+import paymentsReducer from './payments.reducer';
 
 const reducers = combineReducers({
   auth,
@@ -20,9 +20,9 @@ const reducers = combineReducers({
   contactUsReducer,
   questionsReducer,
   notificationsReducer,
+  paymentsReducer,
   adsReducer,
   countriesReducer,
-  langReducer,
 });
 
 export default reducers;

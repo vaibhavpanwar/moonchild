@@ -1,16 +1,11 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
-import I18n from 'i18n-js';
+
 import routes from './routes/index';
 import Sidebar from '../components/Navbars/SideNavbar';
 import AdminNavbar from '../components/Navbars/AdminNavbar';
 
-import {setLanguage} from '../redux/actions/lang.actions';
-import {useTranslation} from 'react-i18next';
-
 const Admin = (props) => {
-  const {i18n} = useTranslation();
-
   const mainContent = useRef(null);
   const [state] = useState({
     backgroundColor: 'white',

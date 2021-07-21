@@ -54,6 +54,7 @@ const DashboardForm = () => {
   // });
 
   const [answers, setAnswers] = useState([]);
+  const [answersT3, setAnswersT3] = useState([]);
   const userTypeChangeHandler = (item) => {
     setUserType(item);
     setUserDropdownOpen(!userDropdownOpen);
@@ -136,6 +137,74 @@ const DashboardForm = () => {
           ...newArray.slice(currentAnswerIndex + 1),
         ]);
       }
+    }
+  };
+  const setAnswersT3Value = (questionId, givenAnswer, optName) => {
+    console.log(questionId, givenAnswer);
+    let newArray = answersT3;
+    let answerObject = {
+      questionId: questionId,
+      optionId: [givenAnswer],
+    };
+    // if (questionType === 1) {
+    //   answerObject.text = givenAnswer;
+    // } else {
+    //   answerObject.optionId = givenAnswer;
+    //   answerObject.optionName = optName;
+    // }
+    const currentQuestion = answersT3?.find(
+      (answer) => answer.questionId === questionId,
+    );
+    if (!currentQuestion) {
+      newArray.push(answerObject);
+      setAnswersT3(newArray);
+    } else {
+      let currentOptionIndex = currentQuestion?.optionId?.findIndex(
+        (answer) => answer === givenAnswer,
+      );
+      if (currentOptionIndex < 0) {
+        const updatedQues = {
+          ...currentQuestion,
+          optionId: [...currentQuestion.optionId, givenAnswer],
+        };
+
+        setAnswersT3(
+          newArray.map((item) =>
+            item.questionId === questionId ? updatedQues : item,
+          ),
+        );
+      } else {
+        const newOptArray = currentQuestion.optionId?.filter(
+          (e) => e !== givenAnswer,
+        );
+        if (newOptArray?.length === 0) {
+          // remove ques from array
+          setAnswersT3(
+            newArray.filter((item) => item.questionId !== questionId),
+          );
+        } else {
+          //remove option from that ques ojects array
+          const updatedQuestion = {...currentQuestion, optionId: newOptArray};
+          setAnswersT3(
+            newArray.map((item) =>
+              item.questionId === questionId ? updatedQuestion : item,
+            ),
+          );
+        }
+      }
+
+      // if (questionType === 1 && givenAnswer.length === 0) {
+      //   setAnswers([
+      //     ...newArray.slice(0, currentAnswerIndex),
+      //     ...newArray.slice(currentAnswerIndex + 1),
+      //   ]);
+      // } else {
+      //   setAnswers([
+      //     ...newArray.slice(0, currentAnswerIndex),
+      //     answerObject,
+      //     ...newArray.slice(currentAnswerIndex + 1),
+      //   ]);
+      // }
     }
   };
 
@@ -419,12 +488,12 @@ const DashboardForm = () => {
                               </FormGroup>
                             </Col>
                           )}
-                          {/* {item?.questionType === 3 && (
+                          {item?.questionType === 3 && (
                             <Col
                               style={{marginBottom: '100px'}}
                               key={item?._id}
-                              lg={4}
-                              md={6}
+                              lg={12}
+                              md={12}
                               sm={12}>
                               <label> {item.question?.en}</label>
                               <br />
@@ -440,16 +509,35 @@ const DashboardForm = () => {
                                       type="checkbox"
                                       value={opt?.name?.en}
                                       name="gender"
-                                 onChange={()=> setAnswers(item?._id, item?.questionType, opt?._id
-                                  )}
+                                      checked={answersT3
+                                        .find(
+                                          (val) => val.questionId === item?._id,
+                                        )
+                                        ?.optionId?.includes(opt?._id)}
+                                      onClick={(e) => {
+                                        setAnswersT3Value(
+                                          item?._id,
+
+                                          opt?._id,
+                                          opt?.name?.en,
+                                        );
+                                      }}
                                     />
                                     {opt?.name?.en}
+                                    {opt?._id}
                                   </>
                                 ))}
                               </div>
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  console.log(answersT3);
+                                }}>
+                                Show
+                              </button>
                             </Col>
-                          )} */}
-                          {item?.questionType === 2 && (
+                          )}
+                          {[2, 4].includes(item?.questionType) && (
                             <Col
                               style={{marginBottom: '50px'}}
                               key={item?._id}
@@ -468,7 +556,11 @@ const DashboardForm = () => {
                                   <>
                                     <input
                                       type="radio"
-                                      defaultChecked={i === 0}
+                                      // checked={
+                                      //   answers.find(
+                                      //     (val) => val.questionId === item?._id,
+                                      //   )?.optionId === opt?._id
+                                      // }
                                       checked={
                                         item.options.find(
                                           (val) =>

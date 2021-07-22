@@ -1,6 +1,6 @@
 import {dashboardConstants} from '../constants';
 
-const dashboardReducer = (state = {dashboard: {}}, action) => {
+const dashboardReducer = (state = {dashboardData: {}}, action) => {
   switch (action.type) {
     case dashboardConstants.DASHBOARD_LOADING:
       return {...state, loading: true};
@@ -10,7 +10,7 @@ const dashboardReducer = (state = {dashboard: {}}, action) => {
         ...state,
         loading: false,
         error: null,
-        dashboard: action.payload,
+        dashboardData: action.payload,
       };
 
     case dashboardConstants.DASHBOARD_ERROR:

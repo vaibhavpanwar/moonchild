@@ -14,10 +14,11 @@ export const getDashboardData =
         data: {data},
       } = await API.get(`admin/v1/dashboard?type=${type}&timeZone=${timeZone}`);
 
+      console.log(data, 'data ay');
       if (data) {
         dispatch({
           type: dashboardConstants.DASHBOARD_SUCCESS,
-          payload: {listing: data?.listing, count: data?.count},
+          payload: data,
         });
       }
     } catch (err) {

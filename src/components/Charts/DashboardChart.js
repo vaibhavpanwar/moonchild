@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // node.js library that concatenates classes (strings)
 import classnames from 'classnames';
 // javascipt plugin for creating charts
@@ -27,10 +27,14 @@ import {
 } from './chartVariables';
 
 import Header from '../Headers/Header';
+import {getDashboardData} from '../../redux/actions/dashboard.actions';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Index = (props) => {
+  const dispatch = useDispatch();
+  const {dashboardData} = useSelector((state) => state.dashboardReducer);
   const [activeNav, setActiveNav] = useState(1);
-  const [chartExample1Data, setChartExample1Data] = useState('data1');
+  // const [chartExample1Data, setChartExample1Data] = useState('data1');
 
   if (window.Chart) {
     parseOptions(Chart, chartOptions());
@@ -39,11 +43,23 @@ const Index = (props) => {
   const toggleNavs = (e, index) => {
     e.preventDefault();
     setActiveNav(index);
-    setChartExample1Data('data' + index);
+    // setChartExample1Data('data' + index);
   };
+
+  useEffect(() => {
+    dispatch(getDashboardData(activeNav));
+  }, [dispatch, activeNav]);
   return (
     <>
-      <Header />
+      <Header
+        data={{
+          users: dashboardData?.users,
+          ads: dashboardData?.adds,
+          chats: dashboardData?.chats,
+          income: dashboardData?.income,
+        }}
+      />
+
       {/* Page content */}
       <Container className="mt--7" fluid>
         <Row>
@@ -104,7 +120,15 @@ const Index = (props) => {
                 {/* Chart */}
                 <div className="chart chart-1">
                   <Line
-                    data={chartExample1[chartExample1Data]}
+                    data={{
+                      labels: dashboardData?.activeAdds?.map((e) => e.month),
+                      datasets: [
+                        {
+                          label: 'Performance',
+                          data: dashboardData?.activeAdds?.map((e) => e.total),
+                        },
+                      ],
+                    }}
                     options={chartExample1.options}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />
@@ -130,12 +154,41 @@ const Index = (props) => {
                 {/* Chart */}
                 <div className="chart doughnut-chart">
                   <Doughnut
-                    data={chartExample2.data}
+                    data={{
+                      labels: dashboardData?.addsPercategory?.map(
+                        (el) => el?.name?.en,
+                      ),
+                      datasets: [
+                        {
+                          label: 'Number Of Ads',
+                          data: dashboardData?.addsPercategory?.map(
+                            (el) => el?.numberOfAdds,
+                          ),
+
+                          backgroundColor: dashboardData?.addsPercategory?.map(
+                            (el) => el?.color,
+                          ),
+                        },
+                      ],
+                    }}
                     options={chartExample2.options}
                   />
                 </div>
                 <div className="doughnut-chart-footer">
-                  <div className="doughnut-chart-footer-info">
+                  {dashboardData?.addsPercategory?.map((item) => (
+                    <div key={item._id} className="doughnut-chart-footer-info">
+                      <div className="doughnut-chart-footer-left">
+                        <div
+                          className="doughnut-red-circle"
+                          style={{border: `3px solid ${item?.color}`}}
+                        />{' '}
+                        <p>{item?.name?.en}</p>
+                      </div>
+
+                      <p>{item?.numberOfAdds}</p>
+                    </div>
+                  ))}
+                  {/* <div className="doughnut-chart-footer-info">
                     <div className="doughnut-chart-footer-left">
                       <div className="doughnut-red-circle" /> <p>Technician</p>
                     </div>
@@ -151,7 +204,11 @@ const Index = (props) => {
                   </div>
                   <div className="doughnut-chart-footer-info">
                     <div className="doughnut-chart-footer-left">
-                      <div className="doughnut-blue-circle" /> <p>Education</p>
+                      <div
+                        className="doughnut-blue-circle"
+                        style={{border: '3px solid violet'}}
+                      />{' '}
+                      <p>Education</p>
                     </div>
 
                     <p>7666</p>
@@ -163,7 +220,7 @@ const Index = (props) => {
                     </div>
 
                     <p>7666</p>
-                  </div>
+                  </div> */}
                 </div>
               </CardBody>
             </Card>

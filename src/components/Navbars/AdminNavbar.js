@@ -15,6 +15,7 @@ import {useHistory} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 import {logout} from '../../services/auth';
+import {getImageUrl} from '../../utils/renderImage';
 const AdminNavbar = (props) => {
   const dispatch = useDispatch();
   const {t, i18n} = useTranslation();
@@ -77,10 +78,11 @@ const AdminNavbar = (props) => {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={
-                        require('../../assets/img/theme/team-4-800x800.jpg')
-                          .default
-                      }
+                      src={getImageUrl(
+                        localStorage?.getItem('@gulf-worker-uni/image'),
+                        50,
+                        50,
+                      )}
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
@@ -88,7 +90,7 @@ const AdminNavbar = (props) => {
                     <span
                       className="mb-0 text-sm font-weight-bold"
                       style={{color: '#4D4F5C'}}>
-                      Jessica Jones
+                      {localStorage?.getItem('@gulf-worker-uni/name')}
                     </span>
                     <span
                       className="mb-0 text-sm font-weight-bold"

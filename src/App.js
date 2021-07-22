@@ -21,7 +21,7 @@ function App() {
   useEffect(() => {
     //axios headers
     headerSetup();
-    const savedLang = localStorage.getItem('lang');
+    const savedLang = localStorage.getItem('@gulf-worker-uni/lang');
     if (savedLang) {
       i18n.changeLanguage(savedLang);
     } else {
@@ -32,7 +32,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('lang', i18n.language);
+    localStorage.setItem('@gulf-worker-uni/lang', i18n.language);
   }, [i18n.language]);
 
   const lang = i18n.language;

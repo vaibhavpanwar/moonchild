@@ -37,6 +37,8 @@ export const login = (user) => {
       const key = new NodeRSA(public_key);
       const encrypted = key.encrypt(JSON.stringify(user), 'base64');
       localStorage.setItem('@gulf-worker-uni/auth-key', encrypted);
+      localStorage.setItem('@gulf-worker-uni/name', user.name);
+      localStorage.setItem('@gulf-worker-uni/image', user.image);
 
       return true;
     }
@@ -95,6 +97,8 @@ export const getToken = () => {
 
 export const logout = () => {
   localStorage.removeItem('@gulf-worker-uni/auth-key');
+  localStorage.removeItem('@gulf-worker-uni/name');
+  localStorage.removeItem('@gulf-worker-uni/image');
   window.location.href = '/login';
 };
 

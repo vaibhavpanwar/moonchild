@@ -7,7 +7,7 @@ import i18 from '../../i18n/i18n';
 let routes = [
   {
     path: '/admin/countries',
-    name: i18.t('countries'),
+    name: 'countries',
     icon: 'banner-icon',
     component: Country,
     svg: true,
@@ -16,7 +16,7 @@ let routes = [
   },
   {
     path: '/admin/countries/addCountry',
-    name: i18.t('countries'),
+    name: 'countries',
     icon: 'banner-icon',
     component: CountryAdd,
     svg: true,
@@ -25,7 +25,7 @@ let routes = [
   },
   {
     path: '/admin/countries/editCountry/:id',
-    name: i18.t('countries'),
+    name: 'countries',
     icon: 'banner-icon',
     component: CountryEdit,
     svg: true,
@@ -34,7 +34,7 @@ let routes = [
   },
   {
     path: '/admin/countries/viewCountry/:id',
-    name: i18.t('countries'),
+    name: 'countries',
     icon: 'banner-icon',
     component: CountryView,
     svg: true,

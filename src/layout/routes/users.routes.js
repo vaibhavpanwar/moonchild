@@ -2,11 +2,11 @@ import Users from '../../views/pages/users';
 import UsersAdd from '../../views/pages/users/addUser';
 import UsersEdit from '../../views/pages/users/editUser';
 import UsersView from '../../views/pages/users/viewUser';
-import i18 from '../../i18n/i18n';
+
 let routes = [
   {
     path: '/admin/users',
-    name: i18.t('users'),
+    name: 'users',
     icon: 'user-icon',
     component: Users,
     svg: true,
@@ -15,7 +15,7 @@ let routes = [
   },
   {
     path: '/admin/users/addUser',
-    name: i18.t('users'),
+    name: 'users',
     icon: 'user-icon',
     component: UsersAdd,
     svg: true,
@@ -24,7 +24,7 @@ let routes = [
   },
   {
     path: '/admin/users/editUser/:id',
-    name: i18.t('users'),
+    name: 'users',
     icon: 'user-icon',
     component: UsersEdit,
     svg: true,
@@ -33,7 +33,7 @@ let routes = [
   },
   {
     path: '/admin/users/viewUser/:id',
-    name: i18.t('users'),
+    name: 'users',
     icon: 'user-icon',
     component: UsersView,
     svg: true,

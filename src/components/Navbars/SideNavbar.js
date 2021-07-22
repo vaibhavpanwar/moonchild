@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import logoImage from '../../assets/images/logo.png';
 
+import logoImage from '../../assets/images/logo.png';
+import {useDispatch} from 'react-redux';
+import {logout} from '../../services/auth';
 // reactstrap components
 import {
   Collapse,
@@ -23,9 +24,14 @@ import {
   Col,
 } from 'reactstrap';
 import routes from '../../layout/routes/index';
+import {getImageUrl} from '../../utils/renderImage';
+import {useTranslation} from 'react-i18next';
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
+  const dispatch = useDispatch();
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -55,7 +61,7 @@ const Sidebar = (props) => {
             onClick={() => navigateTo(item.path)}
             className={`nav-links-wrapper ${activeRoute(item.path)}`}>
             <span className={item.icon} />
-            <p>{item.name}</p>
+            <p>{t(item.name)}</p>
           </div>
         )
       );
@@ -96,7 +102,7 @@ const Sidebar = (props) => {
 
         {/* User */}
         <Nav className="align-items-center d-md-none">
-          <UncontrolledDropdown nav>
+          {/* <UncontrolledDropdown nav>
             <DropdownToggle nav className="nav-link-icon">
               <i className="ni ni-bell-55" />
             </DropdownToggle>
@@ -104,51 +110,59 @@ const Sidebar = (props) => {
               aria-labelledby="navbar-default_dropdown_1"
               className="dropdown-menu-arrow"
               right>
-              {/* MOBILE NOTIFICATION BELL HERE */}
+              MOBILE NOTIFICATION BELL HERE
               <DropdownItem>Action</DropdownItem>
               <DropdownItem>Another action</DropdownItem>
               <DropdownItem divider />
               <DropdownItem>Something else here</DropdownItem>
             </DropdownMenu>
-          </UncontrolledDropdown>
+          </UncontrolledDropdown> */}
           <UncontrolledDropdown nav>
             <DropdownToggle nav>
               <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
                   <img
                     alt="..."
-                    src={
-                      require('../../assets/img/theme/team-1-800x800.jpg')
-                        .default
-                    }
+                    src={getImageUrl(
+                      localStorage?.getItem('@gulf-worker-uni/image'),
+                      50,
+                      50,
+                    )}
                   />
                 </span>
               </Media>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-arrow" right>
               <DropdownItem className="noti-title" header tag="div">
-                <h6 className="text-overflow m-0">Welcome!</h6>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-single-02" />
-                <span>My profile</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-settings-gear-65" />
-                <span>Settings</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-calendar-grid-58" />
-                <span>Activity</span>
-              </DropdownItem>
-              <DropdownItem to="/admin/user-profile" tag={Link}>
-                <i className="ni ni-support-16" />
-                <span>Support</span>
+                <h6 className="text-overflow m-0">
+                  {' '}
+                  {localStorage?.getItem('@gulf-worker-uni/name')}
+                </h6>
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+              <DropdownItem
+                href="#pablo"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch({type: 'LOGOUT'});
+                  logout();
+                }}>
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
+              </DropdownItem>
+              <DropdownItem
+                href="#pablo"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (lang === 'en') {
+                    i18n.changeLanguage('ar');
+                  } else {
+                    i18n.changeLanguage('en');
+                  }
+                }}>
+                <i className="ni ni-user-run" />
+
+                <span> {lang === 'ar' ? 'English' : 'العربية'}</span>
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, Suspense} from 'react';
 import {createHashHistory} from 'history';
 import {
   BrowserRouter as Router,
@@ -25,7 +25,7 @@ function App() {
     if (savedLang) {
       i18n.changeLanguage(savedLang);
     } else {
-      i18n.language = 'ar';
+      i18n.language = 'en';
     }
 
     // eslint-disable-next-line
@@ -35,39 +35,43 @@ function App() {
     localStorage.setItem('lang', i18n.language);
   }, [i18n.language]);
 
+  const lang = i18n.language;
+
   return (
-    <div>
-      <Offline>
-        <OfflinePage />
-      </Offline>
-      <Online>
-        <Router history={history}>
-          <Switch>
-            <Route
-              path="/login"
-              render={(props) => (
-                <Provider store={configureStore()}>
-                  <LoginPage {...props} />{' '}
-                </Provider>
-              )}></Route>
-            <Route
-              path="/admin"
-              render={(props) =>
-                isAuthenticated() ? (
+    <Suspense fallback={<h1>Loading</h1>}>
+      <div className={`${lang === 'ar' ? 'mirrored' : ''}`}>
+        <Offline>
+          <OfflinePage />
+        </Offline>
+        <Online>
+          <Router history={history}>
+            <Switch>
+              <Route
+                path="/login"
+                render={(props) => (
                   <Provider store={configureStore()}>
-                    <DashboardPage {...props} />
+                    <LoginPage {...props} />{' '}
                   </Provider>
-                ) : (
-                  <Redirect to="/login"></Redirect>
-                )
-              }></Route>
-            <Route path="/">
-              <AppLoading />
-            </Route>
-          </Switch>
-        </Router>
-      </Online>
-    </div>
+                )}></Route>
+              <Route
+                path="/admin"
+                render={(props) =>
+                  isAuthenticated() ? (
+                    <Provider store={configureStore()}>
+                      <DashboardPage {...props} />
+                    </Provider>
+                  ) : (
+                    <Redirect to="/login"></Redirect>
+                  )
+                }></Route>
+              <Route path="/">
+                <AppLoading />
+              </Route>
+            </Switch>
+          </Router>
+        </Online>
+      </div>
+    </Suspense>
   );
 }
 export default App;

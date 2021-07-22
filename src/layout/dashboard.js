@@ -42,10 +42,7 @@ const Admin = (props) => {
           bgColor={state.backgroundColor}
           activeColor={state.activeColor}
         />
-        <div
-          className="main-content"
-          style={{marginLeft: '340px', marginRight: '60px'}}
-          ref={mainContent}>
+        <div className="main-content" ref={mainContent}>
           <AdminNavbar {...props} />
 
           <Switch>

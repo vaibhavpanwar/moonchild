@@ -70,6 +70,7 @@ const AdminNavbar = (props) => {
                   padding: '10px',
                   borderRadius: '31px',
                   boxShadow: '0px 3px 6px #1717172D;',
+                  direction: 'ltr',
                 }}
                 nav>
                 <Media className="align-items-center">

@@ -704,3 +704,26 @@ label {
   outline: none;
   border: none;
 }
+
+.main-content {
+  margin-left: 340px;
+  margin-right: 60px;
+}
+.mirrored {
+  direction: rtl;
+  .navbar-vertical.navbar-expand-md.fixed-left {
+    right: 0;
+    left: unset;
+  }
+
+  .main-content {
+    margin-right: 340px;
+    margin-left: 60px;
+  }
+  .table-header-input {
+    background-position: 15px 7px;
+  }
+  .navbar-vertical.navbar-expand-md.fixed-left + .main-content {
+    margin-left: 100px;
+  }
+}

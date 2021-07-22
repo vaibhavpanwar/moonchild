@@ -23,6 +23,9 @@ i18n
     debug: true,
     keySeparator: false,
     resources,
+    // react: {
+    //   useSuspense: false, //   <---- this will do the magic
+    // },
     interpolation: {
       escapeValue: false,
     },

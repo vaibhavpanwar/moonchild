@@ -10,6 +10,7 @@ import notificationsReducer from './notifications.reducer';
 import countriesReducer from './countries.reducer';
 import adsReducer from './ads.reducer';
 import paymentsReducer from './payments.reducer';
+import dashboardReducer from './dashboard.reducer';
 
 const reducers = combineReducers({
   auth,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   contactUsReducer,
   questionsReducer,
   notificationsReducer,
+  dashboardReducer,
   paymentsReducer,
   adsReducer,
   countriesReducer,

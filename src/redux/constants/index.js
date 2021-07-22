@@ -8,3 +8,4 @@ export * from './notifications.constants';
 export * from './countries.constants';
 export * from './ads.constants';
 export * from './payments.constants';
+export * from './dashboard.constants';

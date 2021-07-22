@@ -17,6 +17,7 @@
   "categories": "Categories",
   "payments": "Payments",
   "users": "Users",
+
   "banners": "Banners",
   "countries": "Countries",
 
@@ -29,7 +30,7 @@
   "actions": "Actions",
   "search": "Search",
   "status": "Status",
-  "icons": "Icons",
+  "icons": "Icon",
 
   "image": "Image",
   "url": "URL",
@@ -73,5 +74,25 @@
   "viewSubCategory": "View Sub Category",
   "viewNotification": "View Notification",
   "viewUser": "View User",
-  "viewQuestion": "View Question"
+  "viewQuestion": "View Question",
+
+  "namePlaceholder": "Enter Name",
+  "emailPlaceholder": "Enter Email",
+  "phonePlaceholder": "Enter phone number",
+  "uploadPlaceholder": "Upload Image",
+  "cancel": "Cancel",
+  "update": "Update",
+  "categName": "Category Name",
+
+  "ques": "Question",
+  "userType": "User Type",
+  "quesType": "Question Type",
+  "featured": "Featured Flter",
+  "options": "Options",
+  "option": "Option",
+  "noDataFound": "No Data Found",
+  "all": "All",
+  "free": "Free",
+  "paid": "Paid",
+  "title": "Title"
 }

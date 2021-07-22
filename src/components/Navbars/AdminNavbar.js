@@ -139,20 +139,19 @@ const AdminNavbar = (props) => {
                   <i className="ni ni-user-run" />
                   <span>Logout</span>
                 </DropdownItem>
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem
+                  href="#pablo"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (lang === 'en') {
+                      i18n.changeLanguage('ar');
+                    } else {
+                      i18n.changeLanguage('en');
+                    }
+                  }}>
                   <i className="ni ni-user-run" />
 
-                  <span
-                    onClick={() => {
-                      if (lang === 'en') {
-                        i18n.changeLanguage('ar');
-                      } else {
-                        i18n.changeLanguage('en');
-                      }
-                    }}>
-                    {' '}
-                    {lang === 'ar' ? 'English' : 'العربية'}
-                  </span>
+                  <span> {lang === 'ar' ? 'English' : 'العربية'}</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

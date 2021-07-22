@@ -18,6 +18,7 @@ import {getSingleCountry} from '../../../redux/actions/countries.actions';
 
 import {useParams} from 'react-router-dom';
 import {getImageUrl} from '../../../utils/renderImage.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   const {id} = useParams();
@@ -27,6 +28,7 @@ const DashboardForm = ({history}) => {
   useEffect(() => {
     dispatch(getSingleCountry(id));
   }, [dispatch, id]);
+  const {t} = useTranslation();
 
   return (
     <>
@@ -37,16 +39,16 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">View Country</h2>
+              <h2 className="dashboard-form-header">{t('viewCountry')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (English)</Label>
+                        <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={country?.name?.en}
                           readOnly
                           name={'en'}
@@ -55,10 +57,10 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={country?.name?.ar}
                           readOnly
                           name={'ar'}
@@ -69,10 +71,10 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={country?.name?.hi}
                           name={'hi'}
                           readOnly
@@ -81,10 +83,12 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('name')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={country?.name?.ph}
                           name={'ph'}
                           readOnly
@@ -95,7 +99,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Icon </Label>
+                        <Label for="examplePassword">{'icons'} </Label>
                       </FormGroup>
                       <br />
 
@@ -111,7 +115,7 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/countries')}>
-                  {loading ? <Spinner color={'info'} /> : 'Cancel'}
+                  {loading ? <Spinner color={'info'} /> : t('cancel')}
                 </button>
               </div>
             </div>

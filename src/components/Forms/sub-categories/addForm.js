@@ -23,6 +23,7 @@ import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 import {imageUploader} from '../../../utils/imageUpload.js';
 import {subCategoriesConstants} from '../../../redux/constants/sub-categories.constants.js';
 import {addSubCategory} from '../../../redux/actions/sub-categories.actions.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -80,6 +81,8 @@ const DashboardForm = ({history}) => {
     dispatch(listCategories());
   }, [dispatch]);
 
+  const {t} = useTranslation();
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -89,16 +92,16 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Sub Category</h2>
+              <h2 className="dashboard-form-header">{t('addSubCategory')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (English)</Label>
+                        <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={en}
                           name={'en'}
                           onChange={onChangeHandler}
@@ -107,10 +110,10 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={ar}
                           name={'ar'}
                           onChange={onChangeHandler}
@@ -122,10 +125,10 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={hi}
                           name={'hi'}
                           onChange={onChangeHandler}
@@ -134,10 +137,12 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('name')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={ph}
                           name={'ph'}
                           onChange={onChangeHandler}
@@ -148,7 +153,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Category </Label>
+                        <Label for="examplePassword">{t('category')} </Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
@@ -177,7 +182,7 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Upload Icon </Label>
+                        <Label for="examplePassword">{t('icons')} </Label>
                         <InputGroup>
                           <label className="form-control chooseFile">
                             {' '}
@@ -211,13 +216,13 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/sub-categories')}>
-                  Cancel
+                  {t('cacel')}
                 </button>
                 <button
                   className="table-header-button"
                   onClick={submitHandler}
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('add')}
                 </button>
               </div>
             </div>

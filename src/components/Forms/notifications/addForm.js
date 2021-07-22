@@ -25,6 +25,7 @@ import {
 } from '../../../redux/actions/notifications.actions.js';
 import {useHistory, useParams} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = () => {
   const {id} = useParams();
@@ -96,6 +97,7 @@ const DashboardForm = () => {
     }
   }, [notification, id]);
 
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -105,16 +107,16 @@ const DashboardForm = () => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Notification</h2>
+              <h2 className="dashboard-form-header">{t('addNotification')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Title (English)</Label>
+                        <Label for="exampleEmail">{t('title')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter title"
+                          placeholder={'Enter' + t('title')}
                           value={title?.en}
                           name={'en'}
                           onChange={onTitleChangeHandler}
@@ -123,10 +125,10 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Title (Arabic)</Label>
+                        <Label for="exampleEmail">{t('title')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter title"
+                          placeholder={'Enter' + t('title')}
                           value={title?.ar}
                           name={'ar'}
                           onChange={onTitleChangeHandler}
@@ -136,10 +138,10 @@ const DashboardForm = () => {
 
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Title (Hindi)</Label>
+                        <Label for="exampleEmail">{t('title')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter title"
+                          placeholder={'Enter' + t('title')}
                           value={title?.hi}
                           name={'hi'}
                           onChange={onTitleChangeHandler}
@@ -148,10 +150,12 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Title (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('title')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
-                          placeholder="Enter title"
+                          placeholder={'Enter' + t('title')}
                           value={title?.ph}
                           name={'ph'}
                           onChange={onTitleChangeHandler}
@@ -165,13 +169,15 @@ const DashboardForm = () => {
                   <Row form>
                     <Col lg={6} md={12} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Message (English)</Label>
+                        <Label for="exampleEmail">
+                          {t('message')} (English)
+                        </Label>
                         <textarea
                           style={{display: 'block'}}
                           rows={5}
                           cols={60}
                           type="text"
-                          placeholder="Enter Message"
+                          placeholder={'Enter ' + t('message')}
                           value={message?.en}
                           name={'en'}
                           onChange={onMessageChangeHandler}
@@ -180,13 +186,15 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={6} md={12} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Message (Arabic)</Label>
+                        <Label for="exampleEmail">
+                          {t('message')} (Arabic)
+                        </Label>
                         <textarea
                           style={{display: 'block'}}
                           rows={5}
                           cols={60}
                           type="text"
-                          placeholder="Enter Message"
+                          placeholder={'Enter ' + t('message')}
                           value={message?.ar}
                           name={'ar'}
                           onChange={onMessageChangeHandler}
@@ -197,13 +205,13 @@ const DashboardForm = () => {
                   <Row form>
                     <Col lg={6} md={12} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Message (Hindi)</Label>
+                        <Label for="exampleEmail">{t('message')} (Hindi)</Label>
                         <textarea
                           style={{display: 'block'}}
                           rows={5}
                           cols={60}
                           type="text"
-                          placeholder="Enter Message"
+                          placeholder={'Enter ' + t('message')}
                           value={message?.hi}
                           name={'hi'}
                           onChange={onMessageChangeHandler}
@@ -212,13 +220,15 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={6} md={12} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Message (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('message')} (Philipins)
+                        </Label>
                         <textarea
                           style={{display: 'block'}}
                           rows={5}
                           cols={60}
                           type="text"
-                          placeholder="Enter Message"
+                          placeholder={'Enter ' + t('message')}
                           value={message?.ph}
                           name={'ph'}
                           onChange={onMessageChangeHandler}
@@ -230,7 +240,7 @@ const DashboardForm = () => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Topic </Label>
+                        <Label for="examplePassword">{t('sendTo')} </Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
@@ -247,13 +257,13 @@ const DashboardForm = () => {
                             </DropdownToggle>
                             <DropdownMenu>
                               <DropdownItem onClick={() => setTopic('all')}>
-                                {'All'}
+                                {t('all')}
                               </DropdownItem>
                               <DropdownItem onClick={() => setTopic('free')}>
-                                {'Free'}
+                                {t('free')}
                               </DropdownItem>
                               <DropdownItem onClick={() => setTopic('paid')}>
-                                {'Paid'}
+                                {t('paid')}
                               </DropdownItem>
                             </DropdownMenu>
                           </InputGroupButtonDropdown>
@@ -267,13 +277,13 @@ const DashboardForm = () => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/notifications')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   className="table-header-button"
                   onClick={submitHandler}
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('add')}
                 </button>
               </div>
             </div>

@@ -60,7 +60,8 @@ const Tables = ({history}) => {
   useEffect(() => {
     dispatch(listQuestions(postsPerPage, currentPage, searchKeyword));
   }, [dispatch, postsPerPage, currentPage, searchKeyword]);
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   return (
     <>
       <Header cardsVisible={false} />
@@ -115,14 +116,14 @@ const Tables = ({history}) => {
                     <tr>
                       <td rowSpan={6} colSpan={6}>
                         {' '}
-                        No data found
+                        {t('noDataFound')}
                       </td>
                     </tr>
                   ) : (
                     <>
                       {questions?.map((item) => (
                         <tr key={item?._id}>
-                          <td>{item?.question?.en?.slice(0, 100)} ...</td>
+                          <td>{item?.question[lang]?.slice(0, 100)} ...</td>
                           <td>
                             {finder(userTypes, item?.userType)?.name}{' '}
                             {finder(userTypes, item?.userType)?.enum}
@@ -132,13 +133,13 @@ const Tables = ({history}) => {
                             {finder(quesTypes, item?.questionType)?.enum}
                           </td>
                           <td>
-                            {item?.categoryId?.name?.en
-                              ? item?.categoryId?.name?.en
+                            {item?.categoryId?.name[lang]
+                              ? item?.categoryId?.name[lang]
                               : 'N/A'}
                           </td>
                           <td>
-                            {item?.subCategoryId?.name?.en
-                              ? item?.subCategoryId?.name?.en
+                            {item?.subCategoryId?.name[lang]
+                              ? item?.subCategoryId?.name[lang]
                               : 'N/A'}
                           </td>
 

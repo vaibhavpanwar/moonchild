@@ -63,7 +63,8 @@ const Tables = () => {
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
 
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   return (
     <>
       <Header cardsVisible={false} />
@@ -102,7 +103,7 @@ const Tables = () => {
                   <tr>
                     <th scope="col">{t('name')}</th>
 
-                    <th scope="col">{t('icon')}</th>
+                    <th scope="col">{t('icons')}</th>
                     <th scope="col">{t('status')}</th>
                     <th scope="col">{t('actions')}</th>
                   </tr>
@@ -119,7 +120,7 @@ const Tables = () => {
                     <>
                       {categories?.map((item) => (
                         <tr key={item?._id}>
-                          <td>{item?.name?.en}</td>
+                          <td>{item?.name[lang]}</td>
                           <td>
                             <img
                               alt={'Gulf Workers'}

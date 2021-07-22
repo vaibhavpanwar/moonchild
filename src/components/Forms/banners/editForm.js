@@ -24,6 +24,7 @@ import {
   editBanner,
 } from '../../../redux/actions/banners.actions.js';
 import {useParams} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -72,6 +73,8 @@ const DashboardForm = ({history}) => {
 
   const submitHandler = () => (icon ? editWithIcon() : editWithoutIcon());
 
+  const {t} = useTranslation();
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -81,20 +84,20 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Edit Banner</h2>
+              <h2 className="dashboard-form-header">{t('editBanner')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Image </Label>
+                        <Label for="examplePassword">{t('image')} </Label>
                         <InputGroup>
                           <label className="form-control chooseFile">
                             {' '}
                             <Input
                               type="file"
                               accept="image/png, image/jpg, image/jpeg"
-                              name="icon-upload"
+                              name={t('uploadPlaceholder')}
                               placeholder="Ppload file"
                               onChange={inputFileHandler}>
                               {' '}
@@ -123,7 +126,7 @@ const DashboardForm = ({history}) => {
 
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Url</Label>
+                        <Label for="exampleEmail">{t('url')}</Label>
                         <Input
                           type="text"
                           value={url}
@@ -140,13 +143,13 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/banners')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Update'}
+                  {loading ? <Spinner color={'info'} /> : t('update')}
                 </button>
               </div>
             </div>

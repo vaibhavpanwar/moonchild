@@ -34,6 +34,7 @@ import {
   getSingleSubCategory,
 } from '../../../redux/actions/sub-categories.actions.js';
 import {listCategories} from '../../../redux/actions/categories.actions.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -65,6 +66,7 @@ const DashboardForm = ({history}) => {
     // eslint-disable-next-line
   }, [dispatch, id]);
 
+  const {t} = useTranslation();
   useEffect(() => {
     if (!!subCategory?.name) {
       setName(subCategory?.name);
@@ -132,16 +134,16 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Edit Sub-Category</h2>
+              <h2 className="dashboard-form-header">{t('editSubCategory')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (English)</Label>
+                        <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={name?.en}
                           name={'en'}
                           onChange={onChangeHandler}
@@ -150,10 +152,10 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={name?.ar}
                           name={'ar'}
                           onChange={onChangeHandler}
@@ -164,10 +166,10 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={name?.hi}
                           name={'hi'}
                           onChange={onChangeHandler}
@@ -176,10 +178,12 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('name')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceHolder')}
                           value={name?.ph}
                           name={'ph'}
                           onChange={onChangeHandler}
@@ -191,7 +195,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Icon </Label>
+                        <Label for="examplePassword">{t('icons')} </Label>
                         <InputGroup>
                           <label className="form-control chooseFile">
                             {' '}
@@ -226,7 +230,7 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Category </Label>
+                        <Label for="examplePassword">{t('category')}</Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
@@ -260,13 +264,13 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/sub-categories')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Update'}
+                  {loading ? <Spinner color={'info'} /> : t('update')}
                 </button>
               </div>
             </div>

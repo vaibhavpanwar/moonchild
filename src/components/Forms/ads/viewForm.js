@@ -62,10 +62,11 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <Label for="exampleEmail">Icon</Label>
+                      <br />
                       {ad?.icon ? (
                         <img
                           alt={'Gulf wrokers'}
-                          src={getImageUrl(ad?.icon, 50, 50)}
+                          src={getImageUrl(ad?.icon, 150, 150)}
                         />
                       ) : (
                         <p>No icon</p>

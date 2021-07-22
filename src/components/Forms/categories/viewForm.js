@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {getSingleCategory} from '../../../redux/actions/categories.actions.js';
 import {getImageUrl} from '../../../utils/renderImage.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //import loading and error as well
@@ -24,6 +25,7 @@ const DashboardForm = ({history}) => {
     // eslint-disable-next-line
   }, [dispatch, id]);
 
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -33,13 +35,13 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Category</h2>
+              <h2 className="dashboard-form-header">{t('category')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (English)</Label>
+                        <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
                           value={category?.name?.en}
@@ -50,7 +52,7 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
                           value={category?.name?.ar}
@@ -63,7 +65,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
                           value={category?.name?.hi}
@@ -74,7 +76,9 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('name')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
                           value={category?.name?.ph}
@@ -87,7 +91,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Icon </Label>
+                        <Label for="examplePassword">{t('icons')} </Label>
                       </FormGroup>
                       <br />
 
@@ -103,7 +107,7 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/categories')}>
-                  {loading ? 'Loading..' : 'Cancel'}
+                  {loading ? 'Loading..' : t('cancel')}
                 </button>
               </div>
             </div>

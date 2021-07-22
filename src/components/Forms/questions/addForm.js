@@ -24,6 +24,7 @@ import {quesTypes, userTypes} from './data.js';
 import {getSubCategByCateg} from '../../../utils/subCategory.js';
 
 import {addQuestion} from '../../../redux/actions/questions.actions.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -193,6 +194,9 @@ const DashboardForm = ({history}) => {
     }
   }, [quesType?.enum]);
 
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -202,18 +206,18 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Question</h2>
+              <h2 className="dashboard-form-header">{t('addQuestion')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">User Type </Label>
+                        <Label for="examplePassword">{t('userType')} </Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={'Select User Type'}
+                            placeholder={t('userType')}
                             value={userType?.name}
                           />
                           <InputGroupButtonDropdown
@@ -246,8 +250,8 @@ const DashboardForm = ({history}) => {
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
-                                placeholder={'select category'}
-                                value={selectedCategory?.name?.en}
+                                placeholder={'select ' + t('category')}
+                                value={selectedCategory?.name[lang]}
                               />
                               <InputGroupButtonDropdown
                                 addonType="append"
@@ -264,7 +268,7 @@ const DashboardForm = ({history}) => {
                                       onClick={() =>
                                         categoryChangeHandler(item)
                                       }>
-                                      {item?.name?.en}
+                                      {item?.name[lang]}
                                     </DropdownItem>
                                   ))}
                                 </DropdownMenu>
@@ -275,18 +279,18 @@ const DashboardForm = ({history}) => {
                         <Col lg={4} md={6} sm={12}>
                           {selectedCategory?._id &&
                             (subCategoriesList?.length === 0 ? (
-                              <p>No sub categories found</p>
+                              <p>{t('noDataFound')}</p>
                             ) : (
                               <FormGroup>
                                 <Label for="examplePassword">
-                                  Sub Category{' '}
+                                  {t('subCategory')}
                                 </Label>
                                 <InputGroup>
                                   <Input
                                     style={{background: '#fff'}}
                                     readOnly
-                                    placeholder={'select sub category'}
-                                    value={selectedSubCategory?.name?.en}
+                                    placeholder={'select ' + t('subCategory')}
+                                    value={selectedSubCategory?.name[lang]}
                                   />
                                   <InputGroupButtonDropdown
                                     addonType="append"
@@ -305,7 +309,7 @@ const DashboardForm = ({history}) => {
                                           onClick={() =>
                                             subCategoryChangeHandler(item)
                                           }>
-                                          {item?.name?.en}
+                                          {item?.name[lang]}
                                         </DropdownItem>
                                       ))}
                                     </DropdownMenu>
@@ -320,12 +324,12 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Question Type </Label>
+                        <Label for="examplePassword">{'quesType'} </Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={'select question type'}
+                            placeholder={'select ' + t('quesType')}
                             value={quesType?.name}
                           />
                           <InputGroupButtonDropdown
@@ -354,10 +358,10 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (English)</Label>
+                        <Label for="exampleEmail">{t('ques')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter question"
+                          placeholder={'select ' + t('ques')}
                           value={en}
                           name={'en'}
                           onChange={onChangeHandler}
@@ -366,10 +370,10 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (Arabic)</Label>
+                        <Label for="exampleEmail">{t('ques')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter question"
+                          placeholder={'select ' + t('ques')}
                           value={ar}
                           name={'ar'}
                           onChange={onChangeHandler}
@@ -378,10 +382,10 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (Hindi)</Label>
+                        <Label for="exampleEmail">{t('ques')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter question"
+                          placeholder={'select ' + t('ques')}
                           value={hi}
                           name={'hi'}
                           onChange={onChangeHandler}
@@ -390,10 +394,12 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('ques')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
-                          placeholder="Enter question"
+                          placeholder={'select ' + t('ques')}
                           value={ph}
                           name={'ph'}
                           onChange={onChangeHandler}
@@ -416,12 +422,12 @@ const DashboardForm = ({history}) => {
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">
-                                  Option{i + 1} (English)
+                                  {t('option')} {i + 1} (English)
                                 </Label>
                                 <Input
                                   type="text"
                                   placeholder="Enter option"
-                                  value={item?.name?.en}
+                                  value={item?.name[lang]}
                                   name={'en'}
                                   onChange={(e) => handleOptionsChange(e, i)}
                                 />
@@ -431,7 +437,7 @@ const DashboardForm = ({history}) => {
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">
-                                  Option{i + 1} (Arabic)
+                                  {t('option')} {i + 1} (Arabic)
                                 </Label>
                                 <Input
                                   type="text"
@@ -459,7 +465,7 @@ const DashboardForm = ({history}) => {
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">
-                                  Option{i + 1} (Philipins)
+                                  {t('option')} {i + 1} (Philipins)
                                 </Label>
                                 <Input
                                   type="text"
@@ -490,7 +496,7 @@ const DashboardForm = ({history}) => {
                                   className="  btn
                                 add-button"
                                   onClick={handleAddClick}>
-                                  Add
+                                  {t('add')}
                                 </button>
                               )}
                             </>
@@ -506,13 +512,13 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/questions')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   className="table-header-button"
                   onClick={submitHandler}
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('add')}
                 </button>
               </div>
             </div>

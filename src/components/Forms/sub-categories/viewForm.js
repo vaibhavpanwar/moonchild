@@ -23,6 +23,7 @@ import {getImageUrl} from '../../../utils/renderImage';
 import {useParams} from 'react-router-dom';
 import {getSingleSubCategory} from '../../../redux/actions/sub-categories.actions.js';
 import {listCategories} from '../../../redux/actions/categories.actions.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -42,6 +43,7 @@ const DashboardForm = ({history}) => {
 
     // eslint-disable-next-line
   }, [dispatch, id]);
+  const {t} = useTranslation();
 
   return (
     <>
@@ -52,13 +54,13 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Edit Sub-Category</h2>
+              <h2 className="dashboard-form-header">{t('editSubCategory')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (English)</Label>
+                        <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
                           value={subCategory?.name?.en}
@@ -69,7 +71,7 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
                           value={subCategory?.name?.ar}
@@ -82,7 +84,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
                           value={subCategory?.name?.hi}
@@ -93,7 +95,9 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('name')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
                           value={subCategory?.name?.ph}
@@ -107,7 +111,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Icon </Label>
+                        <Label for="examplePassword">{t('icons')} </Label>
                       </FormGroup>
                       <br />
 
@@ -123,7 +127,7 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">
-                          Category Name(English){' '}
+                          {t('categName')} English){' '}
                         </Label>
                         <InputGroup>
                           <Input
@@ -140,7 +144,7 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">
-                          Category Name (Arabic){' '}
+                          {t('categName')} (Arabic){' '}
                         </Label>
                         <InputGroup>
                           <Input
@@ -159,7 +163,7 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">
-                          Category Name(Philipins){' '}
+                          {t('categName')} Philipins){' '}
                         </Label>
                         <InputGroup>
                           <Input
@@ -176,7 +180,7 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">
-                          Category Name(Hindi){' '}
+                          {t('categName')} (Hindi){' '}
                         </Label>
                         <InputGroup>
                           <Input
@@ -197,7 +201,7 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/sub-categories')}>
-                  {loading ? <Spinner color={'info'} /> : 'Cancel'}
+                  {loading ? <Spinner color={'info'} /> : t('cancel')}
                 </button>
               </div>
             </div>

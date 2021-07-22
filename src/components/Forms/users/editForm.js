@@ -17,8 +17,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {editUser, getSingleUser} from '../../../redux/actions/users.actions.js';
 import {useHistory} from 'react-router';
 import {useParams} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 const DashboardForm = () => {
   const history = useHistory();
+
+  const {t} = useTranslation();
   //redux
   const dispatch = useDispatch();
   const {loading, user} = useSelector((state) => state.usersReducer);
@@ -70,16 +73,16 @@ const DashboardForm = () => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Edit User</h2>
+              <h2 className="dashboard-form-header">{t('editUser')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name </Label>
+                        <Label for="exampleEmail">{t('name')} </Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                         />
@@ -87,10 +90,10 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Email</Label>
+                        <Label for="exampleEmail">{t('emailAddress')}</Label>
                         <Input
                           type="text"
-                          placeholder="Enter email address"
+                          placeholder={t('emailPlaceholder')}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                         />
@@ -98,10 +101,10 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Phone</Label>
+                        <Label for="exampleEmail">{t('phoneNumber')}</Label>
                         <Input
                           type="tel"
-                          placeholder="Enter full phone numbe"
+                          placeholder={t('phonePlaceholder')}
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                         />
@@ -114,13 +117,13 @@ const DashboardForm = () => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/users')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('update')}
                 </button>
               </div>
             </div>

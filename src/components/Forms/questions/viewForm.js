@@ -22,6 +22,7 @@ import {getSingleQuestion} from '../../../redux/actions/questions.actions.js';
 import {listSubCategories} from '../../../redux/actions/sub-categories.actions.js';
 import {finder} from '../../../utils/dataHelpers.js';
 import {useParams} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   const {id} = useParams();
@@ -36,6 +37,8 @@ const DashboardForm = ({history}) => {
     dispatch(listSubCategories());
     dispatch(getSingleQuestion(id));
   }, [dispatch, id]);
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
 
   return (
     <>
@@ -46,7 +49,7 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">View Question</h2>
+              <h2 className="dashboard-form-header">{t('viewQuestion')}</h2>
 
               {loading && (
                 <p style={{textAlign: 'center'}}>
@@ -59,7 +62,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">User Type </Label>
+                        <Label for="examplePassword">{t('userType')} </Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
@@ -74,25 +77,25 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Category </Label>
+                        <Label for="examplePassword">{t('category')}</Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
                             placeholder={'select category'}
-                            value={question?.categoryId?.name?.en}
+                            value={question?.categoryId?.name[lang]}
                           />
                         </InputGroup>
                       </FormGroup>
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Sub Category </Label>
+                        <Label for="examplePassword">{t('subCategory')}</Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            value={question?.subCategoryId?.name?.en}
+                            value={question?.subCategoryId?.name[lang]}
                           />
                         </InputGroup>
                       </FormGroup>
@@ -102,7 +105,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Question Type </Label>
+                        <Label for="examplePassword">{t('ques')}</Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
@@ -124,7 +127,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (English)</Label>
+                        <Label for="exampleEmail">{t('ques')} (English)</Label>
                         <Input
                           type="text"
                           placeholder="Enter question"
@@ -135,7 +138,7 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (Arabic)</Label>
+                        <Label for="exampleEmail">{t('ques')} (Arabic)</Label>
                         <Input
                           type="text"
                           placeholder="Enter question"
@@ -146,7 +149,7 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (Hindi)</Label>
+                        <Label for="exampleEmail">{t('ques')} (Hindi)</Label>
                         <Input
                           type="text"
                           placeholder="Enter question"
@@ -157,7 +160,9 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={3} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Question (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('ques')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
                           placeholder="Enter question"
@@ -178,12 +183,13 @@ const DashboardForm = ({history}) => {
                             {' '}
                             <FormGroup>
                               <Label for="exampleEmail">
-                                Option{i + 1} (English)
+                                {t('option')}
+                                {i + 1} (English)
                               </Label>
                               <Input
                                 type="text"
                                 placeholder="Enter option"
-                                value={item?.name?.en}
+                                value={item?.name[lang]}
                                 readOnly
                               />
                             </FormGroup>
@@ -192,7 +198,8 @@ const DashboardForm = ({history}) => {
                             {' '}
                             <FormGroup>
                               <Label for="exampleEmail">
-                                Option{i + 1} (Arabic)
+                                {t('option')}
+                                {i + 1} (Arabic)
                               </Label>
                               <Input
                                 type="text"
@@ -205,7 +212,9 @@ const DashboardForm = ({history}) => {
                           <Col lg={3} md={6} sm={12}>
                             {' '}
                             <FormGroup>
-                              <Label for="exampleEmail">Option (Hindi)</Label>
+                              <Label for="exampleEmail">
+                                Option {i + 1} (Hindi)
+                              </Label>
                               <Input
                                 type="text"
                                 placeholder="Enter option"
@@ -218,7 +227,8 @@ const DashboardForm = ({history}) => {
                             {' '}
                             <FormGroup>
                               <Label for="exampleEmail">
-                                Option{i + 1} (Philipins)
+                                {t('option')}
+                                {i + 1} (Philipins)
                               </Label>
                               <Input
                                 type="text"
@@ -238,7 +248,7 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/questions')}>
-                  {loading ? <Spinner color={'info'} /> : 'Cancel'}
+                  {loading ? <Spinner color={'info'} /> : t('cancel')}
                 </button>
               </div>
             </div>

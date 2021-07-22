@@ -20,6 +20,7 @@ import {imageUploader} from '../../../utils/imageUpload.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {bannersConstants} from '../../../redux/constants';
 import {addBanner} from '../../../redux/actions/banners.actions.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -45,6 +46,7 @@ const DashboardForm = ({history}) => {
       // pop and error
     }
   };
+  const {t} = useTranslation();
 
   return (
     <>
@@ -55,13 +57,13 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Banner</h2>
+              <h2 className="dashboard-form-header">{t('addBanner')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Image </Label>
+                        <Label for="examplePassword">{t('image')}</Label>
                         <InputGroup>
                           <label className="form-control chooseFile">
                             {' '}
@@ -69,7 +71,7 @@ const DashboardForm = ({history}) => {
                               type="file"
                               name="icon-upload"
                               accept="image/png, image/jpg, image/jpeg"
-                              placeholder="Ppload file"
+                              placeholder={t('uploadPlaceholder')}
                               onChange={inputFileHandler}>
                               {' '}
                             </Input>
@@ -91,7 +93,7 @@ const DashboardForm = ({history}) => {
 
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Url</Label>
+                        <Label for="exampleEmail">{t('url')}</Label>
                         <Input
                           type="text"
                           name="url"
@@ -108,13 +110,13 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/banners')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('add')}
                 </button>
               </div>
             </div>

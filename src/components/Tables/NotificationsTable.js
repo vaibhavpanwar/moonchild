@@ -24,8 +24,8 @@ const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
-  const {t} = useTranslation();
-
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   const dispatch = useDispatch();
   const {notifications, loading, count} = useSelector(
     (state) => state.notificationsReducer,
@@ -84,8 +84,8 @@ const Tables = () => {
                 <tbody>
                   {notifications?.map((item) => (
                     <tr key={item?._id}>
-                      <td>{item?.title?.en}</td>
-                      <td>{item?.message?.en}</td>
+                      <td>{item?.title[lang]}</td>
+                      <td>{item?.message[lang]}</td>
                       <td>{item?.topic}</td>
                       <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
                       <td>

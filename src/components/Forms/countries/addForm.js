@@ -19,6 +19,7 @@ import {addCountry} from '../../../redux/actions/countries.actions';
 import cogoToast from 'cogo-toast';
 import {countriesConstants} from '../../../redux/constants/countries.constants.js';
 import {imageUploader} from '../../../utils/imageUpload.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -64,6 +65,7 @@ const DashboardForm = ({history}) => {
     }
   };
 
+  const {t} = useTranslation();
   return (
     <>
       <Header cardsVisible={false} />
@@ -73,16 +75,16 @@ const DashboardForm = ({history}) => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Country</h2>
+              <h2 className="dashboard-form-header">{t('addCountry')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (English)</Label>
+                        <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={en}
                           name={'en'}
                           onChange={onChangeHandler}
@@ -91,10 +93,10 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Arabic)</Label>
+                        <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={ar}
                           name={'ar'}
                           onChange={onChangeHandler}
@@ -105,10 +107,10 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Hindi)</Label>
+                        <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={hi}
                           name={'hi'}
                           onChange={onChangeHandler}
@@ -117,10 +119,12 @@ const DashboardForm = ({history}) => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name (Philipins)</Label>
+                        <Label for="exampleEmail">
+                          {t('name')} (Philipins)
+                        </Label>
                         <Input
                           type="text"
-                          placeholder="Enter name"
+                          placeholder={t('namePlaceholder')}
                           value={ph}
                           name={'ph'}
                           onChange={onChangeHandler}
@@ -131,7 +135,7 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">Upload Icon </Label>
+                        <Label for="examplePassword">{t('icons')} </Label>
                         <InputGroup>
                           <label className="form-control chooseFile">
                             {' '}
@@ -165,13 +169,13 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/countries')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('add')}
                 </button>
               </div>
             </div>

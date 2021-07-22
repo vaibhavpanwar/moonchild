@@ -106,7 +106,7 @@ function LoginPage(props) {
                   type="email"
                   id="email"
                   value={email}
-                  placeholder={'email'}
+                  placeholder={t('emailAddress')}
                   onChange={(e) => setEmail(e.target.value)}
                   aria-describedby="basic-addon3"
                 />
@@ -126,7 +126,7 @@ function LoginPage(props) {
                     color: 'rgb(0,0,0)',
                   }}
                   id="password"
-                  placeholder={'password'}
+                  placeholder={t('password')}
                   type={show ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

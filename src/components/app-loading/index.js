@@ -38,7 +38,7 @@ function AppLoading() {
                 <Card.Body>
                   <img
                     alt=""
-                    src={require('../../assets/images/isave_background.png')}
+                    src={require('../../assets/images/logo.png')}
                     width={150}
                   />
                   <Card.Title tag="h3">

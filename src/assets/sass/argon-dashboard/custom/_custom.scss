@@ -727,3 +727,9 @@ label {
     margin-left: 100px;
   }
 }
+
+@media screen {
+  .navbar-vertical.navbar-expand-md.fixed-left + .main-content {
+    margin-left: 340px;
+  }
+}

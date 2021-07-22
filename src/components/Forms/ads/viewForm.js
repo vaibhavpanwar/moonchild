@@ -8,6 +8,7 @@ import {finder} from '../../../utils/dataHelpers';
 import {userTypes} from '../questions/data';
 import {getImageUrl} from '../../../utils/renderImage';
 import {getSingleAd} from '../../../redux/actions/ads.actions';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,9 @@ const DashboardForm = () => {
   useEffect(() => {
     dispatch(getSingleAd(id));
   }, [dispatch, id]);
+
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   return (
     <>
       <Header cardsVisible={false} />
@@ -26,42 +30,42 @@ const DashboardForm = () => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">ad</h2>
+              <h2 className="dashboard-form-header">{t('viewAd')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
-                      <Label for="exampleEmail">User</Label>
+                      <Label for="exampleEmail">{t('user')}</Label>
                       <br />
                       <p>{ad?.userId?.name ? ad?.userId?.name : 'N/A'}</p>
                     </Col>
                     <Col lg={4} md={6} sm={12}>
-                      <Label for="exampleEmail">Category</Label>
+                      <Label for="exampleEmail">{t('category')}</Label>
                       <br />
                       <p>
-                        {ad?.categoryId?.name?.en
-                          ? ad?.categoryId?.name?.en
+                        {ad?.categoryId?.name[lang]
+                          ? ad?.categoryId?.name[lang]
                           : 'N/A'}
                       </p>
                     </Col>
                     <Col lg={4} md={6} sm={12}>
-                      <Label for="exampleEmail">Sub Category</Label>
+                      <Label for="exampleEmail">{t('subCategory')}</Label>
                       <br />
                       <p>
-                        {ad?.subCategoryId?.name?.en
-                          ? ad?.subCategoryId?.name?.en
+                        {ad?.subCategoryId?.name[lang]
+                          ? ad?.subCategoryId?.name[lang]
                           : 'N/A'}
                       </p>
                     </Col>
                   </Row>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
-                      <Label for="exampleEmail">User Type</Label>
+                      <Label for="exampleEmail">{t('userType')}</Label>
                       <br />
                       <p>{finder(userTypes, ad?.userType)?.name}</p>
                     </Col>
                     <Col lg={4} md={6} sm={12}>
-                      <Label for="exampleEmail">Icon</Label>
+                      <Label for="exampleEmail">{t('icons')}</Label>
                       <br />
                       {ad?.icon ? (
                         <img
@@ -69,15 +73,15 @@ const DashboardForm = () => {
                           src={getImageUrl(ad?.icon, 150, 150)}
                         />
                       ) : (
-                        <p>No icon</p>
+                        <p>{t('noIcon')}</p>
                       )}
                     </Col>
                     <Col lg={4} md={6} sm={12}>
-                      <Label for="exampleEmail">Country</Label>
+                      <Label for="exampleEmail">{t('country')}</Label>
                       <br />
                       <p>
-                        {ad?.countryId?.name?.en
-                          ? ad?.countryId?.name?.en
+                        {ad?.countryId?.name[lang]
+                          ? ad?.countryId?.name[lang]
                           : 'N/A'}
                       </p>
                     </Col>
@@ -86,7 +90,7 @@ const DashboardForm = () => {
                   <br />
                   <hr />
                   <br />
-                  <h4> Additional Questions</h4>
+                  <h4> {t('additionalQuestions')}</h4>
                   <Row>
                     {ad?.additionalQuestion?.map((item) =>
                       item?.questionId?.questionType === 1 ? (
@@ -99,7 +103,7 @@ const DashboardForm = () => {
                         <Col lg={4} md={6} sm={12}>
                           <label>{item?.questionId?.question?.en}</label>
                           {item?.optionId?.map((e) => (
-                            <p>{e?.name?.en}</p>
+                            <p>{e?.name[lang]}</p>
                           ))}
                         </Col>
                       ),
@@ -111,7 +115,7 @@ const DashboardForm = () => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/ads')}>
-                  {loading ? 'Loading..' : 'Cancel'}
+                  {loading ? 'Loading..' : t('cancel')}
                 </button>
               </div>
             </div>

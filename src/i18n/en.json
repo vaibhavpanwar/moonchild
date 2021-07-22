@@ -94,5 +94,11 @@
   "all": "All",
   "free": "Free",
   "paid": "Paid",
-  "title": "Title"
+  "title": "Title",
+  "otherDetails": "Other Details",
+  "user": "User",
+  "country": "Country",
+  "noQuesData": "No ques found for selected preferences, please select different options",
+  "noIcon": "No Icon",
+  "additionalQuestions": "Additional Questions"
 }

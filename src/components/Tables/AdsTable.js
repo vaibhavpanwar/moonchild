@@ -28,7 +28,8 @@ const Tables = () => {
   const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
 
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   const dispatch = useDispatch();
   const {ads, loading, count} = useSelector((state) => state.adsReducer);
 
@@ -99,8 +100,8 @@ const Tables = () => {
                       <td>{item?.userId?.name}</td>
                       <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
 
-                      <td>{item?.categoryId?.name?.en}</td>
-                      <td>{item?.subCategoryId?.name?.en}</td>
+                      <td>{item?.categoryId?.name[lang]}</td>
+                      <td>{item?.subCategoryId?.name[lang]}</td>
 
                       <td>
                         <SwitchSlider

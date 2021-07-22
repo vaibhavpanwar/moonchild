@@ -33,6 +33,7 @@ import {imageUploader} from '../../../utils/imageUpload.js';
 import {addAd} from '../../../redux/actions/ads.actions.js';
 import {useHistory} from 'react-router-dom';
 import {listUsers} from '../../../redux/actions/users.actions.js';
+import {useTranslation} from 'react-i18next';
 
 const DashboardForm = () => {
   const history = useHistory();
@@ -285,6 +286,9 @@ const DashboardForm = () => {
 
   const submitHandler = async () =>
     userType?.enum === 3 && icon ? addWithIcon() : addWithoutIcon();
+
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language;
   return (
     <>
       <Header cardsVisible={false} />
@@ -294,18 +298,18 @@ const DashboardForm = () => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add Ads</h2>
+              <h2 className="dashboard-form-header">{t('addAd')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">User Type </Label>
+                        <Label for="examplePassword">{t('userType')}</Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={'Select User Type'}
+                            placeholder={`Select ${t('userType')}`}
                             value={userType?.name}
                           />
                           <InputGroupButtonDropdown
@@ -333,13 +337,15 @@ const DashboardForm = () => {
                       <>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Category </Label>
+                            <Label for="examplePassword">
+                              {t('category')}{' '}
+                            </Label>
                             <InputGroup>
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
-                                placeholder={'select category'}
-                                value={selectedCategory?.name?.en}
+                                placeholder={`select ${t('category')}`}
+                                value={selectedCategory?.name[lang]}
                               />
                               <InputGroupButtonDropdown
                                 addonType="append"
@@ -356,7 +362,7 @@ const DashboardForm = () => {
                                       onClick={() =>
                                         categoryChangeHandler(item)
                                       }>
-                                      {item?.name?.en}
+                                      {item?.name[lang]}
                                     </DropdownItem>
                                   ))}
                                 </DropdownMenu>
@@ -369,18 +375,18 @@ const DashboardForm = () => {
                           {selectedCategory?._id &&
                             (!subCategLoading &&
                             subCategoriesList?.length === 0 ? (
-                              <p>No sub categories found</p>
+                              <p>{t('noDataFound')}</p>
                             ) : (
                               <FormGroup>
                                 <Label for="examplePassword">
-                                  Sub Category{' '}
+                                  {t('subCategory')}
                                 </Label>
                                 <InputGroup>
                                   <Input
                                     style={{background: '#fff'}}
                                     readOnly
-                                    placeholder={'select sub category'}
-                                    value={selectedSubCategory?.name?.en}
+                                    placeholder={`select   ${t('subCategory')}`}
+                                    value={selectedSubCategory?.name[lang]}
                                   />
                                   <InputGroupButtonDropdown
                                     addonType="append"
@@ -399,7 +405,7 @@ const DashboardForm = () => {
                                           onClick={() =>
                                             subCategoryChangeHandler(item)
                                           }>
-                                          {item?.name?.en}
+                                          {item?.name[lang]}
                                         </DropdownItem>
                                       ))}
                                     </DropdownMenu>
@@ -415,7 +421,7 @@ const DashboardForm = () => {
                     <Row form>
                       <Col lg={4} md={6} sm={12}>
                         <FormGroup>
-                          <Label for="examplePassword">Upload Icon </Label>
+                          <Label for="examplePassword"> {t('icons')} </Label>
                           <InputGroup>
                             <label className="form-control chooseFile">
                               {' '}
@@ -423,7 +429,7 @@ const DashboardForm = () => {
                                 type="file"
                                 accept="image/png, image/jpg, image/jpeg"
                                 name="icon-upload"
-                                placeholder="Ppload file"
+                                placeholder={t('uploadPlaceholder')}
                                 onChange={inputFileHandler}>
                                 {' '}
                               </Input>
@@ -449,13 +455,13 @@ const DashboardForm = () => {
                     {![1].includes(userType?.enum) && userType && (
                       <Col lg={4} md={6} sm={12}>
                         <FormGroup>
-                          <Label for="examplePassword">Country </Label>
+                          <Label for="examplePassword"> {t('country')} </Label>
                           <InputGroup>
                             <Input
                               style={{background: '#fff'}}
                               readOnly
                               placeholder={'select category'}
-                              value={selectedCountry?.name?.en}
+                              value={selectedCountry?.name[lang]}
                             />
                             <InputGroupButtonDropdown
                               addonType="append"
@@ -470,7 +476,7 @@ const DashboardForm = () => {
                                 {countries?.map((item) => (
                                   <DropdownItem
                                     onClick={() => countryChangeHandler(item)}>
-                                    {item?.name?.en}
+                                    {item?.name[lang]}
                                   </DropdownItem>
                                 ))}
                               </DropdownMenu>
@@ -482,7 +488,7 @@ const DashboardForm = () => {
 
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">User </Label>
+                        <Label for="examplePassword">{t('user')}</Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
@@ -521,16 +527,13 @@ const DashboardForm = () => {
                   <hr />
                   <br />
 
-                  <p>Other Details</p>
+                  <p> {t('otherDetails')}</p>
                   <br />
 
                   <br />
                   {quesLoading && <Spinner color={'info'} />}
                   {!quesLoading && quesList?.length === 0 ? (
-                    <p>
-                      No ques found for selected preferences, please select
-                      different options
-                    </p>
+                    <p>{t('noQuesData')}</p>
                   ) : (
                     <Row form>
                       {quesList?.map((item) => (
@@ -589,7 +592,7 @@ const DashboardForm = () => {
                                   <>
                                     <input
                                       type="checkbox"
-                                      value={opt?.name?.en}
+                                      value={opt?.name[lang]}
                                       name="gender"
                                       checked={answersT3
                                         .find(
@@ -601,11 +604,11 @@ const DashboardForm = () => {
                                           item?._id,
 
                                           opt?._id,
-                                          opt?.name?.en,
+                                          opt?.name[lang],
                                         );
                                       }}
                                     />
-                                    {opt?.name?.en}
+                                    {opt?.name[lang]}
                                   </>
                                 ))}
                               </div>
@@ -649,12 +652,12 @@ const DashboardForm = () => {
                                           item?._id,
                                           item?.questionType,
                                           opt?._id,
-                                          opt?.name?.en,
+                                          opt?.name[lang],
                                         );
                                       }}
-                                      value={opt?.name?.en}
+                                      value={opt?.name[lang]}
                                     />
-                                    {opt?.name?.en}
+                                    {opt?.name[lang]}
                                   </>
                                 ))}
                               </form>
@@ -672,13 +675,13 @@ const DashboardForm = () => {
                     history.push('/admin/ads');
                   }}
                   className="form-cancel-button">
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   disabled={!validateForm()}
                   className="table-header-button">
-                  Add
+                  {t('add')}
                 </button>
               </div>
             </div>

@@ -648,7 +648,7 @@ const DashboardForm = () => {
                               lg={4}
                               md={6}
                               sm={12}>
-                              <label> {item.question?.en}</label>
+                              <label> {item.question[lang]}</label>
                               <br />
                               <FormGroup>
                                 <InputGroup>
@@ -683,7 +683,7 @@ const DashboardForm = () => {
                               lg={4}
                               md={6}
                               sm={12}>
-                              <label> {item.question?.en}</label>
+                              <label> {item.question[lang]}</label>
                               <br />
                               <div
                                 style={{
@@ -723,7 +723,7 @@ const DashboardForm = () => {
                               lg={4}
                               md={6}
                               sm={12}>
-                              <label> {item.question?.en}</label>
+                              <label> {item.question[lang]}</label>
                               <br />
                               <form
                                 style={{

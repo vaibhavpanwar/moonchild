@@ -83,7 +83,11 @@ const DashboardForm = ({history}) => {
                             style={{background: '#fff'}}
                             readOnly
                             placeholder={'select category'}
-                            value={question?.categoryId?.name[lang]}
+                            value={
+                              question?.categoryId?.name[lang]
+                                ? question?.categoryId?.name[lang]
+                                : 'N/A'
+                            }
                           />
                         </InputGroup>
                       </FormGroup>
@@ -95,7 +99,11 @@ const DashboardForm = ({history}) => {
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            value={question?.subCategoryId?.name[lang]}
+                            value={
+                              question?.subCategoryId?.name[lang]
+                                ? question?.subCategoryId?.name[lang]
+                                : 'N/A'
+                            }
                           />
                         </InputGroup>
                       </FormGroup>

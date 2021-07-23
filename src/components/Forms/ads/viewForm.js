@@ -95,13 +95,13 @@ const DashboardForm = () => {
                     {ad?.additionalQuestion?.map((item) =>
                       item?.questionId?.questionType === 1 ? (
                         <Col lg={4} md={6} sm={12}>
-                          <label>{item?.questionId?.question?.en}</label>
+                          <label>{item?.questionId?.question[lang]}</label>
                           <br />
                           <p>{item?.text}</p>
                         </Col>
                       ) : (
                         <Col lg={4} md={6} sm={12}>
-                          <label>{item?.questionId?.question?.en}</label>
+                          <label>{item?.questionId?.question[lang]}</label>
                           {item?.optionId?.map((e) => (
                             <p>{e?.name[lang]}</p>
                           ))}

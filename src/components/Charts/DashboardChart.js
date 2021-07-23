@@ -57,6 +57,7 @@ const Index = (props) => {
           ads: dashboardData?.adds,
           chats: dashboardData?.chats,
           income: dashboardData?.income,
+          enum: activeNav,
         }}
       />
 

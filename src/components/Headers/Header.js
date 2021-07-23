@@ -42,12 +42,23 @@ const Header = ({cardsVisible = true, data}) => {
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
+                        <span
+                          className={`mr-2 ${
+                            data?.users?.margin > 0
+                              ? 'text-success'
+                              : data?.users?.margin === 0
+                              ? 'text-warning'
+                              : 'text-danger'
+                          }`}>
                           <i className="fa fa-arrow-up" /> {data?.users?.margin}{' '}
                           %
                         </span>{' '}
                         <span className="card-footer-text-custom">
-                          Since last month
+                          {data?.enum === 1
+                            ? 'Since Last Month'
+                            : data?.enum === 2
+                            ? 'Since Last Week'
+                            : 'Since Yesterday'}
                         </span>
                       </p>
                     </CardBody>
@@ -78,12 +89,23 @@ const Header = ({cardsVisible = true, data}) => {
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-danger mr-2">
+                        <span
+                          className={`mr-2 ${
+                            data?.ads?.margin > 0
+                              ? 'text-success'
+                              : data?.ads?.margin === 0
+                              ? 'text-warning'
+                              : 'text-danger'
+                          }`}>
                           <i className="fas fa-arrow-down" />{' '}
                           {data?.ads?.margin} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
-                          Since last week
+                          {data?.enum === 1
+                            ? 'Since Last Month'
+                            : data?.enum === 2
+                            ? 'Since Last Week'
+                            : 'Since Yesterday'}
                         </span>
                       </p>
                     </CardBody>
@@ -114,12 +136,23 @@ const Header = ({cardsVisible = true, data}) => {
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-warning mr-2">
+                        <span
+                          className={`mr-2 ${
+                            data?.chats?.margin > 0
+                              ? 'text-success'
+                              : data?.chats?.margin === 0
+                              ? 'text-warning'
+                              : 'text-danger'
+                          }`}>
                           <i className="fas fa-arrow-down" />{' '}
                           {data?.chats?.margin} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
-                          Since yesterday
+                          {data?.enum === 1
+                            ? 'Since Last Month'
+                            : data?.enum === 2
+                            ? 'Since Last Week'
+                            : 'Since Yesterday'}
                         </span>
                       </p>
                     </CardBody>
@@ -133,7 +166,7 @@ const Header = ({cardsVisible = true, data}) => {
                           <CardTitle
                             tag="h5"
                             className="card-stats-heading-custom">
-                            TOTAL INCOME
+                            TOTAL users
                           </CardTitle>
                           <span className="card-stats-custom">
                             {data?.income?.total}
@@ -148,12 +181,23 @@ const Header = ({cardsVisible = true, data}) => {
                         </Col>
                       </Row>
                       <p className="mt-3 mb-0 text-muted text-sm">
-                        <span className="text-success mr-2">
+                        <span
+                          className={`mr-2 ${
+                            data?.income?.margin > 0
+                              ? 'text-success'
+                              : data?.income?.margin === 0
+                              ? 'text-warning'
+                              : 'text-danger'
+                          }`}>
                           <i className="fas fa-arrow-up" />{' '}
                           {data?.income?.margin} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
-                          Since last month
+                          {data?.enum === 1
+                            ? 'Since Last Month'
+                            : data?.enum === 2
+                            ? 'Since Last Week'
+                            : 'Since Yesterday'}
                         </span>
                       </p>
                     </CardBody>

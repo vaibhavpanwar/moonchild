@@ -5,7 +5,9 @@ import userIcon from '../../assets/images/icons/card-user-icon.svg';
 import bellIcon from '../../assets/images/icons/card-bell-icon.svg';
 import chatIcon from '../../assets/images/icons/card-chat-icon.svg';
 import incomeIcon from '../../assets/images/icons/card-income-icon.svg';
+import {useTranslation} from 'react-i18next';
 const Header = ({cardsVisible = true, data}) => {
+  const {t} = useTranslation();
   return (
     <>
       {/* custom style here */}
@@ -27,7 +29,7 @@ const Header = ({cardsVisible = true, data}) => {
                           <CardTitle
                             tag="h5"
                             className="card-stats-heading-custom">
-                            TOTAL REGISTERED USERS
+                            {t('totalRegisteredUser')}
                           </CardTitle>
                           <span className="card-stats-custom">
                             {data?.users?.total}
@@ -74,7 +76,7 @@ const Header = ({cardsVisible = true, data}) => {
                           <CardTitle
                             tag="h5"
                             className="card-stats-heading-custom">
-                            NUMBER OF ADS
+                            {t('numberOfAds')}
                           </CardTitle>
                           <span className="card-stats-custom">
                             {data?.ads?.total}
@@ -121,7 +123,7 @@ const Header = ({cardsVisible = true, data}) => {
                           <CardTitle
                             tag="h5"
                             className="card-stats-heading-custom">
-                            NUMBER OF CHATS
+                            {t('numberOfChats')}
                           </CardTitle>
                           <span className="card-stats-custom">
                             {data?.chats?.total}
@@ -166,7 +168,7 @@ const Header = ({cardsVisible = true, data}) => {
                           <CardTitle
                             tag="h5"
                             className="card-stats-heading-custom">
-                            TOTAL users
+                            {t('totalIncome')}
                           </CardTitle>
                           <span className="card-stats-custom">
                             {data?.income?.total}

@@ -8,7 +8,7 @@ let routes = [
     component: Payments,
     svg: true,
     layout: '/admin',
-    sideBar: true,
+    sideBar: false,
   },
 ];
 

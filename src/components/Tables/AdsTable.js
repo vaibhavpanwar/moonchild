@@ -22,6 +22,8 @@ import Pagination from '../Pagination/paginate';
 import {useHistory} from 'react-router-dom';
 import {deleteAd, editAdStatus, listAds} from '../../redux/actions/ads.actions';
 import moment from 'moment';
+import {userTypes} from '../Forms/questions/data.js';
+import {finder} from '../../utils/dataHelpers';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,6 +52,7 @@ const Tables = () => {
   useEffect(() => {
     dispatch(listAds(postsPerPage, currentPage, searchKeyword));
   }, [dispatch, postsPerPage, currentPage, searchKeyword]);
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -88,6 +91,7 @@ const Tables = () => {
                   <tr>
                     <th scope="col">{t('name')}</th>
                     <th scope="col">{t('registrationDate')}</th>
+                    <th scope="col">{t('userType')}</th>
                     <th scope="col">{t('category')}</th>
                     <th scope="col">{t('subCategory')}</th>
                     <th scope="col">{t('status')}</th>
@@ -95,47 +99,64 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {ads?.map((item) => (
-                    <tr key={item?._id}>
-                      <td>{item?.userId?.name}</td>
-                      <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
-
-                      <td>{item?.categoryId?.name[lang]}</td>
-                      <td>{item?.subCategoryId?.name[lang]}</td>
-
-                      <td>
-                        <SwitchSlider
-                          clicked={() => activeInactiveAd(item?._id)}
-                          checked={item?.status === 1}
-                        />{' '}
-                      </td>
-
-                      <td>
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={eyeIcon}
-                          onClick={() =>
-                            navigateTo(`/admin/ads/viewAd/${item._id}`)
-                          }
-                        />
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={editIcon}
-                          onClick={() =>
-                            navigateTo(`/admin/ads/editAd/${item._id}`)
-                          }
-                        />
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={deleteIcon}
-                          onClick={() => deleteHandler(item?._id)}
-                        />
+                  {!loading && ads?.length === 0 ? (
+                    <tr>
+                      <td rowSpan={6} colSpan={6}>
+                        {' '}
+                        No data found
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    ads?.map((item) => (
+                      <tr key={item?._id}>
+                        <td>{item?.userId?.name}</td>
+                        <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
+                        <td>{finder(userTypes, item?.userType)?.name}</td>
+                        <td>
+                          {item?.categoryId?.name[lang]
+                            ? item?.categoryId?.name[lang]
+                            : 'N/A'}
+                        </td>
+                        <td>
+                          {item?.subCategoryId?.name[lang]
+                            ? item?.subCategoryId?.name[lang]
+                            : 'N/A'}
+                        </td>
+
+                        <td>
+                          <SwitchSlider
+                            clicked={() => activeInactiveAd(item?._id)}
+                            checked={item?.status === 1}
+                          />{' '}
+                        </td>
+
+                        <td>
+                          <img
+                            alt={'Gulf Workers'}
+                            className="td-action-img"
+                            src={eyeIcon}
+                            onClick={() =>
+                              navigateTo(`/admin/ads/viewAd/${item._id}`)
+                            }
+                          />
+                          <img
+                            alt={'Gulf Workers'}
+                            className="td-action-img"
+                            src={editIcon}
+                            onClick={() =>
+                              navigateTo(`/admin/ads/editAd/${item._id}`)
+                            }
+                          />
+                          <img
+                            alt={'Gulf Workers'}
+                            className="td-action-img"
+                            src={deleteIcon}
+                            onClick={() => deleteHandler(item?._id)}
+                          />
+                        </td>
+                      </tr>
+                    ))
+                  )}
                   <tr></tr>
                 </tbody>
               </Table>

@@ -250,7 +250,7 @@ const DashboardForm = ({history}) => {
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
-                                placeholder={'select ' + t('category')}
+                                placeholder={t('select') + t('category')}
                                 value={selectedCategory?.name[lang]}
                               />
                               <InputGroupButtonDropdown
@@ -289,7 +289,7 @@ const DashboardForm = ({history}) => {
                                   <Input
                                     style={{background: '#fff'}}
                                     readOnly
-                                    placeholder={'select ' + t('subCategory')}
+                                    placeholder={t('select') + t('subCategory')}
                                     value={selectedSubCategory?.name[lang]}
                                   />
                                   <InputGroupButtonDropdown
@@ -324,12 +324,12 @@ const DashboardForm = ({history}) => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="examplePassword">{'quesType'} </Label>
+                        <Label for="examplePassword">{t('quesType')} </Label>
                         <InputGroup>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={'select ' + t('quesType')}
+                            placeholder={t('select') + t('quesType')}
                             value={quesType?.name}
                           />
                           <InputGroupButtonDropdown
@@ -361,7 +361,7 @@ const DashboardForm = ({history}) => {
                         <Label for="exampleEmail">{t('ques')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder={'select ' + t('ques')}
+                          placeholder={t('select') + t('ques')}
                           value={en}
                           name={'en'}
                           onChange={onChangeHandler}
@@ -373,7 +373,7 @@ const DashboardForm = ({history}) => {
                         <Label for="exampleEmail">{t('ques')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder={'select ' + t('ques')}
+                          placeholder={t('select') + t('ques')}
                           value={ar}
                           name={'ar'}
                           onChange={onChangeHandler}
@@ -385,7 +385,7 @@ const DashboardForm = ({history}) => {
                         <Label for="exampleEmail">{t('ques')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder={'select ' + t('ques')}
+                          placeholder={t('select') + t('ques')}
                           value={hi}
                           name={'hi'}
                           onChange={onChangeHandler}
@@ -399,7 +399,7 @@ const DashboardForm = ({history}) => {
                         </Label>
                         <Input
                           type="text"
-                          placeholder={'select ' + t('ques')}
+                          placeholder={t('select') + t('ques')}
                           value={ph}
                           name={'ph'}
                           onChange={onChangeHandler}

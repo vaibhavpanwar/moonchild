@@ -133,7 +133,13 @@ const Index = (props) => {
                     options={chartExample1.options}
                     getDatasetAtEvent={(e) => console.log(e)}
                   />
-                  <p className="vertical-tag">Months</p>
+                  <p className="vertical-tag">
+                    {activeNav === 1
+                      ? 'Months'
+                      : activeNav === 2
+                      ? 'Weeks'
+                      : 'Hours'}
+                  </p>
                   <p className="horizontal-tag">Number Of Ads</p>
                 </div>
               </CardBody>

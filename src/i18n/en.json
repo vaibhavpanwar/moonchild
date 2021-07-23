@@ -101,5 +101,11 @@
   "noQuesData": "No ques found for selected preferences, please select different options",
   "noIcon": "No Icon",
   "additionalQuestions": "Additional Questions",
-  "password": "password"
+  "password": "password",
+  "select": "Select ",
+  "answerPlaceholder": "Answer Here",
+  "totalRegisteredUser": "Total Registered User",
+
+  "numberOfChats": "Number Of Chats",
+  "totalIncome": "Total Income"
 }

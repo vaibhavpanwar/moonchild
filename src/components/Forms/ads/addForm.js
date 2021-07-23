@@ -372,7 +372,7 @@ const DashboardForm = () => {
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={`Select ${t('userType')}`}
+                            placeholder={`${t('select')} ${t('userType')}`}
                             value={userType?.name}
                           />
                           <InputGroupButtonDropdown
@@ -407,7 +407,7 @@ const DashboardForm = () => {
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
-                                placeholder={`select ${t('category')}`}
+                                placeholder={`${t('select')} ${t('category')}`}
                                 value={selectedCategory?.name[lang]}
                               />
                               <InputGroupButtonDropdown
@@ -523,7 +523,7 @@ const DashboardForm = () => {
                             <Input
                               style={{background: '#fff'}}
                               readOnly
-                              placeholder={'select category'}
+                              placeholder={t('select') + t('category')}
                               value={selectedCountry?.name[lang]}
                             />
                             <InputGroupButtonDropdown
@@ -556,7 +556,7 @@ const DashboardForm = () => {
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={'select user'}
+                            placeholder={t('select') + t('user')}
                             value={selectedUserAccount?.name}
                           />
                           <InputGroupButtonDropdown
@@ -617,7 +617,7 @@ const DashboardForm = () => {
                                       background: '#fff',
                                       maxWidth: '250px',
                                     }}
-                                    placeholder={'Answer here'}
+                                    placeholder={t('answerPlaceholder')}
                                     value={
                                       answers.find(
                                         (e) => e.questionId === item._id,

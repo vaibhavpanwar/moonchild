@@ -657,7 +657,7 @@ const DashboardForm = () => {
                                       background: '#fff',
                                       maxWidth: '250px',
                                     }}
-                                    placeholder={'Answer here'}
+                                    placeholder={t('answerPlaceholder')}
                                     value={
                                       answers.find(
                                         (e) => e.questionId === item._id,

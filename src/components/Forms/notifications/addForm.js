@@ -173,9 +173,11 @@ const DashboardForm = () => {
                           {t('message')} (English)
                         </Label>
                         <textarea
-                          style={{display: 'block'}}
-                          rows={5}
-                          cols={60}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            height: '150px',
+                          }}
                           type="text"
                           placeholder={'Enter ' + t('message')}
                           value={message?.en}
@@ -190,9 +192,11 @@ const DashboardForm = () => {
                           {t('message')} (Arabic)
                         </Label>
                         <textarea
-                          style={{display: 'block'}}
-                          rows={5}
-                          cols={60}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            height: '150px',
+                          }}
                           type="text"
                           placeholder={'Enter ' + t('message')}
                           value={message?.ar}
@@ -207,9 +211,11 @@ const DashboardForm = () => {
                       <FormGroup>
                         <Label for="exampleEmail">{t('message')} (Hindi)</Label>
                         <textarea
-                          style={{display: 'block'}}
-                          rows={5}
-                          cols={60}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            height: '150px',
+                          }}
                           type="text"
                           placeholder={'Enter ' + t('message')}
                           value={message?.hi}
@@ -224,9 +230,11 @@ const DashboardForm = () => {
                           {t('message')} (Philipins)
                         </Label>
                         <textarea
-                          style={{display: 'block'}}
-                          rows={5}
-                          cols={60}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            height: '150px',
+                          }}
                           type="text"
                           placeholder={'Enter ' + t('message')}
                           value={message?.ph}

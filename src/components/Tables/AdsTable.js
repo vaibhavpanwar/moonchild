@@ -24,11 +24,15 @@ import {deleteAd, editAdStatus, listAds} from '../../redux/actions/ads.actions';
 import moment from 'moment';
 import {userTypes} from '../Forms/questions/data.js';
 import {finder} from '../../utils/dataHelpers';
+import AdsFilterModal from './AdsFilterModal.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  const [isOpen, setIsOpen] = useState(false);
+  const setModalOpen = () => setIsOpen(!isOpen);
 
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
@@ -74,6 +78,8 @@ const Tables = () => {
                       setSearchKeyword(e.target.value);
                     }}
                   />
+                  {/* <button onClick={() => setModalOpen()}>Filter</button> */}
+                  <AdsFilterModal open={isOpen} setModalOpen={setModalOpen} />
                   {loading && (
                     <div className="table-loader">
                       <Spinner color={'info'} />

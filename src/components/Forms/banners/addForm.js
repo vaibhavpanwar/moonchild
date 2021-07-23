@@ -32,8 +32,7 @@ const DashboardForm = ({history}) => {
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
-  const validateForm = () => icon && url;
-
+  const validateForm = () => !!icon;
   const submitHandler = async () => {
     dispatch({type: bannersConstants.BANNER_LOADING});
     const formData = new FormData();

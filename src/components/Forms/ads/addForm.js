@@ -39,6 +39,7 @@ const DashboardForm = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const {categories} = useSelector((state) => state.categoriesReducer);
+  const {loading} = useSelector((state) => state.adsReducer);
   const {countries} = useSelector((state) => state.countriesReducer);
   const {users} = useSelector((state) => state.usersReducer);
 
@@ -67,7 +68,6 @@ const DashboardForm = () => {
   // });
 
   const [answers, setAnswers] = useState([]);
-  const [answersT3, setAnswersT3] = useState([]);
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
   const userTypeChangeHandler = (item) => {
@@ -128,22 +128,106 @@ const DashboardForm = () => {
     }
   };
 
+  // const setAnswersValue = (questionId, questionType, givenAnswer) => {
+  //   if (questionType === 3) {
+  //     console.log(questionId, givenAnswer);
+  //     let newArray = answers;
+  //     let answerObject = {
+  //       questionId: questionId,
+  //       optionId: [givenAnswer],
+  //     };
+
+  //     const currentQuestion = answers?.find(
+  //       (answer) => answer.questionId === questionId,
+  //     );
+  //     if (!currentQuestion) {
+  //       newArray.push(answerObject);
+  //       setAnswers(newArray);
+  //     } else {
+  //       let currentOptionIndex = currentQuestion?.optionId?.findIndex(
+  //         (answer) => answer === givenAnswer,
+  //       );
+  //       if (currentOptionIndex < 0) {
+  //         const updatedQues = {
+  //           ...currentQuestion,
+  //           optionId: [...currentQuestion.optionId, givenAnswer],
+  //         };
+
+  //         const newArray1 = newArray.map((item) =>
+  //           item.questionId === questionId ? updatedQues : item,
+  //         );
+  //         setAnswers(newArray1);
+  //       } else {
+  //         const newOptArray = currentQuestion.optionId?.filter(
+  //           (e) => e !== givenAnswer,
+  //         );
+  //         if (newOptArray?.length === 0) {
+  //           // remove ques from array
+  //           setAnswers((oldState) =>
+  //             oldState.filter((item) => item.questionId !== questionId),
+  //           );
+  //         } else {
+  //           //remove option from that ques ojects array
+  //           const updatedQuestion = {...currentQuestion, optionId: newOptArray};
+  //           const newArray2 = newArray.map((item) =>
+  //             item.questionId === questionId ? updatedQuestion : item,
+  //           );
+  //           setAnswers(newArray2);
+  //         }
+  //       }
+  //     }
+  //   } else {
+  //     let newArray = answers;
+  //     let answerObject = {
+  //       questionId: questionId,
+  //     };
+  //     if (questionType === 1) {
+  //       answerObject.text = givenAnswer;
+  //     } else {
+  //       answerObject.optionId = [givenAnswer];
+  //     }
+  //     let currentAnswerIndex = answers?.findIndex(
+  //       (answer) => answer.questionId === questionId,
+  //     );
+  //     if (currentAnswerIndex < 0) {
+  //       newArray.push(answerObject);
+  //       setAnswers(newArray);
+  //     } else {
+  //       if (questionType === 1 && givenAnswer.length === 0) {
+  //         setAnswers([
+  //           ...newArray.slice(0, currentAnswerIndex),
+  //           ...newArray.slice(currentAnswerIndex + 1),
+  //         ]);
+  //       } else {
+  //         setAnswers([
+  //           ...newArray.slice(0, currentAnswerIndex),
+  //           answerObject,
+  //           ...newArray.slice(currentAnswerIndex + 1),
+  //         ]);
+  //       }
+  //     }
+  //   }
+  // };
+
   const setAnswersValue = (questionId, questionType, givenAnswer) => {
     let newArray = answers;
     let answerObject = {
       questionId: questionId,
     };
-    if (questionType === 1) {
-      answerObject.text = givenAnswer;
-    } else {
-      answerObject.optionId = [givenAnswer];
-    }
-    let currentAnswerIndex = answers?.findIndex(
+    let currentAnswerIndex = newArray.findIndex(
       (answer) => answer.questionId === questionId,
     );
     if (currentAnswerIndex < 0) {
-      newArray.push(answerObject);
-      setAnswers(newArray);
+      if (questionType === 1) {
+        answerObject.text = givenAnswer;
+      } else {
+        answerObject.optionId = [givenAnswer];
+      }
+      setAnswers([
+        ...newArray.slice(0),
+        answerObject,
+        ...newArray.slice(newArray.length + 1),
+      ]);
     } else {
       if (questionType === 1 && givenAnswer.length === 0) {
         setAnswers([
@@ -151,6 +235,33 @@ const DashboardForm = () => {
           ...newArray.slice(currentAnswerIndex + 1),
         ]);
       } else {
+        if (questionType === 1) {
+          answerObject.text = givenAnswer;
+        } else if (questionType === 3) {
+          let currentOptionIndex = newArray[
+            currentAnswerIndex
+          ].optionId.findIndex((option) => option === givenAnswer);
+          let newOptionsArray = newArray[currentAnswerIndex].optionId;
+          if (currentOptionIndex < 0) {
+            newOptionsArray.push(givenAnswer);
+            answerObject.optionId = newOptionsArray;
+          } else {
+            let updatedOptionsArray = [
+              ...newOptionsArray.slice(0, currentOptionIndex),
+              ...newOptionsArray.slice(currentOptionIndex + 1),
+            ];
+            if (updatedOptionsArray.length) {
+              answerObject.optionId = updatedOptionsArray;
+            } else {
+              return setAnswers([
+                ...newArray.slice(0, currentAnswerIndex),
+                ...newArray.slice(currentAnswerIndex + 1),
+              ]);
+            }
+          }
+        } else {
+          answerObject.optionId = [givenAnswer];
+        }
         setAnswers([
           ...newArray.slice(0, currentAnswerIndex),
           answerObject,
@@ -159,59 +270,11 @@ const DashboardForm = () => {
       }
     }
   };
-  const setAnswersT3Value = (questionId, givenAnswer) => {
-    console.log(questionId, givenAnswer);
-    let newArray = answersT3;
-    let answerObject = {
-      questionId: questionId,
-      optionId: [givenAnswer],
-    };
-
-    const currentQuestion = answersT3?.find(
-      (answer) => answer.questionId === questionId,
-    );
-    if (!currentQuestion) {
-      newArray.push(answerObject);
-      setAnswersT3(newArray);
-    } else {
-      let currentOptionIndex = currentQuestion?.optionId?.findIndex(
-        (answer) => answer === givenAnswer,
-      );
-      if (currentOptionIndex < 0) {
-        const updatedQues = {
-          ...currentQuestion,
-          optionId: [...currentQuestion.optionId, givenAnswer],
-        };
-
-        const newArray1 = newArray.map((item) =>
-          item.questionId === questionId ? updatedQues : item,
-        );
-        setAnswersT3(newArray1);
-      } else {
-        const newOptArray = currentQuestion.optionId?.filter(
-          (e) => e !== givenAnswer,
-        );
-        if (newOptArray?.length === 0) {
-          // remove ques from array
-          setAnswersT3((oldState) =>
-            oldState.filter((item) => item.questionId !== questionId),
-          );
-        } else {
-          //remove option from that ques ojects array
-          const updatedQuestion = {...currentQuestion, optionId: newOptArray};
-          const newArray2 = newArray.map((item) =>
-            item.questionId === questionId ? updatedQuestion : item,
-          );
-          setAnswersT3(newArray2);
-        }
-      }
-    }
-  };
 
   const validateForm = () =>
     userType &&
     quesList?.length > 0 &&
-    answers?.length + answersT3?.length === quesList?.length &&
+    answers?.length === quesList?.length &&
     countryValidate() &&
     selectedUserAccount;
 
@@ -252,7 +315,7 @@ const DashboardForm = () => {
             icon: imageUrl,
             userType: userType?.enum,
             countryId: selectedCountry?._id,
-            additionalQuestion: [...answers, ...answersT3],
+            additionalQuestion: answers,
             userId: selectedUserAccount?._id,
           },
           history,
@@ -268,7 +331,7 @@ const DashboardForm = () => {
         {
           userType: userType?.enum,
 
-          additionalQuestion: [...answers, ...answersT3],
+          additionalQuestion: answers,
           ...(![3, 4].includes(userType?.enum) && {
             categoryId: selectedCategory?._id,
           }),
@@ -594,17 +657,16 @@ const DashboardForm = () => {
                                       type="checkbox"
                                       value={opt?.name[lang]}
                                       name="gender"
-                                      checked={answersT3
+                                      checked={answers
                                         .find(
                                           (val) => val.questionId === item?._id,
                                         )
                                         ?.optionId?.includes(opt?._id)}
                                       onClick={(e) => {
-                                        setAnswersT3Value(
+                                        setAnswersValue(
                                           item?._id,
-
+                                          item?.questionType,
                                           opt?._id,
-                                          opt?.name[lang],
                                         );
                                       }}
                                     />
@@ -633,11 +695,6 @@ const DashboardForm = () => {
                                   <>
                                     <input
                                       type="radio"
-                                      // checked={
-                                      //   answers.find(
-                                      //     (val) => val.questionId === item?._id,
-                                      //   )?.optionId === opt?._id
-                                      // }
                                       checked={
                                         item.options.find(
                                           (val) =>
@@ -681,7 +738,7 @@ const DashboardForm = () => {
                   onClick={submitHandler}
                   disabled={!validateForm()}
                   className="table-header-button">
-                  {t('add')}
+                  {loading ? <Spinner /> : t('add')}
                 </button>
               </div>
             </div>

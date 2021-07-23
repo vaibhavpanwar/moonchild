@@ -51,8 +51,6 @@ const DashboardForm = ({history}) => {
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
-  const validateForm = () => !!url;
-
   const editWithIcon = async () => {
     dispatch({type: bannersConstants.BANNER_LOADING});
     const formData = new FormData();
@@ -148,7 +146,7 @@ const DashboardForm = ({history}) => {
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
-                  disabled={!validateForm() || loading}>
+                  disabled={loading}>
                   {loading ? <Spinner color={'info'} /> : t('update')}
                 </button>
               </div>

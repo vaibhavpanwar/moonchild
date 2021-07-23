@@ -15,7 +15,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from 'reactstrap';
-import {listAds} from '../../redux/actions/ads.actions';
+import {listAdsByFilter} from '../../redux/actions/ads.actions';
 import {listCategories} from '../../redux/actions/categories.actions';
 import {getSubCategByCateg} from '../../utils/subCategory';
 import {userTypes} from '../Forms/questions/data';
@@ -59,7 +59,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
 
   const searchHandler = () => {
     dispatch(
-      listAds(
+      listAdsByFilter(
         15,
         1,
         userType?.enum,
@@ -81,6 +81,13 @@ const AdsFilterModal = ({open, setModalOpen}) => {
 
     //eslint-disable-next-line
   }, [selectedCategory?._id]);
+
+  const clearData = () => {
+    setUserType({});
+    setSelectedCategory({});
+    setSubCategoriesList([]);
+    setSelectedSubCategory({});
+  };
 
   return (
     <Modal
@@ -110,7 +117,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
                   style={{background: '#fff'}}
                   readOnly
                   placeholder={t('userType')}
-                  value={userType?.name}
+                  value={userType?.name ? userType?.name : 'Select User Type'}
                 />
                 <InputGroupButtonDropdown
                   addonType="append"
@@ -138,7 +145,11 @@ const AdsFilterModal = ({open, setModalOpen}) => {
                   style={{background: '#fff'}}
                   readOnly
                   placeholder={'select category'}
-                  value={selectedCategory?.name?.en}
+                  value={
+                    selectedCategory?.name?.en
+                      ? selectedCategory?.name?.en
+                      : 'Select Category'
+                  }
                 />
                 <InputGroupButtonDropdown
                   addonType="append"
@@ -170,7 +181,11 @@ const AdsFilterModal = ({open, setModalOpen}) => {
                       style={{background: '#fff'}}
                       readOnly
                       placeholder={t('select') + t('subCategory')}
-                      value={selectedSubCategory?.name?.en}
+                      value={
+                        selectedSubCategory?.name?.en
+                          ? selectedSubCategory?.name?.en
+                          : 'Select Sub Category'
+                      }
                     />
                     <InputGroupButtonDropdown
                       addonType="append"
@@ -195,13 +210,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
               ))}
           </Col>
           <Col sm={12}>
-            <Button
-              color="secondary"
-              data-dismiss="modal"
-              type="button"
-              onClick={(e) => {
-                setUserType('wow');
-              }}>
+            <Button color="secondary" onClick={clearData} type="button">
               Clear
             </Button>
           </Col>
@@ -215,7 +224,11 @@ const AdsFilterModal = ({open, setModalOpen}) => {
           onClick={() => setModalOpen()}>
           Close
         </Button>
-        <Button color="primary" type="button" onClick={searchHandler}>
+        <Button
+          color="primary"
+          type="button"
+          onClick={searchHandler}
+          disabled={!userType}>
           Search
         </Button>
       </div>

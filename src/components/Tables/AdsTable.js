@@ -8,6 +8,7 @@ import {
   Table,
   Container,
   Row,
+  Tooltip,
   Spinner,
 } from 'reactstrap';
 // core components
@@ -25,11 +26,15 @@ import moment from 'moment';
 import {userTypes} from '../Forms/questions/data.js';
 import {finder} from '../../utils/dataHelpers';
 import AdsFilterModal from './AdsFilterModal.js';
+import filterIcon from '../../assets/images/filter.png';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchKeyword] = useState('');
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+
+  const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const [isOpen, setIsOpen] = useState(false);
   const setModalOpen = () => setIsOpen(!isOpen);
@@ -68,7 +73,7 @@ const Tables = () => {
             <Card className="table-shadow">
               <CardHeader className="border-0 table-custom-header">
                 <div className="table-header-actions">
-                  <input
+                  {/* <input
                     placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
@@ -77,14 +82,53 @@ const Tables = () => {
                       setCurrentPage(1);
                       setSearchKeyword(e.target.value);
                     }}
-                  />
-                  {/* <button onClick={() => setModalOpen()}>Filter</button> */}
+                  /> */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      gap: '10px',
+                      alignItems: 'center',
+                    }}>
+                    <button
+                      className="filter-button"
+                      onClick={() => setModalOpen()}>
+                      <img alt={'filter'} src={filterIcon} />
+                      &nbsp; Filter
+                    </button>
+                    <>
+                      <p
+                        id="TooltipExample"
+                        onClick={() =>
+                          dispatch(
+                            listAds(postsPerPage, currentPage, searchKeyword),
+                          )
+                        }
+                        style={{
+                          margin: 0,
+                          padding: 0,
+                          color: 'red',
+                          cursor: 'pointer',
+                          fontWeight: 'bold',
+                        }}>
+                        X
+                      </p>
+                      <Tooltip
+                        placement="top"
+                        isOpen={tooltipOpen}
+                        target="TooltipExample"
+                        toggle={toggle}>
+                        Clear Filters
+                      </Tooltip>
+                    </>
+                  </div>
+
                   <AdsFilterModal open={isOpen} setModalOpen={setModalOpen} />
                   {loading && (
                     <div className="table-loader">
                       <Spinner color={'info'} />
                     </div>
                   )}
+
                   <button
                     className="mb-0 table-header-button"
                     onClick={() => navigateTo('/admin/ads/addAd')}>

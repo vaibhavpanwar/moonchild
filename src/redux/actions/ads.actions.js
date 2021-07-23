@@ -31,6 +31,34 @@ export const listAds =
       errorAlert(parsedError);
     }
   };
+export const listAdsByFilter =
+  (perPage = 15, page = 1, userType, categoryId = '', subCategoryId = '') =>
+  async (dispatch) => {
+    await headerSetup();
+    dispatch({type: adsConstants.AD_LOADING});
+
+    try {
+      const {
+        data: {data},
+      } = await API.get(
+        `admin/v1/listAdvertisement?perPage=${perPage}&page=${page}&userType=${userType}&categoryId=${categoryId}&subCategoryId=${subCategoryId}`,
+      );
+
+      if (data) {
+        dispatch({
+          type: adsConstants.AD_LIST_SUCCESS,
+          payload: {listing: data?.listing, count: data?.count},
+        });
+      }
+    } catch (err) {
+      const parsedError = await errorParser(err);
+      dispatch({
+        type: adsConstants.AD_ERROR,
+        payload: parsedError,
+      });
+      errorAlert(parsedError);
+    }
+  };
 
 export const getSingleAd = (id) => async (dispatch) => {
   await headerSetup();

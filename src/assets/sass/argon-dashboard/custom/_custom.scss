@@ -733,3 +733,18 @@ label {
     margin-left: 340px;
   }
 }
+
+.filter-button {
+  background-color: transparent;
+  color: #455571 !important;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+
+  border: none;
+  img {
+    max-width: 14px;
+    position: relative;
+    top: -2px;
+  }
+}

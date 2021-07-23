@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react';
-
+import React, {useEffect, useState} from 'react';
 // reactstrap components
 import {
   Card,
@@ -16,15 +15,22 @@ import nonReplyIcon from '../../assets/images/icons/table/table-non-reply.svg';
 import {useTranslation} from 'react-i18next';
 import {useDispatch, useSelector} from 'react-redux';
 import {listContactUs} from '../../redux/actions/contactUs.actions';
+import Pagination from '../Pagination/paginate';
 import moment from 'moment';
 const Tables = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(15);
+  const [searchKeyword, setSearchKeyword] = useState('');
   const dispatch = useDispatch();
-  const {contacts, loading} = useSelector((state) => state.contactUsReducer);
+  const {contacts, loading, count} = useSelector(
+    (state) => state.contactUsReducer,
+  );
 
   useEffect(() => {
-    dispatch(listContactUs());
-  }, [dispatch]);
+    dispatch(listContactUs(postsPerPage, currentPage, searchKeyword));
+  }, [dispatch, currentPage, postsPerPage, searchKeyword]);
 
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const {t} = useTranslation();
   return (
     <>
@@ -41,6 +47,11 @@ const Tables = () => {
                     placeholder={t('search')}
                     className="table-header-input"
                     type={'text'}
+                    value={searchKeyword}
+                    onChange={(e) => {
+                      setCurrentPage(1);
+                      setSearchKeyword(e.target.value);
+                    }}
                   />
                 </div>
                 {loading && (
@@ -96,7 +107,17 @@ const Tables = () => {
                   )}
                 </tbody>
               </Table>
-              <CardFooter className="py-4"></CardFooter>
+              <CardFooter className="py-4">
+                {count > postsPerPage && (
+                  <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={count}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
+                    paginate={paginate}
+                  />
+                )}
+              </CardFooter>
             </Card>
           </div>
         </Row>

@@ -1,6 +1,6 @@
 import Ads from '../../views/pages/ads';
 import AdsAdd from '../../views/pages/ads/addAd';
-
+import AdsEdit from '../../views/pages/ads/editAd';
 import AdsView from '../../views/pages/ads/viewAd';
 
 let adRoutes = [
@@ -27,6 +27,15 @@ let adRoutes = [
     name: 'ads',
     icon: 'ad-icon',
     component: AdsView,
+    svg: true,
+    layout: '/admin',
+    sideBar: false,
+  },
+  {
+    path: '/admin/ads/editAd/:id',
+    name: 'ads',
+    icon: 'ad-icon',
+    component: AdsEdit,
     svg: true,
     layout: '/admin',
     sideBar: false,

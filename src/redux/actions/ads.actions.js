@@ -88,37 +88,37 @@ export const addAd = (formData, history) => async (dispatch) => {
   }
 };
 
-// export const editBanner = (formData, history) => async (dispatch) => {
-//   await headerSetup();
-//   dispatch({type: adsConstants.AD_LOADING});
+export const editAd = (formData, history) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: adsConstants.AD_LOADING});
 
-//   try {
-//     const {
-//       data: {data},
-//     } = await API.put('admin/v1/editBanner', formData);
+  try {
+    const {
+      data: {data},
+    } = await API.put('admin/v1/editAdvertisement', formData);
 
-//     if (data) {
-//       dispatch({
-//         type: adsConstants.AD_EDIT_SUCCESS,
-//         payload: data?.data,
-//       });
+    if (data) {
+      dispatch({
+        type: adsConstants.AD_EDIT_SUCCESS,
+        payload: data?.data,
+      });
 
-//       successAlert(`Banner updated successfully`);
-//       history.push('/admin/banners');
-//       dispatch({
-//         type: adsConstants.AD_RESET_SINGLE,
-//       });
-//     }
-//   } catch (err) {
-//     const parsedError = await errorParser(err);
-//     console.log(parsedError, err, 'error');
-//     dispatch({
-//       type: adsConstants.AD_ERROR,
-//       payload: parsedError,
-//     });
-//     errorAlert(parsedError);
-//   }
-// };
+      successAlert(`Advertisement updated successfully`);
+      history.push('/admin/ads');
+      dispatch({
+        type: adsConstants.AD_RESET_SINGLE,
+      });
+    }
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(parsedError, err, 'error');
+    dispatch({
+      type: adsConstants.AD_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
 
 export const deleteAd = (id) => async (dispatch) => {
   await headerSetup();

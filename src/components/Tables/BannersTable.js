@@ -137,7 +137,7 @@ const Tables = () => {
                           <td>
                             <SwitchSlider
                               clicked={() => activeInactiveBanner(item?._id)}
-                              checked={item?.status === 2}
+                              checked={item?.status === 1}
                               name={item?.id}
                             />{' '}
                           </td>

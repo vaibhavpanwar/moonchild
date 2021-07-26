@@ -170,7 +170,7 @@ export const editCountryStatus = (id) => async (dispatch) => {
   }
 };
 
-export const suffleCategory = (formData) => async (dispatch) => {
+export const suffleCountry = (formData) => async (dispatch) => {
   await headerSetup();
   dispatch({type: countriesConstants.COUNTRY_LOADING});
 

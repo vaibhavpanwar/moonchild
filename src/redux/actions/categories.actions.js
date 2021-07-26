@@ -172,3 +172,24 @@ export const editCategoryStatus = (id) => async (dispatch) => {
     errorAlert(parsedError);
   }
 };
+
+export const suffleCategory = (formData) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: categoriesConstants.CATEGORY_LOADING});
+
+  try {
+    await API.put(`admin/v1/suffleCategory`, formData);
+
+    successAlert(`Rank updated for Category`);
+
+    dispatch(listCategories());
+  } catch (err) {
+    const parsedError = await errorParser(err);
+
+    dispatch({
+      type: categoriesConstants.CATEGORY_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};

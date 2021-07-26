@@ -22,7 +22,7 @@ import {
   deleteCountry,
   editCountryStatus,
   listCountries,
-  suffleCategory,
+  suffleCountry,
 } from '../../redux/actions/countries.actions';
 import {getImageUrl} from '../../utils/renderImage.js';
 import {useHistory} from 'react-router-dom';
@@ -81,7 +81,7 @@ const Tables = () => {
       payload: newList,
     });
     dispatch(
-      suffleCategory({
+      suffleCountry({
         from: countryClone[sourceIdx]._id,
         to: countryClone[destIdx]._id,
       }),
@@ -146,7 +146,7 @@ const Tables = () => {
                     </tbody>
                   ) : (
                     <DragDropContext onDragEnd={onEnd}>
-                      <Droppable droppableId={'categoriesList'}>
+                      <Droppable droppableId={'countriesList'}>
                         {(provided, snapshot) => (
                           <tbody
                             style={{width: '100%'}}
@@ -218,54 +218,6 @@ const Tables = () => {
                           </tbody>
                         )}
                       </Droppable>
-                      {/* {countries?.map((item) => (
-                        <tr key={item?._id}>
-                          <td>{item?.name[lang]}</td>
-                          <td>
-                            <img
-                              alt={'Gulf Workers'}
-                              className=".table-sub-category-icon"
-                              src={getImageUrl(item?.icon, 50, 50)}
-                            />
-                          </td>
-
-                          <td>
-                            <SwitchSlider
-                              clicked={() => activeInactiveCountry(item?._id)}
-                              checked={item?.status === 1}
-                            />{' '}
-                          </td>
-
-                          <td>
-                            <img
-                              alt={'Gulf Workers'}
-                              className="td-action-img"
-                              src={eyeIcon}
-                              onClick={() =>
-                                navigateTo(
-                                  `/admin/countries/viewCountry/${item._id}`,
-                                )
-                              }
-                            />
-                            <img
-                              alt={'Gulf Workers'}
-                              className="td-action-img"
-                              src={editIcon}
-                              onClick={() =>
-                                navigateTo(
-                                  `/admin/countries/editCountry/${item._id}`,
-                                )
-                              }
-                            />
-                            <img
-                              alt={'Gulf Workers'}
-                              className="td-action-img"
-                              src={deleteIcon}
-                              onClick={() => deleteHandler(item?._id)}
-                            />
-                          </td>
-                        </tr>
-                      ))} */}
                     </DragDropContext>
                   )}
                 </>

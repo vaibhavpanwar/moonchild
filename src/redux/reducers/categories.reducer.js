@@ -13,6 +13,11 @@ const categoriesReducer = (state = {categories: [], category: {}}, action) => {
         categories: action.payload.listing,
         count: action.payload.count,
       };
+    case categoriesConstants.CATEGORY_SUFFLE:
+      return {
+        ...state,
+        categories: action.payload,
+      };
 
     case categoriesConstants.CATEGORY_ADD_SUCCESS:
       return {

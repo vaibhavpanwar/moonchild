@@ -18,7 +18,7 @@ import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import {useSelector, useDispatch} from 'react-redux';
 import Pagination from '../Pagination/paginate';
 
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+// import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import {useTranslation} from 'react-i18next';
 import {
   deleteQuestion,
@@ -169,7 +169,7 @@ const Tables = ({history}) => {
                           </td>
 
                           <td>
-                            <img
+                            {/* <img
                               alt={'Gulf Workers'}
                               className="td-action-img"
                               src={eyeIcon}
@@ -178,7 +178,7 @@ const Tables = ({history}) => {
                                   `/admin/questions/viewQuestion/${item._id}`,
                                 )
                               }
-                            />
+                            /> */}
                             <img
                               alt={'Gulf Workers'}
                               className="td-action-img"

@@ -26,7 +26,7 @@ import {
 } from '../../redux/actions/countries.actions';
 import {getImageUrl} from '../../utils/renderImage.js';
 import {useHistory} from 'react-router-dom';
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+// import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import Pagination from '../Pagination/paginate';
 import {useTranslation} from 'react-i18next';
 import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
@@ -186,7 +186,7 @@ const Tables = () => {
                                     </td>
 
                                     <td>
-                                      <img
+                                      {/* <img
                                         alt={'Gulf Workers'}
                                         className="td-action-img"
                                         src={eyeIcon}
@@ -195,7 +195,7 @@ const Tables = () => {
                                             `/admin/countries/viewCountry/${item._id}`,
                                           )
                                         }
-                                      />
+                                      /> */}
                                       <img
                                         alt={'Gulf Workers'}
                                         className="td-action-img"

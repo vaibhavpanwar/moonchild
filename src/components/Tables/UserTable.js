@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+// import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import {useDispatch, useSelector} from 'react-redux';
@@ -114,14 +114,14 @@ const Tables = ({history}) => {
                           <td>{item?.numberOfAdds}</td>
 
                           <td>
-                            <img
+                            {/* <img
                               alt={'Gulf Workers'}
                               className="td-action-img"
                               src={eyeIcon}
                               onClick={() =>
                                 navigateTo(`/admin/users/viewUser/${item._id}`)
                               }
-                            />
+                            /> */}
                             <img
                               alt={'Gulf Workers'}
                               className="td-action-img"

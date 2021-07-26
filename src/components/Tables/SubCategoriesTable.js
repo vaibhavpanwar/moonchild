@@ -26,7 +26,7 @@ import {
 } from '../../redux/actions/sub-categories.actions.js';
 import {getImageUrl} from '../../utils/renderImage.js';
 import {useHistory} from 'react-router-dom';
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+//import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import Pagination from '../Pagination/paginate';
 import {useTranslation} from 'react-i18next';
 
@@ -189,7 +189,7 @@ const Tables = () => {
                                     </td>
 
                                     <td>
-                                      <img
+                                      {/* <img
                                         alt={'Gulf Workers'}
                                         className="td-action-img"
                                         src={eyeIcon}
@@ -198,7 +198,7 @@ const Tables = () => {
                                             `/admin/sub-categories/viewSubCategory/${item._id}`,
                                           )
                                         }
-                                      />
+                                      /> */}
                                       <img
                                         alt={'Gulf Workers'}
                                         className="td-action-img"

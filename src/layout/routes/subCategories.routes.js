@@ -1,7 +1,7 @@
 import SubCategories from '../../views/pages/sub-categories';
 import SubCategoriesAdd from '../../views/pages/sub-categories/addSubCategory';
 import SubCategoriesEdit from '../../views/pages/sub-categories/editSubCategory';
-import SubCategoriesView from '../../views/pages/sub-categories/viewSubCategory';
+// import SubCategoriesView from '../../views/pages/sub-categories/viewSubCategory';
 
 let routes = [
   {
@@ -31,15 +31,15 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
-  {
-    path: '/admin/sub-categories/viewSubCategory/:id',
-    name: 'subCategories',
-    icon: 'sub-category-icon',
-    component: SubCategoriesView,
-    svg: true,
-    layout: '/admin',
-    sideBar: false,
-  },
+  // {
+  //   path: '/admin/sub-categories/viewSubCategory/:id',
+  //   name: 'subCategories',
+  //   icon: 'sub-category-icon',
+  //   component: SubCategoriesView,
+  //   svg: true,
+  //   layout: '/admin',
+  //   sideBar: false,
+  // },
 ];
 
 export default routes;

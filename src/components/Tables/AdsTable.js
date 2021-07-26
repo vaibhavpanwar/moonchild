@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 // core components
 import Header from '../Headers/Header.js';
-import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
+// import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
@@ -181,14 +181,14 @@ const Tables = () => {
                         </td>
 
                         <td>
-                          <img
+                          {/* <img
                             alt={'Gulf Workers'}
                             className="td-action-img"
                             src={eyeIcon}
                             onClick={() =>
                               navigateTo(`/admin/ads/viewAd/${item._id}`)
                             }
-                          />
+                          /> */}
                           <img
                             alt={'Gulf Workers'}
                             className="td-action-img"

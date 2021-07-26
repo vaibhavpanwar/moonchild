@@ -1,6 +1,6 @@
 import Questions from '../../views/pages/questions';
 import QuestionsAdd from '../../views/pages/questions/addQuestion';
-import QuestionsView from '../../views/pages/questions/viewQuestion';
+// import QuestionsView from '../../views/pages/questions/viewQuestion';
 import QuestionsEdit from '../../views/pages/questions/editQuestion';
 
 let routes = [
@@ -22,15 +22,15 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
-  {
-    path: '/admin/questions/viewQuestion/:id',
-    name: 'question',
-    icon: 'user-icon',
-    component: QuestionsView,
-    svg: true,
-    layout: '/admin',
-    sideBar: false,
-  },
+  // {
+  //   path: '/admin/questions/viewQuestion/:id',
+  //   name: 'question',
+  //   icon: 'user-icon',
+  //   component: QuestionsView,
+  //   svg: true,
+  //   layout: '/admin',
+  //   sideBar: false,
+  // },
   {
     path: '/admin/questions/editQuestion/:id',
     name: 'question',

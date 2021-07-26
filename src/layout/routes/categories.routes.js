@@ -1,7 +1,7 @@
 import Categories from '../../views/pages/categories';
 import CategoriesAdd from '../../views/pages/categories/addCategory';
 import CategoriesEdit from '../../views/pages/categories/editCategory';
-import CategoriesView from '../../views/pages/categories/viewCategory';
+// import CategoriesView from '../../views/pages/categories/viewCategory';
 
 let routes = [
   {
@@ -31,15 +31,15 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
-  {
-    path: '/admin/categories/viewCategory/:id',
-    name: 'categories',
-    icon: 'category-icon',
-    component: CategoriesView,
-    svg: true,
-    layout: '/admin',
-    sideBar: false,
-  },
+  // {
+  //   path: '/admin/categories/viewCategory/:id',
+  //   name: 'categories',
+  //   icon: 'category-icon',
+  //   component: CategoriesView,
+  //   svg: true,
+  //   layout: '/admin',
+  //   sideBar: false,
+  // },
 ];
 
 export default routes;

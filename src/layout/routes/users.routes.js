@@ -1,7 +1,7 @@
 import Users from '../../views/pages/users';
 import UsersAdd from '../../views/pages/users/addUser';
 import UsersEdit from '../../views/pages/users/editUser';
-import UsersView from '../../views/pages/users/viewUser';
+// import UsersView from '../../views/pages/users/viewUser';
 
 let routes = [
   {
@@ -31,15 +31,15 @@ let routes = [
     layout: '/admin',
     sideBar: false,
   },
-  {
-    path: '/admin/users/viewUser/:id',
-    name: 'users',
-    icon: 'user-icon',
-    component: UsersView,
-    svg: true,
-    layout: '/admin',
-    sideBar: false,
-  },
+  // {
+  //   path: '/admin/users/viewUser/:id',
+  //   name: 'users',
+  //   icon: 'user-icon',
+  //   component: UsersView,
+  //   svg: true,
+  //   layout: '/admin',
+  //   sideBar: false,
+  // },
 ];
 
 export default routes;

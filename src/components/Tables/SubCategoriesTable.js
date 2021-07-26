@@ -22,12 +22,16 @@ import {
   deleteSubCategory,
   editSubCategoryStatus,
   listSubCategories,
+  suffleSubCategory,
 } from '../../redux/actions/sub-categories.actions.js';
 import {getImageUrl} from '../../utils/renderImage.js';
 import {useHistory} from 'react-router-dom';
 import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import Pagination from '../Pagination/paginate';
 import {useTranslation} from 'react-i18next';
+
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import {subCategoriesConstants} from '../../redux/constants/sub-categories.constants.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +64,30 @@ const Tables = () => {
 
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
+
+  const onEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    let sourceIdx = parseInt(result.source.index);
+    let destIdx = parseInt(result.destination.index);
+    let clone = subCategories;
+    let draggedLink = clone[sourceIdx];
+    let newList = clone.slice();
+    newList.splice(sourceIdx, 1);
+    newList.splice(destIdx, 0, draggedLink);
+
+    dispatch({
+      type: subCategoriesConstants.SUB_CATEGORY_SUFFLE,
+      payload: newList,
+    });
+    dispatch(
+      suffleSubCategory({
+        from: clone[sourceIdx]._id,
+        to: clone[destIdx]._id,
+      }),
+    );
+  };
 
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
@@ -108,67 +136,94 @@ const Tables = () => {
                     <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
-                <tbody>
+                <>
                   {!loading && subCategories?.length === 0 ? (
-                    <tr>
-                      <td rowSpan={6} colSpan={6}>
-                        {' '}
-                        No data found
-                      </td>
-                    </tr>
+                    <tbody>
+                      {' '}
+                      <tr>
+                        <td rowSpan={6} colSpan={6}>
+                          {' '}
+                          No data found
+                        </td>
+                      </tr>
+                    </tbody>
                   ) : (
-                    <>
-                      {subCategories?.map((item) => (
-                        <tr key={item?._id}>
-                          <td>{item?.name[lang]}</td>
-                          <td>
-                            <img
-                              alt={'Gulf Workers'}
-                              className=".table-sub-category-icon"
-                              src={getImageUrl(item?.icon, 50, 50)}
-                            />
-                          </td>
+                    <DragDropContext onDragEnd={onEnd}>
+                      <Droppable droppableId={'countriesList'}>
+                        {(provided, snapshot) => (
+                          <tbody
+                            style={{width: '100%'}}
+                            ref={provided.innerRef}>
+                            {subCategories?.map((item, index) => (
+                              <Draggable
+                                draggableId={item?._id}
+                                key={item?._id}
+                                index={index}>
+                                {(provided, snapshot) => (
+                                  <tr
+                                    className={`${
+                                      snapshot.isDragging ? 'dragging' : ''
+                                    }`}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}>
+                                    <td>{item?.name[lang]}</td>
+                                    <td>
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className=".table-sub-category-icon"
+                                        src={getImageUrl(item?.icon, 50, 50)}
+                                      />
+                                    </td>
 
-                          <td>
-                            <SwitchSlider
-                              clicked={() => activeInactiveCategory(item?._id)}
-                              checked={item?.status === 1}
-                            />{' '}
-                          </td>
+                                    <td>
+                                      <SwitchSlider
+                                        clicked={() =>
+                                          activeInactiveCategory(item?._id)
+                                        }
+                                        checked={item?.status === 1}
+                                      />{' '}
+                                    </td>
 
-                          <td>
-                            <img
-                              alt={'Gulf Workers'}
-                              className="td-action-img"
-                              src={eyeIcon}
-                              onClick={() =>
-                                navigateTo(
-                                  `/admin/sub-categories/viewSubCategory/${item._id}`,
-                                )
-                              }
-                            />
-                            <img
-                              alt={'Gulf Workers'}
-                              className="td-action-img"
-                              src={editIcon}
-                              onClick={() =>
-                                navigateTo(
-                                  `/admin/sub-categories/editSubCategory/${item._id}`,
-                                )
-                              }
-                            />
-                            <img
-                              alt={'Gulf Workers'}
-                              className="td-action-img"
-                              src={deleteIcon}
-                              onClick={() => deleteHandler(item?._id)}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    </>
+                                    <td>
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className="td-action-img"
+                                        src={eyeIcon}
+                                        onClick={() =>
+                                          navigateTo(
+                                            `/admin/sub-categories/viewSubCategory/${item._id}`,
+                                          )
+                                        }
+                                      />
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className="td-action-img"
+                                        src={editIcon}
+                                        onClick={() =>
+                                          navigateTo(
+                                            `/admin/sub-categories/editSubCategory/${item._id}`,
+                                          )
+                                        }
+                                      />
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className="td-action-img"
+                                        src={deleteIcon}
+                                        onClick={() => deleteHandler(item?._id)}
+                                      />
+                                    </td>
+                                  </tr>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </tbody>
+                        )}
+                      </Droppable>
+                    </DragDropContext>
                   )}
-                </tbody>
+                </>
               </Table>
               <CardFooter className="py-4">
                 {count > postsPerPage && (

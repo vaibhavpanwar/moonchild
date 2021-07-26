@@ -4,7 +4,7 @@ import {errorParser} from './errorParser';
 import {errorAlert, successAlert, warningAlert} from '../../utils/alerts';
 
 export const listSubCategories =
-  (perPage = 4, page = 1, search = '') =>
+  (perPage = 15, page = 1, search = '') =>
   async (dispatch) => {
     await headerSetup();
     dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
@@ -171,6 +171,27 @@ export const editSubCategoryStatus = (id) => async (dispatch) => {
       payload: parsedError,
     });
 
+    errorAlert(parsedError);
+  }
+};
+
+export const suffleSubCategory = (formData) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
+
+  try {
+    await API.put(`admin/v1/suffleSubCategory`, formData);
+
+    successAlert(`Rank updated for sub Category`);
+
+    dispatch(listSubCategories());
+  } catch (err) {
+    const parsedError = await errorParser(err);
+
+    dispatch({
+      type: subCategoriesConstants.SUB_CATEGORY_ERROR,
+      payload: parsedError,
+    });
     errorAlert(parsedError);
   }
 };

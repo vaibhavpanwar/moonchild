@@ -17,6 +17,11 @@ const subCategoriesReducer = (
 
         count: action.payload.count,
       };
+    case subCategoriesConstants.SUB_CATEGORY_SUFFLE:
+      return {
+        ...state,
+        subCategories: action.payload,
+      };
 
     case subCategoriesConstants.SUB_CATEGORY_ADD_SUCCESS:
       return {

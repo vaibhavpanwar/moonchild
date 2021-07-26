@@ -70,22 +70,25 @@ const Tables = () => {
     }
     let sourceIdx = parseInt(result.source.index);
     let destIdx = parseInt(result.destination.index);
-    let countryClone = countries;
-    let draggedLink = countryClone[sourceIdx];
-    let newList = countryClone.slice();
-    newList.splice(sourceIdx, 1);
-    newList.splice(destIdx, 0, draggedLink);
+    if (sourceIdx === destIdx) return;
+    else {
+      let countryClone = countries;
+      let draggedLink = countryClone[sourceIdx];
+      let newList = countryClone.slice();
+      newList.splice(sourceIdx, 1);
+      newList.splice(destIdx, 0, draggedLink);
 
-    dispatch({
-      type: countriesConstants.COUNTRY_SUFFLE,
-      payload: newList,
-    });
-    dispatch(
-      suffleCountry({
-        from: countryClone[sourceIdx]._id,
-        to: countryClone[destIdx]._id,
-      }),
-    );
+      dispatch({
+        type: countriesConstants.COUNTRY_SUFFLE,
+        payload: newList,
+      });
+      dispatch(
+        suffleCountry({
+          from: countryClone[sourceIdx]._id,
+          to: countryClone[destIdx]._id,
+        }),
+      );
+    }
   };
 
   const {t, i18n} = useTranslation();

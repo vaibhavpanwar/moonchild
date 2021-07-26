@@ -72,22 +72,24 @@ const Tables = () => {
     }
     let sourceIdx = parseInt(result.source.index);
     let destIdx = parseInt(result.destination.index);
-    let clone = categories;
-    let draggedLink = clone[sourceIdx];
-    let newList = clone.slice();
-    newList.splice(sourceIdx, 1);
-    newList.splice(destIdx, 0, draggedLink);
+    if (sourceIdx === destIdx) {
+      let clone = categories;
+      let draggedLink = clone[sourceIdx];
+      let newList = clone.slice();
+      newList.splice(sourceIdx, 1);
+      newList.splice(destIdx, 0, draggedLink);
 
-    dispatch({
-      type: categoriesConstants.CATEGORY_SUFFLE,
-      payload: newList,
-    });
-    dispatch(
-      suffleCategory({
-        from: clone[sourceIdx]._id,
-        to: clone[destIdx]._id,
-      }),
-    );
+      dispatch({
+        type: categoriesConstants.CATEGORY_SUFFLE,
+        payload: newList,
+      });
+      dispatch(
+        suffleCategory({
+          from: clone[sourceIdx]._id,
+          to: clone[destIdx]._id,
+        }),
+      );
+    }
   };
 
   const {t, i18n} = useTranslation();

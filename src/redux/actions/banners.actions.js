@@ -169,3 +169,24 @@ export const editBannerStatus = (id) => async (dispatch) => {
     errorAlert(parsedError);
   }
 };
+
+export const suffleBanner = (formData) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: bannersConstants.BANNER_LOADING});
+
+  try {
+    await API.put(`admin/v1/suffleBanner`, formData);
+
+    successAlert(`Rank updated for Banner`);
+
+    dispatch(listBanners());
+  } catch (err) {
+    const parsedError = await errorParser(err);
+
+    dispatch({
+      type: bannersConstants.BANNER_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};

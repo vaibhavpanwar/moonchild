@@ -13,7 +13,11 @@ const bannersReducer = (state = {banners: [], banner: {}}, action) => {
         banners: action.payload.listing,
         count: action.payload.count,
       };
-
+    case bannersConstants.BANNER_SUFFLE:
+      return {
+        ...state,
+        banners: action.payload,
+      };
     case bannersConstants.BANNER_ADD_SUCCESS:
       return {
         ...state,

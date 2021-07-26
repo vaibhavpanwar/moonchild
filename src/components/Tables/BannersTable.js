@@ -16,16 +16,18 @@ import Header from '../Headers/Header.js';
 import editIcon from '../../assets/images/icons/table/table-edit-icon.svg';
 import deleteIcon from '../../assets/images/icons/table/table-delete-icon.svg';
 import SwitchSlider from '../Switch/SwitchSlider.js';
-
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   deleteBanner,
   editBannerStatus,
   listBanners,
+  suffleBanner,
 } from '../../redux/actions/banners.actions.js';
 import {getImageUrl} from '../../utils/renderImage.js';
 import Pagination from '../Pagination/paginate';
 import {useTranslation} from 'react-i18next';
+import {bannersConstants} from '../../redux/constants/banners.constants.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,6 +60,33 @@ const Tables = () => {
 
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
+
+  const onEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    let sourceIdx = parseInt(result.source.index);
+    let destIdx = parseInt(result.destination.index);
+    if (sourceIdx === destIdx) return;
+    else {
+      let clone = banners;
+      let draggedLink = clone[sourceIdx];
+      let newList = clone.slice();
+      newList.splice(sourceIdx, 1);
+      newList.splice(destIdx, 0, draggedLink);
+
+      dispatch({
+        type: bannersConstants.BANNER_SUFFLE,
+        payload: newList,
+      });
+      dispatch(
+        suffleBanner({
+          from: clone[sourceIdx]._id,
+          to: clone[destIdx]._id,
+        }),
+      );
+    }
+  };
 
   //i18n
   const {t} = useTranslation();
@@ -105,66 +134,101 @@ const Tables = () => {
                     <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
-                <tbody>
+                <>
                   {!loading && banners?.length === 0 ? (
-                    <tr>
-                      <td rowSpan={6} colSpan={6}>
-                        {' '}
-                        No data found
-                      </td>
-                    </tr>
+                    <tbody>
+                      {' '}
+                      <tr>
+                        <td rowSpan={6} colSpan={6}>
+                          {' '}
+                          {t('noDataFound')}
+                        </td>
+                      </tr>
+                    </tbody>
                   ) : (
-                    <>
-                      {banners?.map((item) => (
-                        <tr key={item?._id}>
-                          <td>
-                            <img
-                              alt={'Gulf workers'}
-                              className="table-banner-image"
-                              src={getImageUrl(item?.icon)}
-                            />
-                          </td>
-                          <td>
-                            <a
-                              className="table-banner-link"
-                              href={item?.link}
-                              target="_blank"
-                              rel={'noreferrer'}>
-                              {item?.link}
-                            </a>
-                          </td>
+                    <DragDropContext onDragEnd={onEnd}>
+                      <Droppable droppableId={'countriesList'}>
+                        {(provided, snapshot) => (
+                          <tbody
+                            style={{width: '100%'}}
+                            ref={provided.innerRef}>
+                            {banners?.map((item, index) => (
+                              <Draggable
+                                draggableId={item?._id}
+                                key={item?._id}
+                                index={index}>
+                                {(provided, snapshot) => (
+                                  <tr
+                                    className={`${
+                                      snapshot.isDragging ? 'dragging' : ''
+                                    }`}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}>
+                                    <td>
+                                      {item?.icon ? (
+                                        <img
+                                          alt={'Gulf workers'}
+                                          className="table-banner-image"
+                                          src={getImageUrl(item?.icon)}
+                                        />
+                                      ) : (
+                                        <p>N/A</p>
+                                      )}
+                                    </td>
+                                    <td>
+                                      {item?.link ? (
+                                        <a
+                                          className="table-banner-link"
+                                          href={item?.link}
+                                          target="_blank"
+                                          rel={'noreferrer'}>
+                                          {item?.link}
+                                        </a>
+                                      ) : (
+                                        <p>N/A</p>
+                                      )}
+                                    </td>
 
-                          <td>
-                            <SwitchSlider
-                              clicked={() => activeInactiveBanner(item?._id)}
-                              checked={item?.status === 1}
-                              name={item?.id}
-                            />{' '}
-                          </td>
+                                    <td>
+                                      <SwitchSlider
+                                        clicked={() =>
+                                          activeInactiveBanner(item?._id)
+                                        }
+                                        checked={item?.status === 1}
+                                        name={item?.id}
+                                      />{' '}
+                                    </td>
 
-                          <td>
-                            <img
-                              alt={'Gulf workers'}
-                              className="td-action-img"
-                              src={editIcon}
-                              onClick={() =>
-                                navigateTo(
-                                  `/admin/banners/editBanner/${item._id}`,
-                                )
-                              }
-                            />
-                            <img
-                              alt={'Gulf workers'}
-                              className="td-action-img"
-                              onClick={() => deleteHandler(item?._id)}
-                              src={deleteIcon}
-                            />
-                          </td>
-                        </tr>
-                      ))}
-                    </>
+                                    <td>
+                                      <img
+                                        alt={'Gulf workers'}
+                                        className="td-action-img"
+                                        src={editIcon}
+                                        onClick={() =>
+                                          navigateTo(
+                                            `/admin/banners/editBanner/${item._id}`,
+                                          )
+                                        }
+                                      />
+                                      <img
+                                        alt={'Gulf workers'}
+                                        className="td-action-img"
+                                        onClick={() => deleteHandler(item?._id)}
+                                        src={deleteIcon}
+                                      />
+                                    </td>
+                                  </tr>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </tbody>
+                        )}
+                      </Droppable>
+                    </DragDropContext>
                   )}
-                </tbody>
+                </>
               </Table>
               <CardFooter className="py-4">
                 {count > postsPerPage && (

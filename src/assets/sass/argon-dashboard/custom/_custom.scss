@@ -748,3 +748,21 @@ label {
     top: -2px;
   }
 }
+
+// background-color: ${(props) => (props.isDragging ? '#ADD8E6' : 'white')};
+// cursor: ${(props) => (props.isDragging ? 'grab;' : 'pointer;')}
+// border-bottom: ${(props) =>
+//   props.isDragging ? '1px solid transparent;' : '1px solid #DFDFDF;'}
+// box-shadow: ${(props) =>
+//   props.isDragging
+//     ? '0px 10px 20px rgba(0, 0, 0, 0.19);'
+//     : '1px 1px 1px rgba(0, 0, 0, 0.13);'}
+
+.dragging {
+  background-color: #add8e6;
+  border-bottom: 1px solid #dfdfdf;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.19);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

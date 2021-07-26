@@ -22,12 +22,15 @@ import {
   deleteCountry,
   editCountryStatus,
   listCountries,
+  suffleCategory,
 } from '../../redux/actions/countries.actions';
 import {getImageUrl} from '../../utils/renderImage.js';
 import {useHistory} from 'react-router-dom';
 import eyeIcon from '../../assets/images/icons/table/table-eye-icon.svg';
 import Pagination from '../Pagination/paginate';
 import {useTranslation} from 'react-i18next';
+import {DragDropContext, Draggable, Droppable} from 'react-beautiful-dnd';
+import {countriesConstants} from '../../redux/constants/countries.constants.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,6 +63,30 @@ const Tables = () => {
 
     // eslint-disable-next-line
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
+
+  const onEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    let sourceIdx = parseInt(result.source.index);
+    let destIdx = parseInt(result.destination.index);
+    let countryClone = countries;
+    let draggedLink = countryClone[sourceIdx];
+    let newList = countryClone.slice();
+    newList.splice(sourceIdx, 1);
+    newList.splice(destIdx, 0, draggedLink);
+
+    dispatch({
+      type: countriesConstants.COUNTRY_SUFFLE,
+      payload: newList,
+    });
+    dispatch(
+      suffleCategory({
+        from: countryClone[sourceIdx]._id,
+        to: countryClone[destIdx]._id,
+      }),
+    );
+  };
 
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
@@ -106,17 +133,92 @@ const Tables = () => {
                     <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
-                <tbody>
+                <>
                   {!loading && countries?.length === 0 ? (
-                    <tr>
-                      <td rowSpan={6} colSpan={6}>
-                        {' '}
-                        No data found
-                      </td>
-                    </tr>
+                    <tbody>
+                      {' '}
+                      <tr>
+                        <td rowSpan={6} colSpan={6}>
+                          {' '}
+                          No data found
+                        </td>
+                      </tr>
+                    </tbody>
                   ) : (
-                    <>
-                      {countries?.map((item) => (
+                    <DragDropContext onDragEnd={onEnd}>
+                      <Droppable droppableId={'categoriesList'}>
+                        {(provided, snapshot) => (
+                          <tbody
+                            style={{width: '100%'}}
+                            ref={provided.innerRef}>
+                            {countries?.map((item, index) => (
+                              <Draggable
+                                draggableId={item?._id}
+                                key={item?._id}
+                                index={index}>
+                                {(provided, snapshot) => (
+                                  <tr
+                                    className={`${
+                                      snapshot.isDragging ? 'dragging' : ''
+                                    }`}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}>
+                                    <td>{item?.name[lang]}</td>
+                                    <td>
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className=".table-sub-category-icon"
+                                        src={getImageUrl(item?.icon, 50, 50)}
+                                      />
+                                    </td>
+
+                                    <td>
+                                      <SwitchSlider
+                                        clicked={() =>
+                                          activeInactiveCountry(item?._id)
+                                        }
+                                        checked={item?.status === 1}
+                                      />{' '}
+                                    </td>
+
+                                    <td>
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className="td-action-img"
+                                        src={eyeIcon}
+                                        onClick={() =>
+                                          navigateTo(
+                                            `/admin/countries/viewCountry/${item._id}`,
+                                          )
+                                        }
+                                      />
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className="td-action-img"
+                                        src={editIcon}
+                                        onClick={() =>
+                                          navigateTo(
+                                            `/admin/countries/editCountry/${item._id}`,
+                                          )
+                                        }
+                                      />
+                                      <img
+                                        alt={'Gulf Workers'}
+                                        className="td-action-img"
+                                        src={deleteIcon}
+                                        onClick={() => deleteHandler(item?._id)}
+                                      />
+                                    </td>
+                                  </tr>
+                                )}
+                              </Draggable>
+                            ))}
+                            {provided.placeholder}
+                          </tbody>
+                        )}
+                      </Droppable>
+                      {/* {countries?.map((item) => (
                         <tr key={item?._id}>
                           <td>{item?.name[lang]}</td>
                           <td>
@@ -163,10 +265,10 @@ const Tables = () => {
                             />
                           </td>
                         </tr>
-                      ))}
-                    </>
+                      ))} */}
+                    </DragDropContext>
                   )}
-                </tbody>
+                </>
               </Table>
               <CardFooter className="py-4">
                 {count > postsPerPage && (

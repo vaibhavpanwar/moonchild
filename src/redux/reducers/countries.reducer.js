@@ -13,6 +13,11 @@ const countriesReducer = (state = {countries: [], country: {}}, action) => {
         countries: action.payload.listing,
         count: action.payload.count,
       };
+    case countriesConstants.COUNTRY_SUFFLE:
+      return {
+        ...state,
+        countries: action.payload,
+      };
 
     case countriesConstants.COUNTRY_ADD_SUCCESS:
       return {

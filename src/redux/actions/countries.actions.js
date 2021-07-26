@@ -4,7 +4,7 @@ import {errorParser} from './errorParser';
 import {errorAlert, successAlert, warningAlert} from '../../utils/alerts';
 
 export const listCountries =
-  (perPage = 4, page = 1, search = '') =>
+  (perPage = 15, page = 1, search = '') =>
   async (dispatch) => {
     await headerSetup();
     dispatch({type: countriesConstants.COUNTRY_LOADING});
@@ -110,7 +110,7 @@ export const editCountry = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: countriesConstants.COUNTRY_ERROR,
       payload: parsedError,
@@ -161,7 +161,28 @@ export const editCountryStatus = (id) => async (dispatch) => {
     successAlert(`Status updated for Country~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
+    dispatch({
+      type: countriesConstants.COUNTRY_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
+
+export const suffleCategory = (formData) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: countriesConstants.COUNTRY_LOADING});
+
+  try {
+    await API.put(`admin/v1/suffleCountry`, formData);
+
+    successAlert(`Rank updated for Country`);
+
+    dispatch(listCountries());
+  } catch (err) {
+    const parsedError = await errorParser(err);
+    console.log(err, 'errrp dekhp');
     dispatch({
       type: countriesConstants.COUNTRY_ERROR,
       payload: parsedError,

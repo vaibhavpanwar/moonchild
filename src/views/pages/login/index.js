@@ -13,7 +13,8 @@ import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {useAuth} from '../../../redux/actions/auth';
 import CoverImage from '../../../assets/images/home-background.png';
-import Logo from '../../../assets/images/logo.png';
+import Logo from '../../../assets/images/logo_primary.png';
+// import Logo from '../../../assets/images/logo.png';
 import {ReactComponent as EyeOpenIcon} from '../../../assets/images/ic_eyeopen.svg';
 import {ReactComponent as EyeCloseIcon} from '../../../assets/images/ic_eyeclose.svg';
 function LoginPage(props) {
@@ -40,18 +41,6 @@ function LoginPage(props) {
   return (
     <Container fluid>
       <Row>
-        <button
-          className="lang-switch-button"
-          onClick={() => {
-            if (lang === 'en') {
-              i18n.changeLanguage('ar');
-            } else {
-              i18n.changeLanguage('en');
-            }
-          }}>
-          {' '}
-          {lang === 'ar' ? 'English' : 'العربية'}
-        </button>
         <Col
           style={{
             padding: 0,
@@ -166,6 +155,19 @@ function LoginPage(props) {
                 disabled={!validateForm()}>
                 {t('login')}
               </Button>
+              <br />
+              <button
+                className="lang-switch-button"
+                onClick={() => {
+                  if (lang === 'en') {
+                    i18n.changeLanguage('ar');
+                  } else {
+                    i18n.changeLanguage('en');
+                  }
+                }}>
+                {' '}
+                {lang === 'ar' ? 'English' : 'العربية'}
+              </button>
             </Form.Group>
           </Form>
         </Col>

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import logoImage from '../../assets/images/logo.png';
+import logoImage from '../../assets/images/logo_primary.png';
 import {useDispatch} from 'react-redux';
 import {logout} from '../../services/auth';
 // reactstrap components

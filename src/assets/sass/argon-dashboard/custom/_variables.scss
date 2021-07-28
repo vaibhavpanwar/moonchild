@@ -76,7 +76,7 @@ $colors: map-merge(
 );
 
 $default: #172b4d !default;
-$primary: #3096f7 !default;
+$primary: #2196f5 !default;
 $secondary: #f7fafc !default;
 $success: $green !default;
 $info: $teal !default;
@@ -134,7 +134,7 @@ $shape-colors: () !default;
 $shape-colors: map-merge(
   (
     'default': #32325d,
-    'primary': #3096f7,
+    'primary': #2196f5,
     'secondary': #24b47e,
     'neutral': #e9ecef,
     'blue-gray': #b2cbe1,

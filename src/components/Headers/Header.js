@@ -13,7 +13,7 @@ const Header = ({cardsVisible = true, data}) => {
       {/* custom style here */}
       <div
         className="header  pb-8 pt-5 pt-md-8"
-        style={{backgroundColor: '#3096F7'}}>
+        style={{backgroundColor: '#2196f5'}}>
         <Container fluid>
           <div className="header-body">
             {/* Card stats */}

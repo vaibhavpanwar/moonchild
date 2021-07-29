@@ -18,6 +18,7 @@ import {editUser, getSingleUser} from '../../../redux/actions/users.actions.js';
 import {useHistory} from 'react-router';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import PhoneInput from 'react-phone-input-2';
 const DashboardForm = () => {
   const history = useHistory();
 
@@ -29,7 +30,7 @@ const DashboardForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-
+  const [countryCode, setCountryCode] = useState('');
   const {id} = useParams();
 
   useEffect(() => {
@@ -42,26 +43,32 @@ const DashboardForm = () => {
     if (!!user?.name) {
       setName(user?.name);
       setEmail(user?.email);
-      setPhone(user?.fullNumber);
+      setPhone(user?.phoneNumber);
+      setCountryCode(user?.callingCode);
     }
 
     // eslint-disable-next-line
   }, [user?.name]);
 
-  const validateForm = () => !!name && email && phone;
+  const validateForm = () => !!name && phone && countryCode;
 
   const submitHandler = async () => {
     dispatch(
       editUser(
         {
           name,
-          email,
-          fullNumber: phone,
+          ...(email && {email}),
+          callingCode: countryCode,
+          phoneNumber: phone,
           userId: id,
         },
         history,
       ),
     );
+  };
+  const phoneInputHanlder = (number, data) => {
+    setCountryCode('+' + data?.dialCode);
+    setPhone(number.slice(data.dialCode.length));
   };
 
   return (
@@ -79,7 +86,10 @@ const DashboardForm = () => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">{t('name')} </Label>
+                        <Label for="exampleEmail">
+                          {t('name')}
+                          <sup>*</sup>{' '}
+                        </Label>
                         <Input
                           type="text"
                           placeholder={t('namePlaceholder')}
@@ -90,23 +100,37 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
+                        <Label for="exampleEmail">
+                          Phone<sup>*</sup>{' '}
+                        </Label>
+                        <PhoneInput
+                          containerStyle={{
+                            border: '1px solid #707070',
+                          }}
+                          searchStyle={{
+                            width: '100%',
+                          }}
+                          inputStyle={{
+                            width: '100%',
+                          }}
+                          // country={getCountryCode()}
+                          value={countryCode + phone}
+                          onChange={(phone, countryData) =>
+                            phoneInputHanlder(phone, countryData)
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
                         <Label for="exampleEmail">{t('emailAddress')}</Label>
                         <Input
                           type="text"
                           placeholder={t('emailPlaceholder')}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg={4} md={6} sm={12}>
-                      <FormGroup>
-                        <Label for="exampleEmail">{t('phoneNumber')}</Label>
-                        <Input
-                          type="tel"
-                          placeholder={t('phonePlaceholder')}
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
                         />
                       </FormGroup>
                     </Col>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 // reactstrap components
 import {Button, Modal} from 'reactstrap';
 
 const ResolveModal = ({open, setModalOpen, activeRequest}) => {
+  const [inputData, setInputData] = useState('');
   return (
     <Modal
       className="modal-dialog-centered"
@@ -28,6 +29,8 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
           }}
           type="text"
           name={'en'}
+          value={inputData}
+          onChange={(e) => setInputData(e.target.value)}
         />
       </div>
       <div className="modal-footer">

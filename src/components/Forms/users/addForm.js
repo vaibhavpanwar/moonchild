@@ -16,6 +16,9 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {addUser} from '../../../redux/actions/users.actions.js';
 import {useHistory} from 'react-router';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
 const DashboardForm = () => {
   const history = useHistory();
   //redux
@@ -24,21 +27,29 @@ const DashboardForm = () => {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+
+  const [countryCode, setCountryCode] = useState('');
   const [phone, setPhone] = useState('');
 
-  const validateForm = () => !!name && phone;
+  const validateForm = () => !!name && phone && countryCode;
 
   const submitHandler = async () => {
     dispatch(
       addUser(
         {
           name,
-          email,
-          fullNumber: phone,
+          ...(email && {email}),
+          callingCode: countryCode,
+          phoneNumber: phone,
         },
         history,
       ),
     );
+  };
+
+  const phoneInputHanlder = (number, data) => {
+    setCountryCode('+' + data?.dialCode);
+    setPhone(number.slice(data.dialCode.length));
   };
 
   return (
@@ -56,8 +67,11 @@ const DashboardForm = () => {
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Name </Label>
+                        <Label for="exampleEmail">
+                          Name<sup>*</sup>{' '}
+                        </Label>
                         <Input
+                          style={{borderRadius: '0'}}
                           type="text"
                           placeholder="Enter name"
                           value={name}
@@ -65,25 +79,41 @@ const DashboardForm = () => {
                         />
                       </FormGroup>
                     </Col>
+
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          Phone<sup>*</sup>{' '}
+                        </Label>
+                        <PhoneInput
+                          country={'kw'}
+                          containerStyle={{
+                            border: '1px solid #707070',
+                          }}
+                          searchStyle={{
+                            width: '100%',
+                          }}
+                          inputStyle={{
+                            width: '100%',
+                          }}
+                          // value={countryCode}
+                          onChange={(phone, countryData) =>
+                            phoneInputHanlder(phone, countryData)
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="exampleEmail">Email</Label>
                         <Input
+                          style={{borderRadius: '0'}}
                           type="text"
                           placeholder="Enter email address"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col lg={4} md={6} sm={12}>
-                      <FormGroup>
-                        <Label for="exampleEmail">Phone</Label>
-                        <Input
-                          type="tel"
-                          placeholder="Enter full phone numbe"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
                         />
                       </FormGroup>
                     </Col>

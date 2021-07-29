@@ -26,7 +26,7 @@ const DashboardForm = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-  const validateForm = () => !!name && email && phone;
+  const validateForm = () => !!name && phone;
 
   const submitHandler = async () => {
     dispatch(

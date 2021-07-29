@@ -25,7 +25,7 @@ import {deleteAd, editAdStatus, listAds} from '../../redux/actions/ads.actions';
 import moment from 'moment';
 import {userTypes} from '../Forms/questions/data.js';
 import {finder} from '../../utils/dataHelpers';
-import AdsFilterModal from './AdsFilterModal.js';
+import AdsFilterModal from '../Modals/AdsFilterModal.js';
 import filterIcon from '../../assets/images/filter.png';
 
 const Tables = () => {

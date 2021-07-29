@@ -17,10 +17,24 @@ import {useDispatch, useSelector} from 'react-redux';
 import {listContactUs} from '../../redux/actions/contactUs.actions';
 import Pagination from '../Pagination/paginate';
 import moment from 'moment';
+import ResolveModal from '../Modals/ContactUsResolveModal.js';
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
   const [searchKeyword, setSearchKeyword] = useState('');
+
+  //modal to resolve contact us request
+  const [activeRequest, setActiveRequest] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
+  const setModalOpen = (request) => {
+    setIsOpen(!isOpen);
+    if (request) {
+      setActiveRequest(request);
+    } else {
+      setActiveRequest({});
+    }
+  };
+
   const dispatch = useDispatch();
   const {contacts, loading, count} = useSelector(
     (state) => state.contactUsReducer,
@@ -29,6 +43,10 @@ const Tables = () => {
   useEffect(() => {
     dispatch(listContactUs(postsPerPage, currentPage, searchKeyword));
   }, [dispatch, currentPage, postsPerPage, searchKeyword]);
+
+  const resolveRequest = () => {
+    console.log('ok');
+  };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const {t} = useTranslation();
@@ -39,6 +57,13 @@ const Tables = () => {
       <Container className="mt--7" fluid>
         {/* Table */}
         <Row>
+          <ResolveModal
+            open={isOpen}
+            setModalOpen={setModalOpen}
+            onSubmit={resolveRequest}
+            setActiveRequest={setActiveRequest}
+            activeRequest={activeRequest}
+          />
           <div className="col">
             <Card className="table-shadow">
               <CardHeader className="border-0 table-custom-header">
@@ -94,6 +119,7 @@ const Tables = () => {
                               <p className="replied">Replied</p>
                             ) : (
                               <img
+                                onClick={() => setModalOpen(item)}
                                 alt="Gulf workers"
                                 className="table-non-reply"
                                 src={nonReplyIcon}

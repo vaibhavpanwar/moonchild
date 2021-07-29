@@ -225,10 +225,11 @@ const AdsFilterModal = ({open, setModalOpen}) => {
           Close
         </Button>
         <Button
+          style={{background: '#007bff'}}
           color="primary"
           type="button"
           onClick={searchHandler}
-          disabled={!userType}>
+          disabled={!userType?.enum}>
           Search
         </Button>
       </div>

@@ -63,7 +63,7 @@ export const addQuestion = (formData, history) => async (dispatch) => {
   try {
     const {
       data: {data},
-    } = await API.post('admin/v1/addQestion', formData);
+    } = await API.post('admin/v1/addQuestion', formData);
 
     if (data) {
       dispatch({
@@ -92,7 +92,7 @@ export const editQuestion = (formData, history) => async (dispatch) => {
   try {
     const {
       data: {data},
-    } = await API.put('admin/v1/editQestion', formData);
+    } = await API.put('admin/v1/editQuestion', formData);
 
     if (data) {
       dispatch({

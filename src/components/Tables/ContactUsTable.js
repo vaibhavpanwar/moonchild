@@ -110,7 +110,11 @@ const Tables = () => {
                         <tr>
                           <td>{item?.name}</td>
                           <td>{item?.email}</td>
-                          <td>{item?.phoneNumber}</td>
+                          <td>
+                            {item?.fullNumber?.startsWith('+')
+                              ? item?.fullNumber
+                              : '+' + item?.fullNumber}
+                          </td>
                           <td>
                             {moment(item?.createdAt).format('DD/MM/YYYY')}
                           </td>

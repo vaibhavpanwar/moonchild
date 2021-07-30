@@ -101,13 +101,13 @@ const Tables = () => {
                     <tr>
                       <td rowSpan={6} colSpan={6}>
                         {' '}
-                        No data found
+                        {t('noDataFound')}
                       </td>
                     </tr>
                   ) : (
                     <>
                       {contacts?.map((item) => (
-                        <tr>
+                        <tr key={item?._id}>
                           <td>{item?.name}</td>
                           <td>{item?.email}</td>
                           <td>
@@ -120,7 +120,11 @@ const Tables = () => {
                           </td>
                           <td>
                             {item?.status === 2 ? (
-                              <p className="replied">Replied</p>
+                              <p
+                                onClick={() => setModalOpen(item)}
+                                className="replied">
+                                Replied
+                              </p>
                             ) : (
                               <img
                                 onClick={() => setModalOpen(item)}

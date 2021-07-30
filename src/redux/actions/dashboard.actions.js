@@ -14,7 +14,6 @@ export const getDashboardData =
         data: {data},
       } = await API.get(`admin/v1/dashboard?type=${type}&timeZone=${timeZone}`);
 
-      console.log(data, 'data ay');
       if (data) {
         dispatch({
           type: dashboardConstants.DASHBOARD_SUCCESS,

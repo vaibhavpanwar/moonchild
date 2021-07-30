@@ -36,7 +36,6 @@ export const getSingleBanner = (id) => async (dispatch) => {
   await headerSetup();
   dispatch({type: bannersConstants.BANNER_LOADING});
 
-  console.log(id, 'id');
   try {
     const {
       data: {data},
@@ -110,7 +109,7 @@ export const editBanner = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,
@@ -161,7 +160,7 @@ export const editBannerStatus = (id) => async (dispatch) => {
     successAlert(`Status updated for Banner~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: bannersConstants.BANNER_ERROR,
       payload: parsedError,

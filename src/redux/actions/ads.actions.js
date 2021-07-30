@@ -64,7 +64,6 @@ export const getSingleAd = (id) => async (dispatch) => {
   await headerSetup();
   dispatch({type: adsConstants.AD_LOADING});
 
-  console.log(id, 'id');
   try {
     const {
       data: {data},
@@ -87,7 +86,6 @@ export const getSingleAd = (id) => async (dispatch) => {
 };
 
 export const addAd = (formData, history) => async (dispatch) => {
-  console.log(formData, 'from');
   await headerSetup();
   dispatch({type: adsConstants.AD_LOADING});
 
@@ -139,7 +137,6 @@ export const editAd = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
     dispatch({
       type: adsConstants.AD_ERROR,
       payload: parsedError,
@@ -190,12 +187,11 @@ export const editAdStatus = (id) => async (dispatch) => {
     successAlert(`Status updated for Ad~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: adsConstants.AD_ERROR,
       payload: parsedError,
     });
     errorAlert(parsedError);
-    console.log(err, 'error dekho');
   }
 };

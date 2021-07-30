@@ -70,9 +70,11 @@ const Tables = () => {
     if (!result.destination) {
       return;
     }
+
     let sourceIdx = parseInt(result.source.index);
     let destIdx = parseInt(result.destination.index);
-    if (sourceIdx === destIdx) {
+    if (sourceIdx === destIdx) return;
+    else {
       let clone = categories;
       let draggedLink = clone[sourceIdx];
       let newList = clone.slice();

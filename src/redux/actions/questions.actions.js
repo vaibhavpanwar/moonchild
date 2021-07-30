@@ -56,7 +56,6 @@ export const getSingleQuestion = (id) => async (dispatch) => {
 };
 
 export const addQuestion = (formData, history) => async (dispatch) => {
-  console.log(formData, 'qeus data');
   await headerSetup();
   dispatch({type: questionsConstants.QUESTION_LOADING});
 
@@ -75,7 +74,6 @@ export const addQuestion = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(err, 'error');
 
     dispatch({
       type: questionsConstants.QUESTION_ERROR,
@@ -108,7 +106,7 @@ export const editQuestion = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: questionsConstants.QUESTION_ERROR,
       payload: parsedError,
@@ -148,7 +146,7 @@ export const editQuestionStatus = (id) => async (dispatch) => {
     const {
       data: {data},
     } = await API.patch(`admin/v1/activeInactiveQuestion/${id}`);
-    console.log(data, 'status');
+
     if (data) {
       dispatch({
         type: questionsConstants.QUESTION_EDIT_SUCCESS,
@@ -158,7 +156,7 @@ export const editQuestionStatus = (id) => async (dispatch) => {
     successAlert(`Status updated for question~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: questionsConstants.QUESTION_ERROR,
       payload: parsedError,
@@ -175,7 +173,7 @@ export const editQuestionFilterStatus = (id, filter) => async (dispatch) => {
     const {
       data: {data},
     } = await API.patch(`admin/v1/activeInactiveFeatureFilter/${id}/${filter}`);
-    console.log(data, 'filterstatus');
+
     if (data) {
       dispatch({
         type: questionsConstants.QUESTION_EDIT_SUCCESS,
@@ -185,7 +183,7 @@ export const editQuestionFilterStatus = (id, filter) => async (dispatch) => {
     successAlert(`Featured Filter Status updated for Question~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: questionsConstants.QUESTION_ERROR,
       payload: parsedError,

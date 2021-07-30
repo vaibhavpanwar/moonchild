@@ -37,7 +37,6 @@ export const getSingleSubCategory = (id) => async (dispatch) => {
   await headerSetup();
   dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
 
-  console.log(id, 'id');
   try {
     const {
       data: {data},
@@ -63,7 +62,7 @@ export const getSingleSubCategory = (id) => async (dispatch) => {
 export const addSubCategory = (formData, history) => async (dispatch) => {
   await headerSetup();
   dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
-  console.log(formData, 'formda');
+
   try {
     const {
       data: {data},
@@ -80,7 +79,7 @@ export const addSubCategory = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(err, 'eerror');
+
     dispatch({
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
@@ -113,7 +112,7 @@ export const editSubCategory = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,
@@ -165,7 +164,7 @@ export const editSubCategoryStatus = (id) => async (dispatch) => {
     successAlert(`Status updated for Sub Category~${id}`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: subCategoriesConstants.SUB_CATEGORY_ERROR,
       payload: parsedError,

@@ -74,7 +74,6 @@ export const addUser = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(err, 'error');
 
     dispatch({
       type: usersConstants.USER_ERROR,
@@ -107,7 +106,7 @@ export const editUser = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: usersConstants.USER_ERROR,
       payload: parsedError,

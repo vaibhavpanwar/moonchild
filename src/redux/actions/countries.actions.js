@@ -36,7 +36,6 @@ export const getSingleCountry = (id) => async (dispatch) => {
   await headerSetup();
   dispatch({type: countriesConstants.COUNTRY_LOADING});
 
-  console.log(id, 'id');
   try {
     const {
       data: {data},
@@ -182,7 +181,7 @@ export const suffleCountry = (formData) => async (dispatch) => {
     dispatch(listCountries());
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(err, 'errrp dekhp');
+
     dispatch({
       type: countriesConstants.COUNTRY_ERROR,
       payload: parsedError,

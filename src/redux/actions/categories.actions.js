@@ -41,7 +41,6 @@ export const getSingleCategory = (id) => async (dispatch) => {
   await headerSetup();
   dispatch({type: categoriesConstants.CATEGORY_LOADING});
 
-  console.log(id, 'id');
   try {
     const {
       data: {data},
@@ -114,7 +113,7 @@ export const editCategory = (formData, history) => async (dispatch) => {
     }
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,
@@ -164,7 +163,7 @@ export const editCategoryStatus = (id) => async (dispatch) => {
     infoAlert(`category status updated`);
   } catch (err) {
     const parsedError = await errorParser(err);
-    console.log(parsedError, err, 'error');
+
     dispatch({
       type: categoriesConstants.CATEGORY_ERROR,
       payload: parsedError,

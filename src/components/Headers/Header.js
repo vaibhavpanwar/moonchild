@@ -57,10 +57,10 @@ const Header = ({cardsVisible = true, data}) => {
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
-                            ? 'Since Last Month'
+                            ? t('sinceLastMonth')
                             : data?.enum === 2
-                            ? 'Since Last Week'
-                            : 'Since Yesterday'}
+                            ? t('sinceLastWeek')
+                            : t('sinceYesterday')}
                         </span>
                       </p>
                     </CardBody>
@@ -104,10 +104,10 @@ const Header = ({cardsVisible = true, data}) => {
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
-                            ? 'Since Last Month'
+                            ? t('sinceLastMonth')
                             : data?.enum === 2
-                            ? 'Since Last Week'
-                            : 'Since Yesterday'}
+                            ? t('sinceLastWeek')
+                            : t('sinceYesterday')}
                         </span>
                       </p>
                     </CardBody>
@@ -151,10 +151,10 @@ const Header = ({cardsVisible = true, data}) => {
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
-                            ? 'Since Last Month'
+                            ? t('sinceLastMonth')
                             : data?.enum === 2
-                            ? 'Since Last Week'
-                            : 'Since Yesterday'}
+                            ? t('sinceLastWeek')
+                            : t('sinceYesterday')}
                         </span>
                       </p>
                     </CardBody>
@@ -196,10 +196,10 @@ const Header = ({cardsVisible = true, data}) => {
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
-                            ? 'Since Last Month'
+                            ? t('sinceLastMonth')
                             : data?.enum === 2
-                            ? 'Since Last Week'
-                            : 'Since Yesterday'}
+                            ? t('sinceLastWeek')
+                            : t('sinceYesterday')}
                         </span>
                       </p>
                     </CardBody>

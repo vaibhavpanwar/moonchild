@@ -96,7 +96,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
       toggle={() => setModalOpen()}>
       <div className="modal-header">
         <h5 className="modal-title" id="exampleModalLabel">
-          Filter Ads
+          {t('filterAds')}
         </h5>
         <button
           aria-label="Close"
@@ -117,7 +117,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
                   style={{background: '#fff'}}
                   readOnly
                   placeholder={t('userType')}
-                  value={userType?.name ? userType?.name : 'Select User Type'}
+                  value={userType?.name ? userType?.name : t('userType')}
                 />
                 <InputGroupButtonDropdown
                   addonType="append"
@@ -144,11 +144,11 @@ const AdsFilterModal = ({open, setModalOpen}) => {
                 <Input
                   style={{background: '#fff'}}
                   readOnly
-                  placeholder={'select category'}
+                  placeholder={t('select') + ' ' + t('category')}
                   value={
                     selectedCategory?.name?.en
                       ? selectedCategory?.name?.en
-                      : 'Select Category'
+                      : t('select') + ' ' + t('category')
                   }
                 />
                 <InputGroupButtonDropdown
@@ -211,7 +211,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
           </Col>
           <Col sm={12}>
             <Button color="secondary" onClick={clearData} type="button">
-              Clear
+              {t('clear')}
             </Button>
           </Col>
         </Row>
@@ -222,7 +222,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
           data-dismiss="modal"
           type="button"
           onClick={() => setModalOpen()}>
-          Close
+          {t('close')}
         </Button>
         <Button
           style={{background: '#007bff'}}
@@ -230,7 +230,7 @@ const AdsFilterModal = ({open, setModalOpen}) => {
           type="button"
           onClick={searchHandler}
           disabled={!userType?.enum}>
-          Search
+          {t('search')}
         </Button>
       </div>
     </Modal>

@@ -116,7 +116,7 @@ const DashboardForm = () => {
                         <Label for="exampleEmail">{t('title')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder={'Enter' + t('title')}
+                          placeholder={t('enter') + ' ' + t('title')}
                           value={title?.en}
                           name={'en'}
                           onChange={onTitleChangeHandler}
@@ -128,7 +128,7 @@ const DashboardForm = () => {
                         <Label for="exampleEmail">{t('title')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder={'Enter' + t('title')}
+                          placeholder={t('enter') + ' ' + t('title')}
                           value={title?.ar}
                           name={'ar'}
                           onChange={onTitleChangeHandler}
@@ -141,7 +141,7 @@ const DashboardForm = () => {
                         <Label for="exampleEmail">{t('title')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder={'Enter' + t('title')}
+                          placeholder={t('enter') + ' ' + t('title')}
                           value={title?.hi}
                           name={'hi'}
                           onChange={onTitleChangeHandler}
@@ -155,7 +155,7 @@ const DashboardForm = () => {
                         </Label>
                         <Input
                           type="text"
-                          placeholder={'Enter' + t('title')}
+                          placeholder={t('enter') + ' ' + t('title')}
                           value={title?.ph}
                           name={'ph'}
                           onChange={onTitleChangeHandler}
@@ -179,7 +179,7 @@ const DashboardForm = () => {
                             height: '150px',
                           }}
                           type="text"
-                          placeholder={'Enter ' + t('message')}
+                          placeholder={t('enter') + ' ' + t('message')}
                           value={message?.en}
                           name={'en'}
                           onChange={onMessageChangeHandler}
@@ -198,7 +198,7 @@ const DashboardForm = () => {
                             height: '150px',
                           }}
                           type="text"
-                          placeholder={'Enter ' + t('message')}
+                          placeholder={t('enter') + ' ' + t('message')}
                           value={message?.ar}
                           name={'ar'}
                           onChange={onMessageChangeHandler}
@@ -217,7 +217,7 @@ const DashboardForm = () => {
                             height: '150px',
                           }}
                           type="text"
-                          placeholder={'Enter ' + t('message')}
+                          placeholder={t('enter') + ' ' + t('message')}
                           value={message?.hi}
                           name={'hi'}
                           onChange={onMessageChangeHandler}
@@ -236,7 +236,7 @@ const DashboardForm = () => {
                             height: '150px',
                           }}
                           type="text"
-                          placeholder={'Enter ' + t('message')}
+                          placeholder={t('enter') + ' ' + t('message')}
                           value={message?.ph}
                           name={'ph'}
                           onChange={onMessageChangeHandler}
@@ -253,7 +253,7 @@ const DashboardForm = () => {
                           <Input
                             style={{background: '#fff'}}
                             readOnly
-                            placeholder={'select category'}
+                            placeholder={t('select') + t('category')}
                             value={topic}
                           />
                           <InputGroupButtonDropdown

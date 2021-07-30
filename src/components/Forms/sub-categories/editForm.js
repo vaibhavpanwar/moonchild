@@ -143,7 +143,7 @@ const DashboardForm = ({history}) => {
                         <Label for="exampleEmail">{t('name')} (English)</Label>
                         <Input
                           type="text"
-                          placeholder={t('namePlaceHolder')}
+                          placeholder={t('namePlaceholder')}
                           value={name?.en}
                           name={'en'}
                           onChange={onChangeHandler}
@@ -155,7 +155,7 @@ const DashboardForm = ({history}) => {
                         <Label for="exampleEmail">{t('name')} (Arabic)</Label>
                         <Input
                           type="text"
-                          placeholder={t('namePlaceHolder')}
+                          placeholder={t('namePlaceholder')}
                           value={name?.ar}
                           name={'ar'}
                           onChange={onChangeHandler}
@@ -169,7 +169,7 @@ const DashboardForm = ({history}) => {
                         <Label for="exampleEmail">{t('name')} (Hindi)</Label>
                         <Input
                           type="text"
-                          placeholder={t('namePlaceHolder')}
+                          placeholder={t('namePlaceholder')}
                           value={name?.hi}
                           name={'hi'}
                           onChange={onChangeHandler}
@@ -183,7 +183,7 @@ const DashboardForm = ({history}) => {
                         </Label>
                         <Input
                           type="text"
-                          placeholder={t('namePlaceHolder')}
+                          placeholder={t('namePlaceholder')}
                           value={name?.ph}
                           name={'ph'}
                           onChange={onChangeHandler}

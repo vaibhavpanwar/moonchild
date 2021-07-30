@@ -29,11 +29,14 @@ import {
 import Header from '../Headers/Header';
 import {getDashboardData} from '../../redux/actions/dashboard.actions';
 import {useDispatch, useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 const Index = (props) => {
   const dispatch = useDispatch();
   const {dashboardData} = useSelector((state) => state.dashboardReducer);
   const [activeNav, setActiveNav] = useState(1);
+
+  const {t} = useTranslation();
   // const [chartExample1Data, setChartExample1Data] = useState('data1');
 
   if (window.Chart) {
@@ -70,9 +73,9 @@ const Index = (props) => {
                 <Row className="align-items-center">
                   <div className="col">
                     <h6 className="text-uppercase text-light ls-1 mb-1">
-                      Overview
+                      {t('overview')}
                     </h6>
-                    <h2 className="text-black mb-0">Active Ads</h2>
+                    <h2 className="text-black mb-0">{t('activeAds')}</h2>
                   </div>
                   <div className="col">
                     <Nav
@@ -86,8 +89,10 @@ const Index = (props) => {
                           })}
                           href="#pablo"
                           onClick={(e) => toggleNavs(e, 1)}>
-                          <span className="d-none d-md-block">Monthly</span>
-                          <span className="d-md-none">M</span>
+                          <span className="d-none d-md-block">
+                            {t('monthly')}
+                          </span>
+                          <span className="d-md-none">{t('m')}</span>
                         </NavLink>
                       </NavItem>
                       <NavItem>
@@ -98,8 +103,10 @@ const Index = (props) => {
                           data-toggle="tab"
                           href="#pablo"
                           onClick={(e) => toggleNavs(e, 2)}>
-                          <span className="d-none d-md-block">Weekly</span>
-                          <span className="d-md-none">W</span>
+                          <span className="d-none d-md-block">
+                            {t('weekly')}
+                          </span>
+                          <span className="d-md-none">{t('w')}</span>
                         </NavLink>
                       </NavItem>
                       <NavItem>
@@ -109,8 +116,10 @@ const Index = (props) => {
                           })}
                           href="#pablo"
                           onClick={(e) => toggleNavs(e, 3)}>
-                          <span className="d-none d-md-block">Daily</span>
-                          <span className="d-md-none">D</span>
+                          <span className="d-none d-md-block">
+                            {t('daily')}
+                          </span>
+                          <span className="d-md-none">{t('d')}</span>
                         </NavLink>
                       </NavItem>
                     </Nav>
@@ -140,7 +149,7 @@ const Index = (props) => {
                       ? 'Weeks'
                       : 'Hours'}
                   </p>
-                  <p className="horizontal-tag">Number Of Ads</p>
+                  <p className="horizontal-tag">{t('numberOfAds')}</p>
                 </div>
               </CardBody>
             </Card>
@@ -151,9 +160,9 @@ const Index = (props) => {
                 <Row className="align-items-center">
                   <div className="col">
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
-                      Performance
+                      {t('performance')}
                     </h6>
-                    <h2 className="mb-0">Ads per category</h2>
+                    <h2 className="mb-0">{t('adsByCategory')}</h2>
                   </div>
                 </Row>
               </CardHeader>

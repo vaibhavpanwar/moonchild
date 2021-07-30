@@ -8,9 +8,11 @@
 
   "ads": "Ads",
   "dashboard": "Dashboard",
+  "contactus": "Contact Us",
   "contactUs": "Contact Us",
   "notifications": "Notifications",
   "Questions": "Questions",
+  "subcategories": "Sub Categories",
   "subCategories": "Sub Categories",
   "subCategory": "Sub Category",
   "category": "Category",
@@ -20,6 +22,7 @@
 
   "banners": "Banners",
   "countries": "Countries",
+  "questions": "questions",
 
   "add": "Add",
   "name": "Name",
@@ -107,5 +110,30 @@
   "totalRegisteredUser": "Total Registered User",
 
   "numberOfChats": "Number Of Chats",
-  "totalIncome": "Total Income"
+  "totalIncome": "Total Income",
+  "overview": "Overview",
+  "monthly": "Monthly",
+  "weekly": "Weekly",
+  "daily": "Daily",
+  "m": "M",
+  "d": "D",
+  "w": "w",
+  "activeAds": "Active Ads",
+  "performance": "Performance",
+  "adsByCategory": "Ads by Category",
+  "logout": "Logout",
+
+  "sinceLastMonth": "Since last Month",
+  "sinceLastWeek": "Since last Week",
+  "sinceYesterday": "Since Yesterday",
+  "enter": "Enter",
+
+  "resolve": "Resolve",
+  "resolveNoteFor": "Resolve note for",
+  "close": "Close",
+  "noResolveNote": "No Resolve Note",
+  "resolved": "Resolved",
+
+  "clear": "Clear",
+  "filterAds": "Filter Ads"
 }

@@ -49,14 +49,14 @@ const AdminNavbar = (props) => {
                 getCurrentSubPage() && 'disabled-breadcrumb '
               }`}
               onClick={navigationHandler}>
-              {t(getCurrentPage()?.replaceAll('-', ' '))}
+              {t(getCurrentPage()?.replaceAll('-', ''))}
             </p>
             {getCurrentSubPage() && (
               <p
                 className="breadcrumb-item-custom"
                 onClick={subNavigationHandler}>
                 {'> '}
-                {t(getCurrentSubPage()?.replaceAll('-', ' '))}
+                {t(getCurrentSubPage()?.replaceAll('-', ''))}
               </p>
             )}
           </div>
@@ -140,7 +140,7 @@ const AdminNavbar = (props) => {
                     logout();
                   }}>
                   <i className="ni ni-user-run" />
-                  <span>Logout</span>
+                  <span>{t('logout')}</span>
                 </DropdownItem>
                 <DropdownItem
                   href="#pablo"

@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {useDispatch} from 'react-redux';
 // reactstrap components
 import {Button, Modal, Spinner} from 'reactstrap';
@@ -8,6 +9,7 @@ import {API} from '../../services/auth';
 import {errorAlert, successAlert} from '../../utils/alerts';
 
 const ResolveModal = ({open, setModalOpen, activeRequest}) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState('');
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
           type: contactUsConstants?.CONTACT_US_EDIT_SUCCESS,
           payload: data.data,
         });
-        console.log(data, 'res');
+
         successAlert('Request Resolved');
         setModalOpen();
         setInputData('');
@@ -47,8 +49,8 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
       <div className="modal-header">
         <h5 className="modal-title" id="exampleModalLabel">
           {activeRequest?.status === 1
-            ? `Resolve note for ${activeRequest?.name}`
-            : `Resolved`}
+            ? `${t('resolveNoteFor')}  ${activeRequest?.name}`
+            : t('resolved')}
         </h5>
         <button
           aria-label="Close"
@@ -74,7 +76,7 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
             activeRequest?.status === 2
               ? !!activeRequest?.resolveNote
                 ? activeRequest?.resolveNote
-                : 'No Resolve note'
+                : t('noResolveNote')
               : inputData
           }
           onChange={(e) =>
@@ -91,7 +93,7 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
             setModalOpen();
             setInputData('');
           }}>
-          Close
+          {t('close')}
         </Button>
 
         {activeRequest?.status === 1 && (
@@ -101,7 +103,7 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
             onClick={onSubmit}
             color="primary"
             type="button">
-            {loading ? <Spinner color={'info'} /> : 'Resolve'}
+            {loading ? <Spinner color={'info'} /> : t('resolve')}
           </Button>
         )}
       </div>

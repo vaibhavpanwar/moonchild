@@ -248,6 +248,7 @@ const DashboardForm = ({history}) => {
                             <DropdownMenu>
                               {categories?.map((item) => (
                                 <DropdownItem
+                                  key={item?._id}
                                   onClick={() => categoryChangeHandler(item)}>
                                   {item?.name?.en}
                                 </DropdownItem>

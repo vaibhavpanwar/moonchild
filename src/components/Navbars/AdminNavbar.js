@@ -70,7 +70,7 @@ const AdminNavbar = (props) => {
                   backgroundColor: '#F7FAFC',
                   padding: '10px',
                   borderRadius: '31px',
-                  boxShadow: '0px 3px 6px #1717172D;',
+                  boxShadow: '0px 3px 6px #1717172D',
                   direction: 'ltr',
                 }}
                 nav>

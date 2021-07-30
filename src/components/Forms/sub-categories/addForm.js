@@ -171,6 +171,7 @@ const DashboardForm = ({history}) => {
                             <DropdownMenu>
                               {categories?.map((item) => (
                                 <DropdownItem
+                                  key={item?._id}
                                   onClick={() => categoryChangeHandler(item)}>
                                   {item?.name?.en}
                                 </DropdownItem>
@@ -216,7 +217,7 @@ const DashboardForm = ({history}) => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/sub-categories')}>
-                  {t('cacel')}
+                  {t('cancel')}
                 </button>
                 <button
                   className="table-header-button"

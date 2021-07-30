@@ -194,7 +194,7 @@ const DashboardForm = ({history}) => {
           name: {en: '', hi: '', ar: '', ph: ''},
         },
       ]);
-    } else if (quesType?.enum === 4) {
+    } else if (quesType?.enum === 4 && !questionById?.options?.length) {
       setOptions([
         {
           name: {en: '', hi: '', ar: '', ph: ''},
@@ -241,8 +241,9 @@ const DashboardForm = ({history}) => {
                               <p>{'>'}</p>
                             </DropdownToggle>
                             <DropdownMenu>
-                              {userTypes?.map((item) => (
+                              {userTypes?.map((item, i) => (
                                 <DropdownItem
+                                  key={i}
                                   onClick={() => userTypeChangeHandler(item)}>
                                   {item?.name}
                                 </DropdownItem>
@@ -276,6 +277,7 @@ const DashboardForm = ({history}) => {
                                 <DropdownMenu>
                                   {categories?.map((item) => (
                                     <DropdownItem
+                                      key={item?._id}
                                       onClick={() =>
                                         categoryChangeHandler(item)
                                       }>
@@ -317,6 +319,7 @@ const DashboardForm = ({history}) => {
                                     <DropdownMenu>
                                       {subCategoriesList?.map((item) => (
                                         <DropdownItem
+                                          key={item?._id}
                                           onClick={() =>
                                             subCategoryChangeHandler(item)
                                           }>
@@ -353,8 +356,9 @@ const DashboardForm = ({history}) => {
                               <p>{'>'}</p>
                             </DropdownToggle>
                             <DropdownMenu>
-                              {quesTypes?.map((item) => (
+                              {quesTypes?.map((item, i) => (
                                 <DropdownItem
+                                  key={i}
                                   onClick={() => quesTypeChangeHandler(item)}>
                                   {item?.name}
                                 </DropdownItem>
@@ -427,7 +431,7 @@ const DashboardForm = ({history}) => {
                     options?.length >= 1 &&
                     options.map((item, i) => {
                       return (
-                        <>
+                        <React.Fragment key={i}>
                           <Row form>
                             <Col lg={3} md={6} sm={12}>
                               {' '}
@@ -515,7 +519,7 @@ const DashboardForm = ({history}) => {
                               )}
                             </>
                           )}
-                        </>
+                        </React.Fragment>
                       );
                     })}
 
@@ -532,7 +536,7 @@ const DashboardForm = ({history}) => {
                   className="table-header-button"
                   onClick={submitHandler}
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : t('add')}
+                  {loading ? <Spinner color={'info'} /> : t('update')}
                 </button>
               </div>
             </div>

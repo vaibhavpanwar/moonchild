@@ -101,7 +101,7 @@ const Tables = ({history}) => {
                   ) : (
                     <>
                       {users?.map((item) => (
-                        <tr>
+                        <tr key={item?._id}>
                           <td>{item?.name}</td>
                           <td>
                             {moment(item?.createdAt).format('DD/MM/YYYY')}

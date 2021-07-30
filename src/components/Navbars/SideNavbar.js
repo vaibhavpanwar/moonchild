@@ -58,6 +58,7 @@ const Sidebar = (props) => {
         //CUSTOME STYLE HERE
         item?.sideBar && (
           <div
+            key={key}
             onClick={() => navigateTo(item.path)}
             className={`nav-links-wrapper ${activeRoute(item.path)}`}>
             <span className={item.icon} />

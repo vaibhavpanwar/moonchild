@@ -65,7 +65,7 @@ const Index = (props) => {
       <Container className="mt--7" fluid>
         <Row>
           <Col className="mb-5 mb-xl-0" xl="8">
-            <Card style={{backgroundColor: '#fff'}} className=" shadow">
+            <Card style={{backgroundColor: '#fff'}} className="shadow">
               <CardHeader className="bg-transparent">
                 <Row className="align-items-center">
                   <div className="col">

@@ -40,15 +40,15 @@ const DashboardForm = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    if (!!user?.name) {
-      setName(user?.name);
+    if (!!user?.name || !!user?.email || user?.fullNumber) {
+      setName(user?.name ? user?.name : '');
       setEmail(user?.email);
       setPhone(user?.phoneNumber);
       setCountryCode(user?.callingCode);
     }
 
     // eslint-disable-next-line
-  }, [user?.name]);
+  }, [user?.name, user?.email, user?.fullNumber]);
 
   const validateForm = () => !!name && phone && countryCode;
 

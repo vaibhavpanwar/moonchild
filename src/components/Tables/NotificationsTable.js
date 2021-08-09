@@ -82,26 +82,39 @@ const Tables = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {notifications?.map((item) => (
-                    <tr key={item?._id}>
-                      <td>{item?.title[lang]}</td>
-                      <td>{item?.message[lang]}</td>
-                      <td>{item?.topic}</td>
-                      <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
-                      <td>
-                        <img
-                          alt={'Gulf Workers'}
-                          className="td-action-img"
-                          src={roundIcon}
-                          onClick={() =>
-                            navigateTo(
-                              `/admin/notifications/addNotification/${item?._id}`,
-                            )
-                          }
-                        />
+                  {!loading && notifications?.length === 0 ? (
+                    <tr>
+                      <td rowSpan={6} colSpan={6}>
+                        {' '}
+                        {t('noDataFound')}
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    <>
+                      {notifications?.map((item) => (
+                        <tr key={item?._id}>
+                          <td>{item?.title[lang]}</td>
+                          <td>{item?.message[lang]}</td>
+                          <td>{item?.topic}</td>
+                          <td>
+                            {moment(item?.createdAt).format('DD/MM/YYYY')}
+                          </td>
+                          <td>
+                            <img
+                              alt={'Gulf Workers'}
+                              className="td-action-img"
+                              src={roundIcon}
+                              onClick={() =>
+                                navigateTo(
+                                  `/admin/notifications/addNotification/${item?._id}`,
+                                )
+                              }
+                            />
+                          </td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </Table>
               <CardFooter className="py-4">

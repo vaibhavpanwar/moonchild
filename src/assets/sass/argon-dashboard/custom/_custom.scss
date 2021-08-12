@@ -785,3 +785,9 @@ label {
   border: none !important;
   outline: none !important;
 }
+
+.hidden-filter {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}

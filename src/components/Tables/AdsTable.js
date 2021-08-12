@@ -34,6 +34,19 @@ const Tables = () => {
   const [searchKeyword] = useState('');
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
+  //filter states
+  const [subCategoriesList, setSubCategoriesList] = useState([]);
+  const [userType, setUserType] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+
+  const clearData = () => {
+    setUserType({});
+    setSelectedCategory({});
+    setSubCategoriesList([]);
+    setSelectedSubCategory({});
+  };
+
   const toggle = () => setTooltipOpen(!tooltipOpen);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -61,6 +74,12 @@ const Tables = () => {
   useEffect(() => {
     dispatch(listAds(postsPerPage, currentPage, searchKeyword));
   }, [dispatch, postsPerPage, currentPage, searchKeyword]);
+
+  useEffect(() => {
+    if (!userType?.enum) {
+      dispatch(listAds(postsPerPage, currentPage, searchKeyword));
+    }
+  }, [userType?.enum, dispatch, postsPerPage, currentPage, searchKeyword]);
 
   return (
     <>
@@ -95,14 +114,17 @@ const Tables = () => {
                       <img alt={'filter'} src={filterIcon} />
                       &nbsp; Filter
                     </button>
-                    <>
+
+                    <div
+                      className={`${!userType?.enum ? 'hidden-filter' : ''}`}>
                       <p
                         id="TooltipExample"
-                        onClick={() =>
+                        onClick={() => {
                           dispatch(
                             listAds(postsPerPage, currentPage, searchKeyword),
-                          )
-                        }
+                          );
+                          clearData();
+                        }}
                         style={{
                           margin: 0,
                           padding: 0,
@@ -119,10 +141,24 @@ const Tables = () => {
                         toggle={toggle}>
                         Clear Filters
                       </Tooltip>
-                    </>
+                    </div>
                   </div>
 
-                  <AdsFilterModal open={isOpen} setModalOpen={setModalOpen} />
+                  <AdsFilterModal
+                    customProps={{
+                      open: isOpen,
+                      setModalOpen,
+                      subCategoriesList,
+                      setSubCategoriesList,
+                      userType,
+                      setUserType,
+                      selectedSubCategory,
+                      setSelectedSubCategory,
+                      selectedCategory,
+                      setSelectedCategory,
+                      clearData,
+                    }}
+                  />
                   {loading && (
                     <div className="table-loader">
                       <Spinner color={'info'} />

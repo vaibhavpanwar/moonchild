@@ -20,17 +20,31 @@ import {listCategories} from '../../redux/actions/categories.actions';
 import {getSubCategByCateg} from '../../utils/subCategory';
 import {userTypes} from '../Forms/questions/data';
 
-const AdsFilterModal = ({open, setModalOpen}) => {
+const AdsFilterModal = ({
+  customProps: {
+    open,
+    setModalOpen,
+    subCategoriesList,
+    setSubCategoriesList,
+    userType,
+    setUserType,
+    selectedCategory,
+    setSelectedCategory,
+    selectedSubCategory,
+    setSelectedSubCategory,
+    clearData,
+  },
+}) => {
   const {t} = useTranslation();
   // const {lang} = i18n.language;
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [subCategoryDropdownOpen, setSubCategoryDropdownOpen] = useState(false);
-  const [subCategoriesList, setSubCategoriesList] = useState([]);
-  const [userType, setUserType] = useState(null);
+  // const [subCategoriesList, setSubCategoriesList] = useState([]);
+  // const [userType, setUserType] = useState(null);
 
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  // const [selectedCategory, setSelectedCategory] = useState(null);
+  // const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -81,13 +95,6 @@ const AdsFilterModal = ({open, setModalOpen}) => {
 
     //eslint-disable-next-line
   }, [selectedCategory?._id]);
-
-  const clearData = () => {
-    setUserType({});
-    setSelectedCategory({});
-    setSubCategoriesList([]);
-    setSelectedSubCategory({});
-  };
 
   return (
     <Modal

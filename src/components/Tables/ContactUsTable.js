@@ -109,7 +109,7 @@ const Tables = () => {
                       {contacts?.map((item) => (
                         <tr key={item?._id}>
                           <td>{item?.name}</td>
-                          <td>{item?.email}</td>
+                          <td>{item?.email ? item?.email : 'N/A'}</td>
                           <td>
                             {item?.fullNumber?.startsWith('+')
                               ? item?.fullNumber

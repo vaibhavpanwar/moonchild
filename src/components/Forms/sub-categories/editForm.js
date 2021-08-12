@@ -21,7 +21,7 @@ import {
   Spinner,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   categoriesConstants,
@@ -210,23 +210,29 @@ const DashboardForm = ({history}) => {
                             {icon && (
                               <p className="file-input-name">{icon?.name}</p>
                             )}
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
                           </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
                         </InputGroup>
                       </FormGroup>
                       <br />
-
-                      <img
-                        alt={'Gulf wrokers'}
-                        src={getImageUrl(subCategory?.icon, 50, 50)}
-                      />
+                      {icon ? (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      ) : (
+                        <img
+                          alt={'Gulf wrokers'}
+                          src={getImageUrl(subCategory?.icon, 50, 50)}
+                        />
+                      )}
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>

@@ -25,7 +25,7 @@ import {
 } from '../../../redux/actions/categories.actions.js';
 import {categoriesConstants} from '../../../redux/constants/categories.constants.js';
 import {getImageUrl} from '../../../utils/renderImage.js';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
@@ -186,23 +186,30 @@ const DashboardForm = ({history}) => {
                             {icon && (
                               <p className="file-input-name">{icon?.name}</p>
                             )}
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
                           </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
                         </InputGroup>
                       </FormGroup>
                       <br />
 
-                      <img
-                        alt={'Gulf wrokers'}
-                        src={getImageUrl(category?.icon, 50, 50)}
-                      />
+                      {icon ? (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      ) : (
+                        <img
+                          alt={'Gulf wrokers'}
+                          src={getImageUrl(category?.icon, 50, 50)}
+                        />
+                      )}
                     </Col>
                   </Row>
                 </Form>

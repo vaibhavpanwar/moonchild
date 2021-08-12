@@ -16,7 +16,7 @@ import {
   Spinner,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {bannersConstants} from '../../../redux/constants';
 import {
@@ -25,6 +25,7 @@ import {
 } from '../../../redux/actions/banners.actions.js';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
+import {getImageUrl} from '../../../utils/renderImage.js';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -103,23 +104,29 @@ const DashboardForm = ({history}) => {
                             {icon && (
                               <p className="file-input-name">{icon?.name}</p>
                             )}
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
                           </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
                         </InputGroup>
                       </FormGroup>
                       <br />
-
-                      <img
-                        alt={'Gulf wrokers'}
-                        src={`https://api.gccworkers.app/common/v1/resizer/${banner?.icon}/80/80`}
-                      />
+                      {icon ? (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      ) : (
+                        <img
+                          alt={'Gulf wrokers'}
+                          src={getImageUrl(banner?.icon, 80, 80)}
+                        />
+                      )}
                     </Col>
 
                     <Col lg={4} md={6} sm={12}>

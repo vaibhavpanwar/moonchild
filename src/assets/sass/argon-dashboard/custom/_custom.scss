@@ -512,12 +512,20 @@ input[type='file'] {
 
 .upload-icon {
   background-color: $primary;
+  position: absolute;
+  right: -4px;
+  top: 0px;
+  pointer-events: none;
   border-radius: 0px 10px 10px 0px;
-  padding: 5px;
+  padding: 7px;
   width: 45px;
   text-align: center;
 }
 
+.input-image {
+  max-width: 100px;
+  margin: 20px;
+}
 .file-input-name {
   position: absolute;
   top: 4px;

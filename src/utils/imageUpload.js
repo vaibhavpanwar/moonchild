@@ -13,3 +13,5 @@ export const imageUploader = async (formData) => {
     return false;
   }
 };
+
+export const renderImage = (file) => URL.createObjectURL(file);

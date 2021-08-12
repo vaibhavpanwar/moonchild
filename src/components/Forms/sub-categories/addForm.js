@@ -20,7 +20,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {listCategories} from '../../../redux/actions/categories.actions.js';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {subCategoriesConstants} from '../../../redux/constants/sub-categories.constants.js';
 import {addSubCategory} from '../../../redux/actions/sub-categories.actions.js';
 import {useTranslation} from 'react-i18next';
@@ -198,17 +198,24 @@ const DashboardForm = ({history}) => {
                             {icon && (
                               <p className="file-input-name">{icon?.name}</p>
                             )}
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
                           </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
                         </InputGroup>
                       </FormGroup>
+                      <br />
+                      {icon && (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      )}
                     </Col>
                   </Row>
                 </Form>

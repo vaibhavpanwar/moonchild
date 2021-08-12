@@ -18,7 +18,7 @@ import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 import {addCountry} from '../../../redux/actions/countries.actions';
 import cogoToast from 'cogo-toast';
 import {countriesConstants} from '../../../redux/constants/countries.constants.js';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useTranslation} from 'react-i18next';
 
 const DashboardForm = ({history}) => {
@@ -150,17 +150,24 @@ const DashboardForm = ({history}) => {
                             {icon && (
                               <p className="file-input-name">{icon?.name}</p>
                             )}
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
                           </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
                         </InputGroup>
                       </FormGroup>
+                      <br />
+                      {icon && (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      )}
                     </Col>
                   </Row>
                 </Form>

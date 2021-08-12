@@ -17,7 +17,7 @@ import {
   Spinner,
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {countriesConstants} from '../../../redux/constants';
 import {getImageUrl} from '../../../utils/renderImage';
@@ -189,23 +189,29 @@ const DashboardForm = ({history}) => {
                             {icon && (
                               <p className="file-input-name">{icon?.name}</p>
                             )}
+                            <div className="upload-icon">
+                              <img
+                                alt={'upload'}
+                                style={{maxWidth: '15px'}}
+                                src={uploadIcon}
+                              />
+                            </div>
                           </label>
-
-                          <div className="upload-icon">
-                            <img
-                              alt={'upload'}
-                              style={{maxWidth: '15px'}}
-                              src={uploadIcon}
-                            />
-                          </div>
                         </InputGroup>
                       </FormGroup>
                       <br />
-
-                      <img
-                        alt={'Gulf wrokers'}
-                        src={getImageUrl(country?.icon, 50, 50)}
-                      />
+                      {icon ? (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      ) : (
+                        <img
+                          alt={'Gulf wrokers'}
+                          src={getImageUrl(country?.icon, 50, 50)}
+                        />
+                      )}
                     </Col>
                   </Row>
                 </Form>

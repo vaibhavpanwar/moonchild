@@ -4,17 +4,29 @@ import {questionsConstants} from '../constants';
 import {errorParser} from './errorParser';
 
 export const listQuestions =
-  (perPage = 4, page = 1, search = '') =>
+  (
+    perPage = 4,
+    page = 1,
+    search = '',
+    user = 1,
+    categoryId = '',
+    subCategoryId = '',
+  ) =>
   async (dispatch) => {
     await headerSetup();
     dispatch({type: questionsConstants.QUESTION_LOADING});
+    console.log(categoryId + '@@@@@@@@@@@@@@' + subCategoryId);
+    let url;
+    if (user === '') {
+      url = `admin/v1/listQuestions?perPage=${perPage}&page=${page}&search=${search}&categoryId=${categoryId}&subCategoryId=${subCategoryId}`;
+    } else {
+      url = `admin/v1/listQuestions?userType=${user}&perPage=${perPage}&page=${page}&search=${search}&categoryId=${categoryId}&subCategoryId=${subCategoryId}`;
+    }
 
     try {
       const {
         data: {data},
-      } = await API.get(
-        `admin/v1/listQuestions?perPage=${perPage}&page=${page}&search=${search}`,
-      );
+      } = await API.get(url);
 
       if (data) {
         dispatch({

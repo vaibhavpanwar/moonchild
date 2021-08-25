@@ -112,14 +112,9 @@ const Tables = ({history}) => {
   const handleClick =
     (item) =>
     ({getItemById, scrollToItem}) => {
-      console.log(categoryId, subCategoryId, 'categoryID');
       if (item._id === 3 || item._id === 4) {
-        if (subCategoryId !== '' || categoryId !== '') {
-          console.log('already Empty');
-          setCategoryId('');
-          setSubCategoryId('');
-        }
-
+        setCategoryId('');
+        setSubCategoryId('');
         setIsUserServiceOffice(false);
       } else {
         setIsUserServiceOffice(true);
@@ -127,6 +122,7 @@ const Tables = ({history}) => {
 
       if (user === item._id) {
         setUser('');
+        setIsUserServiceOffice(true);
       } else {
         setUser(item._id);
       }
@@ -305,7 +301,7 @@ const Tables = ({history}) => {
                     </tbody>
                   ) : (
                     <>
-                      {console.log(questions, 'questions')}
+                      {/* {console.log(questions, 'questions')} */}
                       <DragDropContext onDragEnd={onEnd}>
                         <Droppable droppableId={'questionList'}>
                           {(provided, snapshot) => (

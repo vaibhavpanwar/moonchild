@@ -9,21 +9,13 @@ export default function MenuItem({
   currentItem,
 }) {
   const visibility = React.useContext(VisibilityContext);
-  // console.log(onClick(visibility));
-
-  // console.log(
-  //   itemId + '---' + selected + '---------' + title + '-------' + currentItem,
-  // );
 
   return (
     <div
       onClick={() => onClick(visibility)}
       className={`menu-item ${selected ? 'active' : ''}`}>
       <div className="title">{title}</div>
-      <div>
-        {/* visible: {JSON.stringify(!!visibility.isItemVisible(itemId))} */}
-      </div>
-      {/* <div>selected: {JSON.stringify(selected)}</div> */}
+      <div></div>
     </div>
   );
 }

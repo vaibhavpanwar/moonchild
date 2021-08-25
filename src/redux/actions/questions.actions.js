@@ -13,9 +13,9 @@ export const listQuestions =
     subCategoryId = '',
   ) =>
   async (dispatch) => {
+    console.log(search, user, categoryId, subCategoryId, 'listQuestionRequest');
     await headerSetup();
     dispatch({type: questionsConstants.QUESTION_LOADING});
-    console.log(categoryId + '@@@@@@@@@@@@@@' + subCategoryId);
     let url;
     if (user === '') {
       url = `admin/v1/listQuestions?perPage=${perPage}&page=${page}&search=${search}&categoryId=${categoryId}&subCategoryId=${subCategoryId}`;
@@ -193,6 +193,26 @@ export const editQuestionFilterStatus = (id, filter) => async (dispatch) => {
       });
     }
     successAlert(`Featured Filter Status updated for Question~${id}`);
+  } catch (err) {
+    const parsedError = await errorParser(err);
+
+    dispatch({
+      type: questionsConstants.QUESTION_ERROR,
+      payload: parsedError,
+    });
+    errorAlert(parsedError);
+  }
+};
+export const suffleQuestion = (formData) => async (dispatch) => {
+  await headerSetup();
+  dispatch({type: questionsConstants.QUESTION_LOADING});
+
+  try {
+    await API.put(`admin/v1/shuffleQuestions`, formData);
+
+    successAlert(`Rank updated for Question`);
+
+    dispatch(listQuestions());
   } catch (err) {
     const parsedError = await errorParser(err);
 

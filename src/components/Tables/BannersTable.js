@@ -130,7 +130,7 @@ const Tables = () => {
                     <th scope="col">{t('image')}</th>
                     <th scope="col">{t('url')}</th>
                     <th scope="col">{t('status')}</th>
-
+                    <th scope="col">{t('adsType')}</th>
                     <th scope="col">{t('actions')}</th>
                   </tr>
                 </thead>
@@ -199,7 +199,11 @@ const Tables = () => {
                                         name={item?.id}
                                       />{' '}
                                     </td>
-
+                                    <td>
+                                      {item.bannerType === 2
+                                        ? t('fullPageAds')
+                                        : t('plainAds')}
+                                    </td>
                                     <td>
                                       <img
                                         alt={'Gulf workers'}

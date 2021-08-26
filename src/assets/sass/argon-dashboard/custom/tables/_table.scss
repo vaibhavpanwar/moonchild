@@ -96,13 +96,19 @@
   }
 }
 .menu-item {
-  margin: 5px 10px;
+  margin: 5px 3px;
   user-select: none;
   cursor: pointer;
   border: none;
   border: 1px solid black;
   padding: 3px 7px;
   border-radius: 6px;
+}
+.menu-item .title {
+  display: inline-block;
+  clear: both;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .menu-item-wrapper.active {
   border: 1px blue solid;

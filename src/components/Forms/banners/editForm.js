@@ -8,13 +8,19 @@ import {
   Col,
   Row,
   Container,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Form,
   FormGroup,
   Label,
   Input,
   InputGroup,
+  InputGroupButtonDropdown,
   Spinner,
 } from 'reactstrap';
+import PhoneInput from 'react-phone-input-2';
+
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,6 +32,8 @@ import {
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import {getImageUrl} from '../../../utils/renderImage.js';
+import {finder} from '../../../utils/dataHelpers.js';
+import {AddType} from './data.js';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -33,9 +41,15 @@ const DashboardForm = ({history}) => {
 
   //import loading and error as well
   const {banner, loading} = useSelector((state) => state.bannersReducer);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
 
   const [icon, setIcon] = useState(null);
   const [url, setUrl] = useState('');
+  const [countryCode, setCountryCode] = useState('');
+  const [phone, setPhone] = useState('');
+  const [whatsAppCountryCode, setWhatSAppCountryCode] = useState('');
+  const [whatsApp, setWhatsapp] = useState('');
+  const [addType, setAddType] = useState([]);
 
   const {id} = useParams();
 
@@ -45,6 +59,11 @@ const DashboardForm = ({history}) => {
       dispatch(getSingleBanner(id));
     } else {
       setUrl(banner?.link);
+      setPhone(banner?.phoneNumber);
+      setCountryCode(banner?.callingCode);
+      setWhatSAppCountryCode(banner?.whatsappCallingCode);
+      setWhatsapp(banner?.whatsappPhoneNumber);
+      setAddType(finder(AddType, banner?.bannerType));
     }
 
     // eslint-disable-next-line
@@ -59,7 +78,23 @@ const DashboardForm = ({history}) => {
 
     const imageUrl = await imageUploader(formData);
     if (imageUrl) {
-      dispatch(editBanner({link: url, icon: imageUrl, bannerId: id}, history));
+      dispatch(
+        editBanner(
+          {
+            bannerType: addType?.enum,
+            bannerId: id,
+            callingCode: countryCode,
+
+            icon: imageUrl,
+            link: url,
+
+            phoneNumber: phone,
+            whatsappCallingCode: whatsAppCountryCode,
+            whatsappPhoneNumber: whatsApp,
+          },
+          history,
+        ),
+      );
     } else {
       //pop an error alert
       dispatch({type: bannersConstants.BANNER_ERROR});
@@ -67,12 +102,38 @@ const DashboardForm = ({history}) => {
   };
   const editWithoutIcon = async () =>
     dispatch(
-      editBanner({link: url, icon: banner?.icon, bannerId: id}, history),
+      editBanner(
+        {
+          bannerType: addType?.enum,
+          bannerId: id,
+          callingCode: countryCode,
+
+          icon: banner?.icon,
+          link: url,
+
+          phoneNumber: phone,
+          whatsappCallingCode: whatsAppCountryCode,
+          whatsappPhoneNumber: whatsApp,
+        },
+        history,
+      ),
     );
 
   const submitHandler = () => (icon ? editWithIcon() : editWithoutIcon());
 
   const {t} = useTranslation();
+  const adsTypeChangeHandler = (item) => {
+    setAddType(item);
+    setUserDropdownOpen(!userDropdownOpen);
+  };
+  const phoneInputHanlder = (number, data) => {
+    setCountryCode('+' + data?.dialCode);
+    setPhone(number.slice(data.dialCode.length));
+  };
+  const whatsAppInputHanlder = (number, data) => {
+    setWhatSAppCountryCode('+' + data?.dialCode);
+    setWhatsapp(number.slice(data.dialCode.length));
+  };
 
   return (
     <>
@@ -141,6 +202,89 @@ const DashboardForm = ({history}) => {
                         />
                       </FormGroup>
                     </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label
+                          style={{marginTop: '25px'}}
+                          for="examplePassword">
+                          {t('adsType')}{' '}
+                        </Label>
+                        <InputGroup>
+                          <Input
+                            style={{background: '#fff'}}
+                            readOnly
+                            placeholder={addType?.addType}
+                            value={addType?.addType}
+                          />
+                          <InputGroupButtonDropdown
+                            addonType="append"
+                            isOpen={userDropdownOpen}
+                            toggle={() =>
+                              setUserDropdownOpen(!userDropdownOpen)
+                            }>
+                            <DropdownToggle>
+                              <p>{'>'}</p>
+                            </DropdownToggle>
+                            <DropdownMenu>
+                              {AddType?.map((item, i) => (
+                                <DropdownItem
+                                  key={i}
+                                  onClick={() => adsTypeChangeHandler(item)}>
+                                  {item?.addType}
+                                </DropdownItem>
+                              ))}
+                            </DropdownMenu>
+                          </InputGroupButtonDropdown>
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+
+                    {addType?._id === 2 && (
+                      <>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="exampleEmail">{t('Phone')}</Label>
+                            <PhoneInput
+                              country={'kw'}
+                              containerStyle={{
+                                border: '1px solid #707070',
+                              }}
+                              searchStyle={{
+                                width: '100%',
+                              }}
+                              inputStyle={{
+                                width: '100%',
+                              }}
+                              value={countryCode + phone}
+                              onChange={(phone, countryData) =>
+                                whatsAppInputHanlder(phone, countryData)
+                              }
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          <Label for="exampleEmail">{t('whatsApp')} </Label>
+                          <PhoneInput
+                            country={'kw'}
+                            containerStyle={{
+                              border: '1px solid #707070',
+                            }}
+                            searchStyle={{
+                              width: '100%',
+                            }}
+                            inputStyle={{
+                              width: '100%',
+                            }}
+                            value={whatsAppCountryCode + whatsApp}
+                            onChange={(phone, countryData) =>
+                              phoneInputHanlder(phone, countryData)
+                            }
+                          />
+                        </Col>
+                      </>
+                    )}
                   </Row>
                 </Form>
               </div>

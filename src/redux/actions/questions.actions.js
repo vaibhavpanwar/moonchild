@@ -13,7 +13,15 @@ export const listQuestions =
     subCategoryId = '',
   ) =>
   async (dispatch) => {
-    // console.log(search, user, categoryId, subCategoryId, 'listQuestionRequest');
+    // console.log(
+    //   search,
+    //   user,
+    //   categoryId,
+    //   'categoryId',
+    //   subCategoryId,
+    //   'subcatid',
+    //   'listQuestionRequest',
+    // );
     await headerSetup();
     dispatch({type: questionsConstants.QUESTION_LOADING});
     let url;

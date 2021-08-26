@@ -134,5 +134,10 @@
   "resolved": "Resolved",
 
   "clear": "Clear",
-  "filterAds": "Filter Ads"
+  "filterAds": "Filter Ads",
+  "adsType": "Ads Type",
+  "fullPageAds": "Full Page Ad",
+  "plainAds": "Plain Ad",
+  "Phone": "Phone",
+  "whatsApp": "Whats App"
 }

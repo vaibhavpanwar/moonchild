@@ -89,6 +89,7 @@ export const addBanner = (formData, history) => async (dispatch) => {
 export const editBanner = (formData, history) => async (dispatch) => {
   await headerSetup();
   dispatch({type: bannersConstants.BANNER_LOADING});
+  // console.log(formData);
 
   try {
     const {

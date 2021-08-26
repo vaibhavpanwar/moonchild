@@ -30,6 +30,7 @@ import {
 } from '../../redux/actions/questions.actions.js';
 import {listCategories} from '../../redux/actions/categories.actions.js';
 import {listSubCategories} from '../../redux/actions/sub-categories.actions';
+import {getSubCategByCateg} from '../../utils/subCategory';
 
 import {finder} from '../../utils/dataHelpers.js';
 import {quesTypes, userTypes} from '../Forms/questions/data.js';
@@ -48,6 +49,7 @@ const Tables = ({history}) => {
   const [userSelected, setUserSelected] = useState([1]);
   const [categorySelected, setCategorySelected] = useState([1]);
   const [subCategorySelected, setSubCategorySelected] = useState([1]);
+  const [subCategoriesList, setSubCategoriesList] = useState([]);
 
   const [user, setUser] = useState(1);
   const [isUserNotServiceOffice, setIsUserServiceOffice] = useState(true);
@@ -99,13 +101,32 @@ const Tables = ({history}) => {
   ]);
   useEffect(() => {
     // console.log(categories.length, 'categoriesleagth');
-    if (categories?.length > 0 && subCategories.length > 0) {
+    if (categories?.length > 0) {
       if (isUserNotServiceOffice) {
         setCategoryId(categories[0]?._id);
-        setSubCategoryId(subCategories[0]?._id);
+        setCategorySelected([1]);
+
+        if (subCategoriesList.length > 0)
+          setSubCategoryId(subCategoriesList[0]?._id);
       }
     }
-  }, [categories, subCategories, isUserNotServiceOffice]);
+  }, [categories, isUserNotServiceOffice]);
+  useEffect(() => {
+    if (categoryId) {
+      populateSubCategories();
+    }
+
+    //eslint-disable-next-line
+  }, [categoryId]);
+  useEffect(() => {
+    if (categoryId) {
+      populateSubCategories();
+    }
+  }, [categoryId]);
+  const populateSubCategories = async () => {
+    const res = await getSubCategByCateg(categoryId);
+    setSubCategoriesList(res);
+  };
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
 
@@ -142,6 +163,7 @@ const Tables = ({history}) => {
       setCategoryId(item._id);
 
       if (categoryId === item._id) {
+        console.log('condition true');
         setCategoryId('');
       } else {
         setCategoryId(item._id);
@@ -232,7 +254,7 @@ const Tables = ({history}) => {
                   </button>
                 </div>
               </CardHeader>
-              <div className="cardScroll mx-4">
+              <div className="cardScroll mx-4 my-4">
                 <h6>User Type:</h6>
                 <ScrollMenu>
                   {userTypes?.map((item, i) => (
@@ -262,7 +284,7 @@ const Tables = ({history}) => {
                     </ScrollMenu>
                     <h6>Sub Categories:</h6>
                     <ScrollMenu>
-                      {subCategories?.map((item, i) => (
+                      {subCategoriesList?.map((item, i) => (
                         <MenuItem
                           itemId={item._id} // NOTE: itemId is required for track items
                           title={item?.name[lang]}

@@ -213,14 +213,36 @@ export const editQuestionFilterStatus = (id, filter) => async (dispatch) => {
 };
 export const suffleQuestion = (formData) => async (dispatch) => {
   await headerSetup();
+  const {
+    postsPerPage,
+    currentPage,
+    searchKeyword,
+    categoryId,
+    subCategoryId,
+    userType,
+  } = formData;
   dispatch({type: questionsConstants.QUESTION_LOADING});
+  console.log(formData);
+  const ShuffleData = {
+    from: formData.from,
+    to: formData.to,
+  };
 
   try {
-    await API.put(`admin/v1/shuffleQuestions`, formData);
+    await API.put(`admin/v1/shuffleQuestions`, ShuffleData);
 
     successAlert(`Rank updated for Question`);
 
-    dispatch(listQuestions());
+    dispatch(
+      listQuestions(
+        postsPerPage,
+        currentPage,
+        searchKeyword,
+        userType,
+        categoryId,
+        subCategoryId,
+      ),
+    );
   } catch (err) {
     const parsedError = await errorParser(err);
 

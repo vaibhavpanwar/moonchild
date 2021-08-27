@@ -57,11 +57,11 @@ const DashboardForm = ({history}) => {
         addBanner(
           {
             bannerType: addTypeId,
-            callingCode: countryCode,
+            callingCode: phone ? countryCode : '',
             link: url,
             icon: imageUrl,
             phoneNumber: phone,
-            whatsappCallingCode: whatsAppCountryCode,
+            whatsappCallingCode: whatsApp ? whatsAppCountryCode : '',
             whatsappPhoneNumber: whatsApp,
           },
           history,
@@ -86,6 +86,7 @@ const DashboardForm = ({history}) => {
     setWhatSAppCountryCode('+' + data?.dialCode);
     setWhatsapp(number.slice(data.dialCode.length));
   };
+
   return (
     <>
       <Header cardsVisible={false} />
@@ -187,9 +188,7 @@ const DashboardForm = ({history}) => {
                       <>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="exampleEmail">
-                              {t('Phone')} <sup>*</sup>
-                            </Label>
+                            <Label for="exampleEmail">{t('Phone')}</Label>
                             <PhoneInput
                               country={'kw'}
                               containerStyle={{
@@ -209,10 +208,7 @@ const DashboardForm = ({history}) => {
                           </FormGroup>
                         </Col>
                         <Col lg={4} md={6} sm={12}>
-                          <Label for="exampleEmail">
-                            {t('whatsApp')}
-                            <sup>*</sup>{' '}
-                          </Label>
+                          <Label for="exampleEmail">{t('whatsApp')}</Label>
                           <PhoneInput
                             country={'kw'}
                             containerStyle={{

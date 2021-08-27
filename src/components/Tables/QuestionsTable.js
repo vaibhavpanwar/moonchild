@@ -117,11 +117,7 @@ const Tables = ({history}) => {
 
     //eslint-disable-next-line
   }, [categoryId]);
-  useEffect(() => {
-    if (categoryId) {
-      populateSubCategories();
-    }
-  }, [categoryId]);
+
   const populateSubCategories = async () => {
     const res = await getSubCategByCateg(categoryId);
     setSubCategoriesList(res);
@@ -212,6 +208,12 @@ const Tables = ({history}) => {
         suffleQuestion({
           from: clone[sourceIdx]._id,
           to: clone[destIdx]._id,
+          postsPerPage: postsPerPage,
+          currentPage: currentPage,
+          searchKeyword: searchKeyword,
+          categoryId: categoryId,
+          subCategoryId: subCategoryId,
+          userType: user,
         }),
       );
     }

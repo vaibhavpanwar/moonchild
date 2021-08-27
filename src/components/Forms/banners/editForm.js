@@ -83,13 +83,13 @@ const DashboardForm = ({history}) => {
           {
             bannerType: addType?.enum,
             bannerId: id,
-            callingCode: countryCode,
+            callingCode: phone ? countryCode : '',
 
             icon: imageUrl,
             link: url,
 
             phoneNumber: phone,
-            whatsappCallingCode: whatsAppCountryCode,
+            whatsappCallingCode: whatsApp ? whatsAppCountryCode : ' ',
             whatsappPhoneNumber: whatsApp,
           },
           history,

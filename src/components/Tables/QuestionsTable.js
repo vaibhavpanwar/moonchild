@@ -58,7 +58,6 @@ const Tables = ({history}) => {
 
   const [searchKeyword, setSearchKeyword] = useState('');
   const {categories} = useSelector((state) => state.categoriesReducer);
-  const {subCategories} = useSelector((state) => state.subCategoriesReducer);
 
   // const [userType, setUserType] = useState(null);
 

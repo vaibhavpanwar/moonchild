@@ -132,7 +132,8 @@ const Tables = () => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light thead-custom">
                   <tr>
-                    <th scope="col"> {t('name')} </th>
+                    <th scope="col"> {t('category')} </th>
+                    <th scope="col"> {t('subCategories')} </th>
                     <th scope="col">{t('icons')}</th>
                     <th scope="col">{t('status')}</th>
 
@@ -170,6 +171,7 @@ const Tables = () => {
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}>
+                                    <td>{item.categoryId?.name[lang]}</td>
                                     <td>{item?.name[lang]}</td>
                                     <td>
                                       <img

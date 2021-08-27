@@ -243,7 +243,7 @@ const DashboardForm = ({history}) => {
 
                     {addType?._id === 2 && (
                       <>
-                        <Col lg={4} md={6} sm={12}>
+                        <Col lg={4} md={6} sm={12} className="mt-4">
                           <FormGroup>
                             <Label for="exampleEmail">{t('Phone')}</Label>
                             <PhoneInput
@@ -259,12 +259,12 @@ const DashboardForm = ({history}) => {
                               }}
                               value={countryCode + phone}
                               onChange={(phone, countryData) =>
-                                whatsAppInputHanlder(phone, countryData)
+                                phoneInputHanlder(phone, countryData)
                               }
                             />
                           </FormGroup>
                         </Col>
-                        <Col lg={4} md={6} sm={12}>
+                        <Col lg={4} md={6} sm={12} className="mt-4">
                           <Label for="exampleEmail">{t('whatsApp')} </Label>
                           <PhoneInput
                             country={'kw'}
@@ -279,7 +279,7 @@ const DashboardForm = ({history}) => {
                             }}
                             value={whatsAppCountryCode + whatsApp}
                             onChange={(phone, countryData) =>
-                              phoneInputHanlder(phone, countryData)
+                              whatsAppInputHanlder(phone, countryData)
                             }
                           />
                         </Col>

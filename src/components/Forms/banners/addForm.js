@@ -42,7 +42,6 @@ const DashboardForm = ({history}) => {
 
   const [icon, setIcon] = useState(null);
   const [url, setUrl] = useState('');
-  const [adSelect, setSelect] = useState(0);
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
@@ -204,7 +203,7 @@ const DashboardForm = ({history}) => {
                               }}
                               // value={countryCode}
                               onChange={(phone, countryData) =>
-                                whatsAppInputHanlder(phone, countryData)
+                                phoneInputHanlder(phone, countryData)
                               }
                             />
                           </FormGroup>
@@ -227,7 +226,7 @@ const DashboardForm = ({history}) => {
                             }}
                             // value={countryCode}
                             onChange={(phone, countryData) =>
-                              phoneInputHanlder(phone, countryData)
+                              whatsAppInputHanlder(phone, countryData)
                             }
                           />
                         </Col>

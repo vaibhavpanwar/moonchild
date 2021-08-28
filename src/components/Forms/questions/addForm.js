@@ -213,7 +213,10 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">{t('userType')} </Label>
-                        <InputGroup>
+                        <InputGroup
+                          onClick={() =>
+                            setUserDropdownOpen(!userDropdownOpen)
+                          }>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
@@ -247,7 +250,10 @@ const DashboardForm = ({history}) => {
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
                             <Label for="examplePassword">Category </Label>
-                            <InputGroup>
+                            <InputGroup
+                              onClick={() =>
+                                setCategoryDropdownOpen(!categoryDropdownOpen)
+                              }>
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
@@ -287,7 +293,12 @@ const DashboardForm = ({history}) => {
                                 <Label for="examplePassword">
                                   {t('subCategory')}
                                 </Label>
-                                <InputGroup>
+                                <InputGroup
+                                  onClick={() =>
+                                    setSubCategoryDropdownOpen(
+                                      !subCategoryDropdownOpen,
+                                    )
+                                  }>
                                   <Input
                                     style={{background: '#fff'}}
                                     readOnly
@@ -328,7 +339,10 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">{t('quesType')} </Label>
-                        <InputGroup>
+                        <InputGroup
+                          onClick={() =>
+                            setQuesDropdownOpen(!quesDropdownOpen)
+                          }>
                           <Input
                             style={{background: '#fff'}}
                             readOnly

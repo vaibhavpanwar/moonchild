@@ -211,7 +211,10 @@ const DashboardForm = ({history}) => {
                           for="examplePassword">
                           {t('adsType')}{' '}
                         </Label>
-                        <InputGroup>
+                        <InputGroup
+                          onClick={() =>
+                            setUserDropdownOpen(!userDropdownOpen)
+                          }>
                           <Input
                             style={{background: '#fff'}}
                             readOnly

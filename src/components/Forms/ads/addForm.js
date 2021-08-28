@@ -368,7 +368,10 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">{t('userType')}</Label>
-                        <InputGroup>
+                        <InputGroup
+                          onClick={() =>
+                            setUserDropdownOpen(!userDropdownOpen)
+                          }>
                           <Input
                             style={{background: '#fff'}}
                             readOnly
@@ -403,7 +406,10 @@ const DashboardForm = () => {
                             <Label for="examplePassword">
                               {t('category')}{' '}
                             </Label>
-                            <InputGroup>
+                            <InputGroup
+                              onClick={() =>
+                                setCategoryDropdownOpen(!categoryDropdownOpen)
+                              }>
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
@@ -444,7 +450,12 @@ const DashboardForm = () => {
                                 <Label for="examplePassword">
                                   {t('subCategory')}
                                 </Label>
-                                <InputGroup>
+                                <InputGroup
+                                  onClick={() =>
+                                    setSubCategoryDropdownOpen(
+                                      !subCategoryDropdownOpen,
+                                    )
+                                  }>
                                   <Input
                                     style={{background: '#fff'}}
                                     readOnly
@@ -552,7 +563,10 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">{t('user')}</Label>
-                        <InputGroup>
+                        <InputGroup
+                          onClick={() =>
+                            setUserAccountDropdownOpen(!userAccountDropdownOpen)
+                          }>
                           <Input
                             style={{background: '#fff'}}
                             readOnly

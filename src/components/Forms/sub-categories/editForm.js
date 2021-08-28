@@ -237,7 +237,8 @@ const DashboardForm = ({history}) => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="examplePassword">{t('category')}</Label>
-                        <InputGroup>
+                        <InputGroup
+                          onClick={() => setdropDowOpen(!dropdownOpen)}>
                           <Input
                             style={{background: '#fff'}}
                             readOnly

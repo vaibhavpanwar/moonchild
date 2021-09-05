@@ -12,7 +12,7 @@ export default function MenuItem({
 
   return (
     <div
-      onClick={() => onClick(visibility)}
+      onClick={() => (onClick ? onClick(visibility) : null)}
       className={`menu-item ${selected ? 'active' : ''}`}>
       <div className="title">{title}</div>
       <div></div>

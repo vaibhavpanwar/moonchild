@@ -59,8 +59,6 @@ const Tables = ({history}) => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const {categories} = useSelector((state) => state.categoriesReducer);
 
-  // const [userType, setUserType] = useState(null);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const navigateTo = (route) => history.push(route);
   const isUserSelected = (id) => !!userSelected.find((el) => el === id);
@@ -99,7 +97,6 @@ const Tables = ({history}) => {
     subCategoryId,
   ]);
   useEffect(() => {
-    // console.log(categories.length, 'categoriesleagth');
     if (categories?.length > 0) {
       if (isUserNotServiceOffice) {
         setCategoryId(categories[0]?._id);
@@ -114,8 +111,6 @@ const Tables = ({history}) => {
     if (categoryId) {
       populateSubCategories();
     }
-
-    //eslint-disable-next-line
   }, [categoryId]);
 
   const populateSubCategories = async () => {
@@ -135,37 +130,29 @@ const Tables = ({history}) => {
       } else {
         setIsUserServiceOffice(true);
       }
-
       if (user === item._id) {
         setUser('');
         setIsUserServiceOffice(true);
       } else {
         setUser(item._id);
       }
-
       const itemSelected = isUserSelected(item._id);
-
       setUserSelected((currentSelected) =>
         itemSelected
           ? currentSelected.filter((el) => el !== item._id)
           : [item._id],
       );
     };
-  // };
   const handleCatClick =
     (item, i) =>
     ({getItemById, scrollToItem}) => {
       setCategoryId(item._id);
-
       if (categoryId === item._id) {
-        console.log('condition true');
         setCategoryId('');
       } else {
         setCategoryId(item._id);
       }
-
       const itemSelected = isCategorySelected(i);
-
       setCategorySelected((currentSelected) =>
         itemSelected ? currentSelected.filter((el) => el !== i) : [i],
       );
@@ -178,9 +165,7 @@ const Tables = ({history}) => {
       } else {
         setSubCategoryId(item._id);
       }
-
       const itemSelected = isSubCategorySelected(i);
-
       setSubCategorySelected((currentSelected) =>
         itemSelected ? currentSelected.filter((el) => el !== i) : [i],
       );
@@ -189,7 +174,6 @@ const Tables = ({history}) => {
     if (!result.destination) {
       return;
     }
-
     let sourceIdx = parseInt(result.source.index);
     let destIdx = parseInt(result.destination.index);
     if (sourceIdx === destIdx) return;
@@ -199,7 +183,6 @@ const Tables = ({history}) => {
       let newList = clone.slice();
       newList.splice(sourceIdx, 1);
       newList.splice(destIdx, 0, draggedLink);
-
       dispatch({
         type: questionsConstants.QUESTION_SUFFLE,
         payload: newList,
@@ -240,7 +223,6 @@ const Tables = ({history}) => {
                       setSearchKeyword(e.target.value);
                     }}
                   />
-
                   {loading && (
                     <div className="table-loader">
                       <Spinner color={'info'} />
@@ -263,7 +245,9 @@ const Tables = ({history}) => {
                       itemId={item._id} // NOTE: itemId is required for track items
                       title={item?.name}
                       key={item._id}
-                      onClick={handleClick(item)}
+                      onClick={
+                        isUserSelected(item._id) ? null : handleClick(item)
+                      }
                       selected={isUserSelected(item._id)}
                       currentItem={user}
                     />
@@ -278,7 +262,11 @@ const Tables = ({history}) => {
                           itemId={item._id} // NOTE: itemId is required for track items
                           title={item?.name[lang]}
                           key={item._id}
-                          onClick={handleCatClick(item, i + 1)}
+                          onClick={
+                            isCategorySelected(i + 1)
+                              ? null
+                              : handleCatClick(item, i + 1)
+                          }
                           selected={isCategorySelected(i + 1)}
                         />
                       ))}
@@ -290,7 +278,11 @@ const Tables = ({history}) => {
                           itemId={item._id} // NOTE: itemId is required for track items
                           title={item?.name[lang]}
                           key={item._id}
-                          onClick={handleSubCatClick(item, i + 1)}
+                          onClick={
+                            isSubCategorySelected(i + 1)
+                              ? null
+                              : handleSubCatClick(item, i + 1)
+                          }
                           selected={isSubCategorySelected(i + 1)}
                         />
                       ))}
@@ -324,7 +316,6 @@ const Tables = ({history}) => {
                     </tbody>
                   ) : (
                     <>
-                      {/* {console.log(questions, 'questions')} */}
                       <DragDropContext onDragEnd={onEnd}>
                         <Droppable droppableId={'questionList'}>
                           {(provided, snapshot) => (
@@ -373,7 +364,6 @@ const Tables = ({history}) => {
                               ? item?.subCategoryId?.name[lang]
                               : 'N/A'}
                           </td>*/}
-
                                       <td>
                                         <SwitchSlider
                                           clicked={() =>

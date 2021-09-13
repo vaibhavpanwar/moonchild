@@ -49,6 +49,12 @@ const DashboardForm = ({history}) => {
     ar: '',
     ph: '',
   });
+  const [filterText, setFilterText] = useState({
+    en: '',
+    hi: '',
+    ar: '',
+    ph: '',
+  });
   const [options, setOptions] = useState([
     {
       name: {en: '', hi: '', ar: '', ph: ''},
@@ -62,6 +68,10 @@ const DashboardForm = ({history}) => {
     question?.hi &&
     question?.ar &&
     question?.ph &&
+    filterText?.en &&
+    filterText?.hi &&
+    filterText?.ar &&
+    filterText?.ph &&
     options &&
     userType &&
     quesType &&
@@ -121,11 +131,14 @@ const DashboardForm = ({history}) => {
 
   const onChangeHandler = (e) =>
     setQuestion({...question, [e.target.name]: e.target.value});
+  const onChangeHandlerFilter = (e) =>
+    setFilterText({...filterText, [e.target.name]: e.target.value});
 
   const submitHandler = async () => {
     const formData = {
       userType: userType?.enum,
       questionType: quesType?.enum,
+      filterText: filterText,
       question,
       ...(quesType?.enum !== 1 && {options}),
       ...(![3, 4].includes(userType?.enum) && {
@@ -421,6 +434,64 @@ const DashboardForm = ({history}) => {
                           value={ph}
                           name={'ph'}
                           onChange={onChangeHandler}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row form>
+                    <Col lg={3} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          {t('filterText')} (English)
+                        </Label>
+                        <Input
+                          type="text"
+                          placeholder="English"
+                          value={filterText.en}
+                          name={'en'}
+                          onChange={onChangeHandlerFilter}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={3} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          {t('filterText')} (Arabic)
+                        </Label>
+                        <Input
+                          type="text"
+                          placeholder="Arabic"
+                          value={filterText.ar}
+                          name={'ar'}
+                          onChange={onChangeHandlerFilter}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={3} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          {t('filterText')} (Hindi)
+                        </Label>
+                        <Input
+                          type="text"
+                          placeholder="Hindi"
+                          value={filterText.hi}
+                          name={'hi'}
+                          onChange={onChangeHandlerFilter}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={3} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          {t('filterText')} (Philipins)
+                        </Label>
+                        <Input
+                          type="text"
+                          placeholder="Philipins"
+                          value={filterText.ph}
+                          name={'ph'}
+                          onChange={onChangeHandlerFilter}
                         />
                       </FormGroup>
                     </Col>

@@ -105,15 +105,32 @@ function LoginPage(props) {
               <InputGroup>
                 <FormControl
                   FormControl
-                  style={{
-                    width: '30vw',
-                    height: 60,
-                    background: '#DDDDDD',
-                    opacity: '55%',
-                    border: 'none',
-                    outline: 'none',
-                    color: 'rgb(0,0,0)',
-                  }}
+                  style={
+                    lang === 'en'
+                      ? {
+                          width: '30vw',
+                          height: 60,
+                          background: '#DDDDDD',
+                          opacity: '55%',
+                          border: 'none',
+                          outline: 'none',
+                          color: 'rgb(0,0,0)',
+                        }
+                      : {
+                          width: '30vw',
+                          height: 60,
+                          background: '#DDDDDD',
+                          opacity: '55%',
+                          border: 'none',
+                          outline: 'none',
+                          paddingRight: '10px',
+                          color: 'rgb(0,0,0)',
+                          borderTopLeftRadius: '0',
+                          borderBottomLeftRadius: '0',
+                          borderTopRightRadius: '0.25rem',
+                          borderBottomRightRadius: '0.25rem',
+                        }
+                  }
                   id="password"
                   placeholder={t('password')}
                   type={show ? 'text' : 'password'}
@@ -130,7 +147,9 @@ function LoginPage(props) {
                     borderLeft: 0,
                   }}>
                   <InputGroup.Text
-                    style={{backgroundColor: 'transparent'}}
+                    style={{
+                      backgroundColor: 'transparent',
+                    }}
                     id="basic-addon3"
                     onClick={() => setShow(!show)}>
                     {show ? (
@@ -144,7 +163,7 @@ function LoginPage(props) {
             </Form.Group>
             <Form.Group
               style={{display: 'flex', justifyContent: 'space-between'}}>
-              <Form.Text className="text-muted">{t('forgot')}</Form.Text>
+              {/* <Form.Text className="text-muted">{t('forgot')}</Form.Text> */}
             </Form.Group>
             <Form.Group>
               <Button

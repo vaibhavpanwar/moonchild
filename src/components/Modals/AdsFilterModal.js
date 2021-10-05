@@ -18,7 +18,7 @@ import {
 import {listAdsByFilter} from '../../redux/actions/ads.actions';
 import {listCategories} from '../../redux/actions/categories.actions';
 import {getSubCategByCateg} from '../../utils/subCategory';
-import {userTypes} from '../Forms/questions/data';
+import {userTypes} from '../../utils/data';
 
 const AdsFilterModal = ({
   customProps: {

@@ -20,7 +20,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {listCategories} from '../../../redux/actions/categories.actions.js';
 
-import {quesTypes, userTypes} from './data.js';
+import {quesTypes, userTypes} from '../../../utils/data';
 import {getSubCategByCateg} from '../../../utils/subCategory.js';
 
 import {

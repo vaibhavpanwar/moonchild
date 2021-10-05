@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-
+import React, {useEffect, useState, useMemo} from 'react';
+import DatePicker from 'react-date-picker';
 // reactstrap components
 
 // core components
@@ -21,7 +21,15 @@ import {
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 
-import {userTypes} from '../questions/data';
+import {
+  userTypes,
+  maritalStatus,
+  workerEducation,
+  workerExperience,
+  speakingLanguage,
+  gender,
+  religion,
+} from '../../../utils/data';
 import {getSubCategByCateg} from '../../../utils/subCategory.js';
 
 import {useDispatch, useSelector} from 'react-redux';
@@ -34,6 +42,10 @@ import {addAd} from '../../../redux/actions/ads.actions.js';
 import {useHistory} from 'react-router-dom';
 import {listUsers} from '../../../redux/actions/users.actions.js';
 import {useTranslation} from 'react-i18next';
+import PhoneInput from 'react-phone-input-2';
+import countryList from 'react-select-country-list';
+
+import Select from 'react-select';
 
 const DashboardForm = () => {
   const history = useHistory();
@@ -56,10 +68,13 @@ const DashboardForm = () => {
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
   const [subCategoryDropdownOpen, setSubCategoryDropdownOpen] = useState(false);
 
-  const [quesList, setQuesList] = useState([]);
-  const [quesLoading, setQuesLoading] = useState(false);
-  const [subCategLoading, setSubCategLoading] = useState(false);
-  const [icon, setIcon] = useState(null);
+  // const [icon, setIcon] = useState(null);
+  const [waCountryCode, setWaCountryCode] = useState('');
+  const [waPhone, setWaPhone] = useState('');
+  const [callingCountryCode, setCallingCountryCode] = useState('');
+  const [callingPhone, setCallingPhone] = useState('');
+  const [dob, setDob] = useState(new Date());
+
   // const [name, setName] = useState({
   //   en: '',
   //   hi: '',
@@ -68,6 +83,95 @@ const DashboardForm = () => {
   // });
 
   const [answers, setAnswers] = useState([]);
+
+  //dropdown for job worker
+  const [selectedReligion, setSelectedReligion] = useState(null);
+  const [selectedExp, setSelectedExp] = useState(null);
+  const [selectedEdu, setSelectedEdu] = useState(null);
+  const [selectedMarital, setSelectedMarital] = useState(null);
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedLang, setSelectedLang] = useState([]);
+  const [selectedPref, setSelectedPref] = useState([]);
+
+  const [religionDropdownOpen, setReligionDropdownOpen] = useState(false);
+  const [maritalDropdownOpen, setMaritalDropdownOpen] = useState(false);
+  const [eduDropdownOpen, setEduDropdownOpen] = useState(false);
+  const [expDropdownOpen, setExpDropdownOpen] = useState(false);
+  const [genderDropdownOpen, setGenderDropdownOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [worked, setWorked] = useState(false);
+  const [prefOpen, setPrefOpen] = useState(false);
+
+  const workedHandler = () => {
+    setWorked(!worked);
+  };
+
+  //country list for nationality
+  const [nationality, setNationality] = useState('');
+  const options = useMemo(() => countryList().getData(), []);
+
+  const nationalityChangeHandler = (value) => {
+    setNationality(value);
+  };
+
+  const expChangeHandler = (i) => {
+    setSelectedExp(i);
+    setExpDropdownOpen(!expDropdownOpen);
+  };
+
+  const eduChangeHandler = (i) => {
+    setSelectedEdu(i);
+    setEduDropdownOpen(!eduDropdownOpen);
+  };
+  const genderChangeHandler = (i) => {
+    setSelectedGender(i);
+    setGenderDropdownOpen(!genderDropdownOpen);
+  };
+  const maritalChangeHandler = (i) => {
+    setSelectedMarital(i);
+    setMaritalDropdownOpen(!maritalDropdownOpen);
+  };
+  const langChangeHandler = (i) => {
+    const alreadyThere = selectedLang.find((item) => i._id === item._id);
+    if (!!alreadyThere) {
+      setSelectedLang(selectedLang.filter((item) => item._id !== i._id));
+    } else {
+      setSelectedLang([...selectedLang, i]);
+    }
+
+    setLangOpen(!langOpen);
+  };
+  const prefChangeHandler = (i) => {
+    const alreadyThere = selectedPref.find((item) => i._id === item._id);
+    if (!!alreadyThere) {
+      setSelectedPref(selectedPref.filter((item) => item._id !== i._id));
+    } else {
+      setSelectedPref([...selectedPref, i]);
+    }
+
+    setPrefOpen(!prefOpen);
+  };
+  const religionChangeHandler = (i) => {
+    setSelectedReligion(i);
+    setReligionDropdownOpen(!religionDropdownOpen);
+  };
+  // job worker dropdown ends
+
+  const [quesList, setQuesList] = useState([]);
+  const [quesLoading, setQuesLoading] = useState(false);
+  const [subCategLoading, setSubCategLoading] = useState(false);
+  const [icon, setIcon] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [skype, setSkype] = useState(null);
+
+  const whatsappNumberHandler = (number, data) => {
+    setWaCountryCode('+' + data?.dialCode);
+    setWaPhone(number.slice(data.dialCode.length));
+  };
+  const callingNumberHandler = (number, data) => {
+    setCallingCountryCode('+' + data?.dialCode);
+    setCallingPhone(number.slice(data.dialCode.length));
+  };
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
   const userTypeChangeHandler = (item) => {
@@ -209,6 +313,14 @@ const DashboardForm = () => {
   //   }
   // };
 
+  const showMultipleSelections = (array, obj) => {
+    if (obj) {
+      return array.map((item) => item.name[lang]).toString();
+    } else {
+      return array.map((item) => item.name).toString();
+    }
+  };
+
   const setAnswersValue = (questionId, questionType, givenAnswer) => {
     let newArray = answers;
     let answerObject = {
@@ -272,11 +384,25 @@ const DashboardForm = () => {
   };
 
   const validateForm = () =>
+    title &&
+    skype &&
+    callingCountryCode &&
+    callingPhone &&
+    waCountryCode &&
+    waPhone &&
     userType &&
-    quesList?.length > 0 &&
-    answers?.length === quesList?.length &&
     countryValidate() &&
-    selectedUserAccount;
+    validateQuestions() &&
+    selectedUserAccount &&
+    icon;
+
+  const validateQuestions = () => {
+    if (!quesLoading && quesList?.length > 0) {
+      return answers?.length === quesList?.length;
+    } else if (!quesLoading && quesList?.length === 0) {
+      return true;
+    }
+  };
 
   const countryValidate = () =>
     userType?.enum !== 1 ? !!selectedCountry : true;
@@ -317,6 +443,12 @@ const DashboardForm = () => {
             countryId: selectedCountry?._id,
             additionalQuestion: answers,
             userId: selectedUserAccount?._id,
+            contactCallingCode: callingCountryCode,
+            contactNumber: callingPhone,
+            whatsappCallingCode: waCountryCode,
+            whatsappPhoneNumber: waPhone,
+            title,
+            skype,
           },
           history,
         ),
@@ -325,30 +457,49 @@ const DashboardForm = () => {
       // pop and error
     }
   };
-  const addWithoutIcon = async () => {
-    dispatch(
-      addAd(
-        {
-          userType: userType?.enum,
 
-          additionalQuestion: answers,
-          ...(![3, 4].includes(userType?.enum) && {
-            categoryId: selectedCategory?._id,
-          }),
-          ...(![3, 4].includes(userType?.enum) && {
-            subCategoryId: selectedSubCategory?._id,
-          }),
+  // const addWithoutIcon = async () => {
+  //   dispatch(
+  //     addAd(
+  //       {
+  //         userType: userType?.enum,
 
-          ...(userType?.enum !== 1 && {countryId: selectedCountry?._id}),
-          userId: selectedUserAccount?._id,
-        },
-        history,
-      ),
-    );
-  };
+  //         additionalQuestion: answers,
+  //         ...(![3, 4].includes(userType?.enum) && {
+  //           categoryId: selectedCategory?._id,
+  //         }),
+  //         ...(![3, 4].includes(userType?.enum) && {
+  //           subCategoryId: selectedSubCategory?._id,
+  //         }),
 
-  const submitHandler = async () =>
-    userType?.enum === 3 && icon ? addWithIcon() : addWithoutIcon();
+  //         ...(userType?.enum !== 1 && {countryId: selectedCountry?._id}),
+  //         ...(userType?.enum === 2 && {
+  //           religion: selectedReligion.enum,
+  //           gender: selectedGender.enum,
+  //           experience: selectedExp.enum,
+  //           education: selectedEdu.enum,
+  //           dob: Date.parse(dob),
+  //           speakingLanguages: selectedLang.map((el) => el.enum),
+  //           nationality: nationality.label,
+  //           gccBefore: worked,
+  //           countryPreferences: selectedPref.map((el) => el._id),
+  //         }),
+  //         userId: selectedUserAccount?._id,
+  //         contactCallingCode: callingCountryCode,
+
+  //         contactNumber: callingPhone,
+  //         whatsappCallingCode: waCountryCode,
+  //         whatsappPhoneNumber: waPhone,
+  //         title,
+  //         skype,
+  //       },
+  //       history,
+  //     ),
+  //   );
+  // };
+
+  const submitHandler = async () => addWithIcon();
+  // userType?.enum === 3 && icon ? addWithIcon() : addWithoutIcon();
 
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
@@ -399,6 +550,7 @@ const DashboardForm = () => {
                         </InputGroup>
                       </FormGroup>
                     </Col>
+
                     {![3, 4].includes(userType?.enum) && userType && (
                       <>
                         <Col lg={4} md={6} sm={12}>
@@ -439,6 +591,7 @@ const DashboardForm = () => {
                             </InputGroup>
                           </FormGroup>
                         </Col>
+
                         <Col lg={4} md={6} sm={12}>
                           {subCategLoading && <Spinner color={'info'} />}
                           {selectedCategory?._id &&
@@ -491,39 +644,38 @@ const DashboardForm = () => {
                       </>
                     )}
                   </Row>
-                  {userType?.enum === 3 && (
-                    <Row form>
-                      <Col lg={4} md={6} sm={12}>
-                        <FormGroup>
-                          <Label for="examplePassword"> {t('icons')} </Label>
-                          <InputGroup>
-                            <label className="form-control chooseFile">
-                              {' '}
-                              <Input
-                                type="file"
-                                accept="image/png, image/jpg, image/jpeg"
-                                name="icon-upload"
-                                placeholder={t('uploadPlaceholder')}
-                                onChange={inputFileHandler}>
-                                {' '}
-                              </Input>
-                              {icon && (
-                                <p className="file-input-name">{icon?.name}</p>
-                              )}
-                            </label>
 
-                            <div className="upload-icon">
-                              <img
-                                alt={'upload'}
-                                style={{maxWidth: '15px'}}
-                                src={uploadIcon}
-                              />
-                            </div>
-                          </InputGroup>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  )}
+                  <Row form>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="examplePassword"> {t('icons')} </Label>
+                        <InputGroup>
+                          <label className="form-control chooseFile">
+                            {' '}
+                            <Input
+                              type="file"
+                              accept="image/png, image/jpg, image/jpeg"
+                              name="icon-upload"
+                              placeholder={t('uploadPlaceholder')}
+                              onChange={inputFileHandler}>
+                              {' '}
+                            </Input>
+                            {icon && (
+                              <p className="file-input-name">{icon?.name}</p>
+                            )}
+                          </label>
+
+                          <div className="upload-icon">
+                            <img
+                              alt={'upload'}
+                              style={{maxWidth: '15px'}}
+                              src={uploadIcon}
+                            />
+                          </div>
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
 
                   <Row form>
                     {![1].includes(userType?.enum) && userType && (
@@ -599,7 +751,405 @@ const DashboardForm = () => {
                       </FormGroup>
                     </Col>
                   </Row>
+                  <Row>
+                    <Col lg={4} md={6} sm={12}>
+                      {' '}
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          Title<sup>*</sup>{' '}
+                        </Label>
+                        <Input
+                          style={{borderRadius: '0'}}
+                          type="text"
+                          placeholder="Enter title"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      {' '}
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          Skype<sup>*</sup>{' '}
+                        </Label>
+                        <Input
+                          style={{borderRadius: '0'}}
+                          type="text"
+                          placeholder="Enter skype"
+                          value={skype}
+                          onChange={(e) => setSkype(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          Whatsapp Phone<sup>*</sup>{' '}
+                        </Label>
+                        <PhoneInput
+                          country={'kw'}
+                          containerStyle={{
+                            border: '1px solid #707070',
+                          }}
+                          searchStyle={{
+                            width: '100%',
+                          }}
+                          inputStyle={{
+                            width: '100%',
+                          }}
+                          // value={countryCode}
+                          onChange={(phone, countryData) =>
+                            whatsappNumberHandler(phone, countryData)
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col lg={4} md={6} sm={12}>
+                      <FormGroup>
+                        <Label for="exampleEmail">
+                          Calling Phone<sup>*</sup>{' '}
+                        </Label>
+                        <PhoneInput
+                          country={'kw'}
+                          containerStyle={{
+                            border: '1px solid #707070',
+                          }}
+                          searchStyle={{
+                            width: '100%',
+                          }}
+                          inputStyle={{
+                            width: '100%',
+                          }}
+                          // value={countryCode}
+                          onChange={(phone, countryData) =>
+                            callingNumberHandler(phone, countryData)
+                          }
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+
                   <br />
+                  {userType?.enum === 2 && (
+                    <>
+                      <Row>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">Religion</Label>
+                            <InputGroup
+                              onClick={() =>
+                                setReligionDropdownOpen(!religionDropdownOpen)
+                              }>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t('religion')}`}
+                                value={selectedReligion?.name}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={religionDropdownOpen}
+                                toggle={() =>
+                                  setReligionDropdownOpen(!religionDropdownOpen)
+                                }>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {religion?.map((item) => (
+                                    <DropdownItem
+                                      onClick={() =>
+                                        religionChangeHandler(item)
+                                      }>
+                                      {item?.name}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">Gender</Label>
+                            <InputGroup
+                              onClick={() =>
+                                setGenderDropdownOpen(!genderDropdownOpen)
+                              }>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t('religion')}`}
+                                value={selectedGender?.name}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={genderDropdownOpen}
+                                toggle={() =>
+                                  setGenderDropdownOpen(!genderDropdownOpen)
+                                }>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {gender?.map((item) => (
+                                    <DropdownItem
+                                      onClick={() => genderChangeHandler(item)}>
+                                      {item?.name}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">
+                              Worker Experince
+                            </Label>
+                            <InputGroup
+                              onClick={() =>
+                                setExpDropdownOpen(!expDropdownOpen)
+                              }>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t(
+                                  'experience',
+                                )}`}
+                                value={selectedExp?.name}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={expDropdownOpen}
+                                toggle={() =>
+                                  setExpDropdownOpen(!expDropdownOpen)
+                                }>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {workerExperience?.map((item) => (
+                                    <DropdownItem
+                                      onClick={() => expChangeHandler(item)}>
+                                      {item?.name}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">
+                              Worker Education
+                            </Label>
+                            <InputGroup
+                              onClick={() =>
+                                setEduDropdownOpen(!eduDropdownOpen)
+                              }>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t('education')}`}
+                                value={selectedEdu?.name}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={eduDropdownOpen}
+                                toggle={() =>
+                                  setEduDropdownOpen(!eduDropdownOpen)
+                                }>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {workerEducation?.map((item) => (
+                                    <DropdownItem
+                                      onClick={() => eduChangeHandler(item)}>
+                                      {item?.name}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">Marital Status</Label>
+                            <InputGroup
+                              onClick={() =>
+                                setMaritalDropdownOpen(!maritalDropdownOpen)
+                              }>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t(
+                                  'maritalStatus',
+                                )}`}
+                                value={selectedMarital?.name}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={maritalDropdownOpen}
+                                toggle={() =>
+                                  setMaritalDropdownOpen(!maritalDropdownOpen)
+                                }>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {maritalStatus?.map((item) => (
+                                    <DropdownItem
+                                      onClick={() =>
+                                        maritalChangeHandler(item)
+                                      }>
+                                      {item?.name}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">
+                              Speaking Languages
+                            </Label>
+                            <InputGroup onClick={() => setLangOpen(!langOpen)}>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t(
+                                  'maritalStatus',
+                                )}`}
+                                value={showMultipleSelections(selectedLang)}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={langOpen}
+                                toggle={() => setLangOpen(!langOpen)}>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {speakingLanguage?.map((item) => (
+                                    <DropdownItem
+                                      style={{
+                                        color: `${
+                                          selectedLang.find(
+                                            (el) => el._id === item._id,
+                                          ) && 'green'
+                                        }`,
+                                      }}
+                                      onClick={() => langChangeHandler(item)}>
+                                      {item?.name}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">Nationality</Label>
+                            <Select
+                              styles={{marginLeft: '40px', width: '200px'}}
+                              options={options}
+                              value={nationality}
+                              onChange={nationalityChangeHandler}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">Date of Birth</Label>
+                            <br />
+                            <DatePicker onChange={setDob} value={dob} />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={4} md={6} sm={12}>
+                          <Label for="examplePassword">
+                            Have you worked in gulf countries before?
+                          </Label>
+                          <br />
+                          <input
+                            type={'radio'}
+                            checked={worked}
+                            onChange={workedHandler}
+                            value={'Yes'}
+                          />{' '}
+                          Yes &nbsp; &nbsp; &nbsp;
+                          <input
+                            type={'radio'}
+                            checked={!worked}
+                            onChange={workedHandler}
+                            value={'No'}
+                          />{' '}
+                          No
+                        </Col>
+                        <Col lg={4} md={6} sm={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">
+                              Preferred Country
+                            </Label>
+                            <InputGroup onClick={() => setPrefOpen(!prefOpen)}>
+                              <Input
+                                style={{background: '#fff'}}
+                                readOnly
+                                placeholder={`${t('select')} ${t(
+                                  'countryPreference',
+                                )}`}
+                                value={showMultipleSelections(
+                                  selectedPref,
+                                  true,
+                                )}
+                              />
+                              <InputGroupButtonDropdown
+                                addonType="append"
+                                isOpen={prefOpen}
+                                toggle={() => setPrefOpen(!prefOpen)}>
+                                <DropdownToggle>
+                                  <p>{'>'}</p>
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                  {countries?.map((item) => (
+                                    <DropdownItem
+                                      style={{
+                                        color: `${
+                                          selectedPref.find(
+                                            (el) => el._id === item._id,
+                                          ) && 'green'
+                                        }`,
+                                      }}
+                                      onClick={() => prefChangeHandler(item)}>
+                                      {item?.name[lang]}
+                                    </DropdownItem>
+                                  ))}
+                                </DropdownMenu>
+                              </InputGroupButtonDropdown>
+                            </InputGroup>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </>
+                  )}
 
                   <hr />
                   <br />

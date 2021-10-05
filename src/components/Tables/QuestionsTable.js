@@ -33,7 +33,7 @@ import {listSubCategories} from '../../redux/actions/sub-categories.actions';
 import {getSubCategByCateg} from '../../utils/subCategory';
 
 import {finder} from '../../utils/dataHelpers.js';
-import {quesTypes, userTypes} from '../Forms/questions/data.js';
+import {quesTypes, userTypes} from '../../utils/data';
 import SwitchSlider from '../Switch/SwitchSlider.js';
 import MenuItem from '../horizontalScroll/MenuItem.js';
 import {questionsConstants} from '../../redux/constants/questions.constants.js';

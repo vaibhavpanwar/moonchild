@@ -23,7 +23,7 @@ import Pagination from '../Pagination/paginate';
 import {useHistory} from 'react-router-dom';
 import {deleteAd, editAdStatus, listAds} from '../../redux/actions/ads.actions';
 import moment from 'moment';
-import {userTypes} from '../Forms/questions/data.js';
+import {userTypes} from '../../utils/data';
 import {finder} from '../../utils/dataHelpers';
 import AdsFilterModal from '../Modals/AdsFilterModal.js';
 import filterIcon from '../../assets/images/filter.png';

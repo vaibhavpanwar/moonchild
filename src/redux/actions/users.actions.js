@@ -4,7 +4,7 @@ import {usersConstants} from '../constants';
 import {errorParser} from './errorParser';
 
 export const listUsers =
-  (perPage = 4, page = 1, search = '') =>
+  (perPage = 100, page = 1, search = '') =>
   async (dispatch) => {
     await headerSetup();
     dispatch({type: usersConstants.USER_LOADING});

@@ -16,7 +16,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {listCategories} from '../../../redux/actions/categories.actions.js';
 
-import {quesTypes, userTypes} from './data.js';
+import {quesTypes, userTypes} from '../../../utils/data';
 
 import {getSingleQuestion} from '../../../redux/actions/questions.actions.js';
 import {listSubCategories} from '../../../redux/actions/sub-categories.actions.js';

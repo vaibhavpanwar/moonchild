@@ -21,7 +21,7 @@ import {
 } from 'reactstrap';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 
-import {userTypes} from '../questions/data';
+import {userTypes} from '../../../utils/data';
 import {getSubCategByCateg} from '../../../utils/subCategory.js';
 
 import {useDispatch, useSelector} from 'react-redux';

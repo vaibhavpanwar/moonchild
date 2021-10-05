@@ -28,6 +28,7 @@ import {getImageUrl} from '../../utils/renderImage.js';
 import Pagination from '../Pagination/paginate';
 import {useTranslation} from 'react-i18next';
 import {bannersConstants} from '../../redux/constants/banners.constants.js';
+import {truncate} from '../../utils/truncate.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -183,7 +184,7 @@ const Tables = () => {
                                           href={item?.link}
                                           target="_blank"
                                           rel={'noreferrer'}>
-                                          {item?.link}
+                                          {truncate(item?.link)}
                                         </a>
                                       ) : (
                                         <p>N/A</p>

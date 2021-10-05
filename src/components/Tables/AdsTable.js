@@ -27,6 +27,7 @@ import {userTypes} from '../Forms/questions/data.js';
 import {finder} from '../../utils/dataHelpers';
 import AdsFilterModal from '../Modals/AdsFilterModal.js';
 import filterIcon from '../../assets/images/filter.png';
+import {truncate} from '../../utils/truncate.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -195,7 +196,7 @@ const Tables = () => {
                   ) : (
                     ads?.map((item) => (
                       <tr key={item?._id}>
-                        <td>{item?.userId?.name}</td>
+                        <td>{truncate(item?.userId?.name)}</td>
                         <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
                         <td>{finder(userTypes, item?.userType)?.name}</td>
                         <td>

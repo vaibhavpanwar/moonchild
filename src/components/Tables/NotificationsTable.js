@@ -19,6 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Pagination from '../Pagination/paginate';
 import {useHistory} from 'react-router-dom';
 import moment from 'moment';
+import {truncate} from '../../utils/truncate.js';
 
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -94,7 +95,7 @@ const Tables = () => {
                       {notifications?.map((item) => (
                         <tr key={item?._id}>
                           <td>{item?.title[lang]}</td>
-                          <td>{item?.message[lang]}</td>
+                          <td>{truncate(item?.message[lang])}</td>
                           <td>{item?.topic}</td>
                           <td>
                             {moment(item?.createdAt).format('DD/MM/YYYY')}

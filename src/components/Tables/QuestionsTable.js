@@ -106,11 +106,13 @@ const Tables = ({history}) => {
           setSubCategoryId(subCategoriesList[0]?._id);
       }
     }
+    // eslint-disable-next-line
   }, [categories, isUserNotServiceOffice]);
   useEffect(() => {
     if (categoryId) {
       populateSubCategories();
     }
+    // eslint-disable-next-line
   }, [categoryId]);
 
   const populateSubCategories = async () => {

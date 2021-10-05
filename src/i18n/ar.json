@@ -140,6 +140,18 @@
   "plainAds": "Plain Ad",
   "Phone": "Phone",
   "whatsApp": "Whats App",
-  "filterText": "Filter Text"
-
+  "filterText": "Filter Text",
+  "skype": "Skype",
+  "whatsappPhone": "Whatsapp Phone",
+  "callingPhone": "Calling Phone",
+  "religion": "Religion",
+  "gender": "Gender",
+  "experience": "Experience",
+  "education": "Education",
+  "maritalStatus": "Marital Status",
+  "speakingLanguages": "'Speaking Languages",
+  "nationality": "Nationality",
+  "dob": "Date of Birth",
+  "worked": "Have you worked in gulf countries before?",
+  "prefCOuntry": "Preferred Country"
 }

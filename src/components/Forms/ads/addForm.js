@@ -756,12 +756,13 @@ const DashboardForm = () => {
                       {' '}
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Title<sup>*</sup>{' '}
+                          {t('title')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <Input
                           style={{borderRadius: '0'}}
                           type="text"
-                          placeholder="Enter title"
+                          placeholder={`${t('select')} ${t('title')}`}
                           value={title}
                           onChange={(e) => setTitle(e.target.value)}
                         />
@@ -771,12 +772,13 @@ const DashboardForm = () => {
                       {' '}
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Skype<sup>*</sup>{' '}
+                          {t('skype')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <Input
                           style={{borderRadius: '0'}}
                           type="text"
-                          placeholder="Enter skype"
+                          placeholder={`${t('select')} ${t('skype')}`}
                           value={skype}
                           onChange={(e) => setSkype(e.target.value)}
                         />
@@ -787,7 +789,8 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Whatsapp Phone<sup>*</sup>{' '}
+                          {t('whatsappPhone')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <PhoneInput
                           country={'kw'}
@@ -810,7 +813,8 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Calling Phone<sup>*</sup>{' '}
+                          {t('callingPhone')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <PhoneInput
                           country={'kw'}
@@ -838,7 +842,7 @@ const DashboardForm = () => {
                       <Row>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Religion</Label>
+                            <Label for="examplePassword">{t('religion')}</Label>
                             <InputGroup
                               onClick={() =>
                                 setReligionDropdownOpen(!religionDropdownOpen)
@@ -874,7 +878,7 @@ const DashboardForm = () => {
                         </Col>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Gender</Label>
+                            <Label for="examplePassword">{t('gender')}</Label>
                             <InputGroup
                               onClick={() =>
                                 setGenderDropdownOpen(!genderDropdownOpen)
@@ -882,7 +886,7 @@ const DashboardForm = () => {
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
-                                placeholder={`${t('select')} ${t('religion')}`}
+                                placeholder={`${t('select')} ${t('gender')}`}
                                 value={selectedGender?.name}
                               />
                               <InputGroupButtonDropdown
@@ -911,7 +915,7 @@ const DashboardForm = () => {
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
                             <Label for="examplePassword">
-                              Worker Experince
+                              {t('experience')}
                             </Label>
                             <InputGroup
                               onClick={() =>
@@ -949,7 +953,7 @@ const DashboardForm = () => {
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
                             <Label for="examplePassword">
-                              Worker Education
+                              {t('education')}
                             </Label>
                             <InputGroup
                               onClick={() =>
@@ -986,7 +990,9 @@ const DashboardForm = () => {
                       <Row>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Marital Status</Label>
+                            <Label for="examplePassword">
+                              {t('maritalStatus')}
+                            </Label>
                             <InputGroup
                               onClick={() =>
                                 setMaritalDropdownOpen(!maritalDropdownOpen)
@@ -1025,14 +1031,14 @@ const DashboardForm = () => {
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
                             <Label for="examplePassword">
-                              Speaking Languages
+                              {t('speakingLanguages')}
                             </Label>
                             <InputGroup onClick={() => setLangOpen(!langOpen)}>
                               <Input
                                 style={{background: '#fff'}}
                                 readOnly
                                 placeholder={`${t('select')} ${t(
-                                  'maritalStatus',
+                                  'speakingLanguages',
                                 )}`}
                                 value={showMultipleSelections(selectedLang)}
                               />
@@ -1066,7 +1072,9 @@ const DashboardForm = () => {
                       <Row>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Nationality</Label>
+                            <Label for="examplePassword">
+                              {t('nationality')}
+                            </Label>
                             <Select
                               styles={{marginLeft: '40px', width: '200px'}}
                               options={options}
@@ -1077,7 +1085,7 @@ const DashboardForm = () => {
                         </Col>
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
-                            <Label for="examplePassword">Date of Birth</Label>
+                            <Label for="examplePassword">{t('dob')}</Label>
                             <br />
                             <DatePicker onChange={setDob} value={dob} />
                           </FormGroup>
@@ -1085,9 +1093,7 @@ const DashboardForm = () => {
                       </Row>
                       <Row>
                         <Col lg={4} md={6} sm={12}>
-                          <Label for="examplePassword">
-                            Have you worked in gulf countries before?
-                          </Label>
+                          <Label for="examplePassword">{t('worked')}</Label>
                           <br />
                           <input
                             type={'radio'}
@@ -1107,7 +1113,7 @@ const DashboardForm = () => {
                         <Col lg={4} md={6} sm={12}>
                           <FormGroup>
                             <Label for="examplePassword">
-                              Preferred Country
+                              {t('prefCountry')}
                             </Label>
                             <InputGroup onClick={() => setPrefOpen(!prefOpen)}>
                               <Input

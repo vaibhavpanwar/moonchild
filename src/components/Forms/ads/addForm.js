@@ -49,42 +49,28 @@ import Select from 'react-select';
 
 const DashboardForm = () => {
   const history = useHistory();
+
+  //redux
   const dispatch = useDispatch();
   const {categories} = useSelector((state) => state.categoriesReducer);
   const {loading} = useSelector((state) => state.adsReducer);
   const {countries} = useSelector((state) => state.countriesReducer);
   const {users} = useSelector((state) => state.usersReducer);
 
+  //local for dropdowns
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [nationality, setNationality] = useState('');
   const [userType, setUserType] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [selectedUserAccount, setSelectedUserAccount] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [subCategoriesList, setSubCategoriesList] = useState([]);
-
-  const [countryDropdownOpen, setCountrydropdownOpen] = useState(false);
-  const [userAccountDropdownOpen, setUserAccountDropdownOpen] = useState(false);
-  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
-  const [subCategoryDropdownOpen, setSubCategoryDropdownOpen] = useState(false);
-
-  // const [icon, setIcon] = useState(null);
-  const [waCountryCode, setWaCountryCode] = useState('');
-  const [waPhone, setWaPhone] = useState('');
-  const [callingCountryCode, setCallingCountryCode] = useState('');
-  const [callingPhone, setCallingPhone] = useState('');
-  const [dob, setDob] = useState(new Date());
-
-  // const [name, setName] = useState({
-  //   en: '',
-  //   hi: '',
-  //   ar: '',
-  //   ph: '',
-  // });
-
-  const [answers, setAnswers] = useState([]);
-
-  //dropdown for job worker
+  const [quesList, setQuesList] = useState([]);
+  const [quesLoading, setQuesLoading] = useState(false);
+  const [subCategLoading, setSubCategLoading] = useState(false);
+  const [icon, setIcon] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [skype, setSkype] = useState(null);
   const [selectedReligion, setSelectedReligion] = useState(null);
   const [selectedExp, setSelectedExp] = useState(null);
   const [selectedEdu, setSelectedEdu] = useState(null);
@@ -92,7 +78,6 @@ const DashboardForm = () => {
   const [selectedGender, setSelectedGender] = useState(null);
   const [selectedLang, setSelectedLang] = useState([]);
   const [selectedPref, setSelectedPref] = useState([]);
-
   const [religionDropdownOpen, setReligionDropdownOpen] = useState(false);
   const [maritalDropdownOpen, setMaritalDropdownOpen] = useState(false);
   const [eduDropdownOpen, setEduDropdownOpen] = useState(false);
@@ -101,13 +86,27 @@ const DashboardForm = () => {
   const [langOpen, setLangOpen] = useState(false);
   const [worked, setWorked] = useState(false);
   const [prefOpen, setPrefOpen] = useState(false);
+  const [countryDropdownOpen, setCountrydropdownOpen] = useState(false);
+  const [userAccountDropdownOpen, setUserAccountDropdownOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
+  const [subCategoryDropdownOpen, setSubCategoryDropdownOpen] = useState(false);
+  // local for dropdown ends
+
+  const [waCountryCode, setWaCountryCode] = useState('');
+  const [waPhone, setWaPhone] = useState('');
+  const [callingCountryCode, setCallingCountryCode] = useState('');
+  const [callingPhone, setCallingPhone] = useState('');
+  const [dob, setDob] = useState(new Date());
+  const [answers, setAnswers] = useState([]);
+
+  //dropdown for job worker
 
   const workedHandler = () => {
     setWorked(!worked);
   };
 
-  //country list for nationality
-  const [nationality, setNationality] = useState('');
+  //countries list
   const options = useMemo(() => countryList().getData(), []);
 
   const nationalityChangeHandler = (value) => {
@@ -123,14 +122,17 @@ const DashboardForm = () => {
     setSelectedEdu(i);
     setEduDropdownOpen(!eduDropdownOpen);
   };
+
   const genderChangeHandler = (i) => {
     setSelectedGender(i);
     setGenderDropdownOpen(!genderDropdownOpen);
   };
+
   const maritalChangeHandler = (i) => {
     setSelectedMarital(i);
     setMaritalDropdownOpen(!maritalDropdownOpen);
   };
+
   const langChangeHandler = (i) => {
     const alreadyThere = selectedLang.find((item) => i._id === item._id);
     if (!!alreadyThere) {
@@ -141,6 +143,7 @@ const DashboardForm = () => {
 
     setLangOpen(!langOpen);
   };
+
   const prefChangeHandler = (i) => {
     const alreadyThere = selectedPref.find((item) => i._id === item._id);
     if (!!alreadyThere) {
@@ -151,18 +154,11 @@ const DashboardForm = () => {
 
     setPrefOpen(!prefOpen);
   };
+
   const religionChangeHandler = (i) => {
     setSelectedReligion(i);
     setReligionDropdownOpen(!religionDropdownOpen);
   };
-  // job worker dropdown ends
-
-  const [quesList, setQuesList] = useState([]);
-  const [quesLoading, setQuesLoading] = useState(false);
-  const [subCategLoading, setSubCategLoading] = useState(false);
-  const [icon, setIcon] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [skype, setSkype] = useState(null);
 
   const whatsappNumberHandler = (number, data) => {
     setWaCountryCode('+' + data?.dialCode);
@@ -174,25 +170,30 @@ const DashboardForm = () => {
   };
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
+
   const userTypeChangeHandler = (item) => {
     setUserType(item);
     setUserDropdownOpen(!userDropdownOpen);
   };
+
   const categoryChangeHandler = (i) => {
     setSubCategoriesList([]);
     setSelectedSubCategory(null);
     setSelectedCategory(i);
     setCategoryDropdownOpen(!categoryDropdownOpen);
   };
+
   const userAccountChangeHandler = (i) => {
     setSelectedUserAccount(i);
 
     setUserAccountDropdownOpen(!userAccountDropdownOpen);
   };
+
   const subCategoryChangeHandler = (i) => {
     setSelectedSubCategory(i);
     setSubCategoryDropdownOpen(!subCategoryDropdownOpen);
   };
+
   const countryChangeHandler = (i) => {
     setSelectedCountry(i);
     setCountrydropdownOpen(!countryDropdownOpen);
@@ -231,87 +232,6 @@ const DashboardForm = () => {
       setQuesLoading(false);
     }
   };
-
-  // const setAnswersValue = (questionId, questionType, givenAnswer) => {
-  //   if (questionType === 3) {
-  //     console.log(questionId, givenAnswer);
-  //     let newArray = answers;
-  //     let answerObject = {
-  //       questionId: questionId,
-  //       optionId: [givenAnswer],
-  //     };
-
-  //     const currentQuestion = answers?.find(
-  //       (answer) => answer.questionId === questionId,
-  //     );
-  //     if (!currentQuestion) {
-  //       newArray.push(answerObject);
-  //       setAnswers(newArray);
-  //     } else {
-  //       let currentOptionIndex = currentQuestion?.optionId?.findIndex(
-  //         (answer) => answer === givenAnswer,
-  //       );
-  //       if (currentOptionIndex < 0) {
-  //         const updatedQues = {
-  //           ...currentQuestion,
-  //           optionId: [...currentQuestion.optionId, givenAnswer],
-  //         };
-
-  //         const newArray1 = newArray.map((item) =>
-  //           item.questionId === questionId ? updatedQues : item,
-  //         );
-  //         setAnswers(newArray1);
-  //       } else {
-  //         const newOptArray = currentQuestion.optionId?.filter(
-  //           (e) => e !== givenAnswer,
-  //         );
-  //         if (newOptArray?.length === 0) {
-  //           // remove ques from array
-  //           setAnswers((oldState) =>
-  //             oldState.filter((item) => item.questionId !== questionId),
-  //           );
-  //         } else {
-  //           //remove option from that ques ojects array
-  //           const updatedQuestion = {...currentQuestion, optionId: newOptArray};
-  //           const newArray2 = newArray.map((item) =>
-  //             item.questionId === questionId ? updatedQuestion : item,
-  //           );
-  //           setAnswers(newArray2);
-  //         }
-  //       }
-  //     }
-  //   } else {
-  //     let newArray = answers;
-  //     let answerObject = {
-  //       questionId: questionId,
-  //     };
-  //     if (questionType === 1) {
-  //       answerObject.text = givenAnswer;
-  //     } else {
-  //       answerObject.optionId = [givenAnswer];
-  //     }
-  //     let currentAnswerIndex = answers?.findIndex(
-  //       (answer) => answer.questionId === questionId,
-  //     );
-  //     if (currentAnswerIndex < 0) {
-  //       newArray.push(answerObject);
-  //       setAnswers(newArray);
-  //     } else {
-  //       if (questionType === 1 && givenAnswer.length === 0) {
-  //         setAnswers([
-  //           ...newArray.slice(0, currentAnswerIndex),
-  //           ...newArray.slice(currentAnswerIndex + 1),
-  //         ]);
-  //       } else {
-  //         setAnswers([
-  //           ...newArray.slice(0, currentAnswerIndex),
-  //           answerObject,
-  //           ...newArray.slice(currentAnswerIndex + 1),
-  //         ]);
-  //       }
-  //     }
-  //   }
-  // };
 
   const showMultipleSelections = (array, obj) => {
     if (obj) {
@@ -438,10 +358,28 @@ const DashboardForm = () => {
       dispatch(
         addAd(
           {
-            icon: imageUrl,
             userType: userType?.enum,
-            countryId: selectedCountry?._id,
+
             additionalQuestion: answers,
+            ...(![3, 4].includes(userType?.enum) && {
+              categoryId: selectedCategory?._id,
+            }),
+            ...(![3, 4].includes(userType?.enum) && {
+              subCategoryId: selectedSubCategory?._id,
+            }),
+            ...(userType?.enum !== 1 && {countryId: selectedCountry?._id}),
+            ...(userType?.enum === 2 && {
+              religion: selectedReligion.enum,
+              gender: selectedGender.enum,
+              experience: selectedExp.enum,
+              education: selectedEdu.enum,
+              dob: Date.parse(dob),
+              speakingLanguages: selectedLang.map((el) => el.enum),
+              nationality: nationality.label,
+              gccBefore: worked,
+              countryPreferences: selectedPref.map((el) => el._id),
+              martialStatus: selectedMarital.enum,
+            }),
             userId: selectedUserAccount?._id,
             contactCallingCode: callingCountryCode,
             contactNumber: callingPhone,

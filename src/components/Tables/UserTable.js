@@ -19,7 +19,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {listUsers, deleteUser} from '../../redux/actions/users.actions.js';
 import Pagination from '../Pagination/paginate';
 import moment from 'moment';
-import {truncate} from '../../utils/truncate.js';
+// import {truncate} from '../../utils/truncate.js';
 
 const Tables = ({history}) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -103,22 +103,18 @@ const Tables = ({history}) => {
                     <>
                       {users?.map((item) => (
                         <tr key={item?._id}>
-                          <td>{item?.name ? truncate(item?.name) : 'N/A'}</td>
+                          <td>{item?.name ? item?.name : 'N/A'}</td>
                           <td>
                             {moment(item?.createdAt).format('DD/MM/YYYY')}
                           </td>
-                          <td>
-                            {item.fullNumber
-                              ? truncate(item?.fullNumber)
-                              : 'N/A'}
-                          </td>
+                          <td>{item.fullNumber ? item?.fullNumber : 'N/A'}</td>
                           <td>
                             {' '}
                             {moment(item?.lastOnline).format('DD/MM/YYYY')}
                           </td>
                           <td>{item?.numberOfAdds}</td>
 
-                          <td>
+                          <td style={{display: 'flex'}}>
                             {/* <img
                               alt={'Gulf Workers'}
                               className="td-action-img"

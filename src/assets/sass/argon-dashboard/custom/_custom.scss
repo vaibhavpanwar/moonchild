@@ -822,3 +822,21 @@ label {
   overflow-y: auto;
   max-height: 500px;
 }
+
+.modal-title {
+  word-break: break-all;
+}
+
+// .break-word {
+//   word-break: break-all !important;
+//   max-width: 100px !important;
+// }
+// table {
+//   width: 100%;
+//   table-layout: fixed !important;
+// }
+td {
+  word-wrap: break-word !important;
+  word-break: break-all !important;
+  white-space: normal !important;
+}

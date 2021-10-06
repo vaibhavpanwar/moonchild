@@ -52,6 +52,7 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
             ? `${t('resolveNoteFor')}  ${activeRequest?.name}`
             : t('resolved')}
         </h5>
+
         <button
           aria-label="Close"
           className="close"
@@ -69,7 +70,7 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
             width: '100%',
             height: '150px',
           }}
-          readOnly={!!activeRequest?.resolveNote || activeRequest?.statu === 2}
+          readOnly={!!activeRequest?.resolveNote || activeRequest?.status === 2}
           type="text"
           name={'en'}
           value={

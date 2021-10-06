@@ -18,7 +18,7 @@ import {listContactUs} from '../../redux/actions/contactUs.actions';
 import Pagination from '../Pagination/paginate';
 import moment from 'moment';
 import ResolveModal from '../Modals/ContactUsResolveModal.js';
-import {truncate} from '../../utils/truncate.js';
+
 const Tables = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(15);
@@ -109,12 +109,12 @@ const Tables = () => {
                     <>
                       {contacts?.map((item) => (
                         <tr key={item?._id}>
-                          <td>{truncate(item?.name)}</td>
-                          <td>{item?.email ? truncate(item?.email) : 'N/A'}</td>
-                          <td>
+                          <td>{item?.name}</td>
+                          <td>{item?.email ? item?.email : 'N/A'}</td>
+                          <td className={'word-break'}>
                             {item?.fullNumber?.startsWith('+')
-                              ? truncate(item?.fullNumber)
-                              : '+' + truncate(item?.fullNumber)}
+                              ? item?.fullNumber
+                              : '+' + item?.fullNumber}
                           </td>
                           <td>
                             {moment(item?.createdAt).format('DD/MM/YYYY')}

@@ -39,7 +39,7 @@ const DashboardForm = ({history}) => {
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
   const [icon, setIcon] = useState(null);
 
@@ -161,8 +161,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder={t('namePlaceholder')}
-                          value={name?.ph}
-                          name={'ph'}
+                          value={name?.fil}
+                          name={'fil'}
                           onChange={onChangeHandler}
                         />
                       </FormGroup>

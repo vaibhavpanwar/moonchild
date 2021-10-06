@@ -57,31 +57,31 @@ const DashboardForm = ({history}) => {
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
   const [filterText, setFilterText] = useState({
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
   const [options, setOptions] = useState([
     {
-      name: {en: '', hi: '', ar: '', ph: ''},
+      name: {en: '', hi: '', ar: '', fil: ''},
     },
   ]);
 
-  const {en, hi, ar, ph} = question;
+  const {en, hi, ar, fil} = question;
 
   const validateForm = () =>
     question?.en &&
     question?.hi &&
     question?.ar &&
-    question?.ph &&
+    question?.fil &&
     filterText?.en &&
     filterText?.hi &&
     filterText?.ar &&
-    filterText?.ph &&
+    filterText?.fil &&
     options &&
     userType &&
     quesType &&
@@ -114,7 +114,7 @@ const DashboardForm = ({history}) => {
     setOptions([
       ...options,
       {
-        name: {en: '', hi: '', ar: '', ph: ''},
+        name: {en: '', hi: '', ar: '', fil: ''},
       },
     ]);
   };
@@ -205,16 +205,16 @@ const DashboardForm = ({history}) => {
     if (quesType?.enum === 1) {
       setOptions([
         {
-          name: {en: '', hi: '', ar: '', ph: ''},
+          name: {en: '', hi: '', ar: '', fil: ''},
         },
       ]);
     } else if (quesType?.enum === 4 && !questionById?.options?.length) {
       setOptions([
         {
-          name: {en: '', hi: '', ar: '', ph: ''},
+          name: {en: '', hi: '', ar: '', fil: ''},
         },
         {
-          name: {en: '', hi: '', ar: '', ph: ''},
+          name: {en: '', hi: '', ar: '', fil: ''},
         },
       ]);
     } else {
@@ -443,8 +443,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder={'Enter ' + t('ques')}
-                          value={ph}
-                          name={'ph'}
+                          value={fil}
+                          name={'fil'}
                           onChange={onChangeHandler}
                         />
                       </FormGroup>
@@ -501,8 +501,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder="Philipins"
-                          value={filterText.ph}
-                          name={'ph'}
+                          value={filterText.fil}
+                          name={'fil'}
                           onChange={onChangeHandlerFilter}
                         />
                       </FormGroup>
@@ -574,8 +574,8 @@ const DashboardForm = ({history}) => {
                                 <Input
                                   type="text"
                                   placeholder={'Enter' + t('option')}
-                                  value={item?.name?.ph}
-                                  name={'ph'}
+                                  value={item?.name?.fil}
+                                  name={'fil'}
                                   onChange={(e) => handleOptionsChange(e, i)}
                                 />
                               </FormGroup>

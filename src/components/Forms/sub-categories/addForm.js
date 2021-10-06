@@ -38,10 +38,10 @@ const DashboardForm = ({history}) => {
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
 
-  const {en, hi, ar, ph} = name;
+  const {en, hi, ar, fil} = name;
 
   const onChangeHandler = (e) =>
     setName({...name, [e.target.name]: e.target.value});
@@ -143,8 +143,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder={t('namePlaceholder')}
-                          value={ph}
-                          name={'ph'}
+                          value={fil}
+                          name={'fil'}
                           onChange={onChangeHandler}
                         />
                       </FormGroup>

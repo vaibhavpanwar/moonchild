@@ -175,7 +175,7 @@ const DashboardForm = ({history}) => {
                           type="text"
                           placeholder="Enter question"
                           readOnly
-                          value={question?.question?.ph}
+                          value={question?.question?.fil}
                         />
                       </FormGroup>
                     </Col>
@@ -241,7 +241,7 @@ const DashboardForm = ({history}) => {
                               <Input
                                 type="text"
                                 placeholder="Enter option"
-                                value={item?.name?.ph}
+                                value={item?.name?.fil}
                                 readOnly
                               />
                             </FormGroup>

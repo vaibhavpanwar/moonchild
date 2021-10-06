@@ -89,8 +89,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder={t('namePlaceholder')}
-                          value={country?.name?.ph}
-                          name={'ph'}
+                          value={country?.name?.fil}
+                          name={'fil'}
                           readOnly
                         />
                       </FormGroup>

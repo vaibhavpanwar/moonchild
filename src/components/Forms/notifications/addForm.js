@@ -39,13 +39,13 @@ const DashboardForm = () => {
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
   const [message, setMessage] = useState({
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
   const [topic, setTopic] = useState('');
 
@@ -60,11 +60,11 @@ const DashboardForm = () => {
   const validateForm = () =>
     title?.en &&
     title?.ar &&
-    title?.ph &&
+    title?.fil &&
     title?.hi &&
     message?.en &&
     message?.hi &&
-    message?.ph &&
+    message?.fil &&
     message?.ar &&
     topic;
 
@@ -156,8 +156,8 @@ const DashboardForm = () => {
                         <Input
                           type="text"
                           placeholder={t('enter') + ' ' + t('title')}
-                          value={title?.ph}
-                          name={'ph'}
+                          value={title?.fil}
+                          name={'fil'}
                           onChange={onTitleChangeHandler}
                         />
                       </FormGroup>
@@ -237,8 +237,8 @@ const DashboardForm = () => {
                           }}
                           type="text"
                           placeholder={t('enter') + ' ' + t('message')}
-                          value={message?.ph}
-                          name={'ph'}
+                          value={message?.fil}
+                          name={'fil'}
                           onChange={onMessageChangeHandler}
                         />
                       </FormGroup>

@@ -30,10 +30,10 @@ const DashboardForm = ({history}) => {
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
   const [icon, setIcon] = useState(null);
-  const {en, hi, ar, ph} = name;
+  const {en, hi, ar, fil} = name;
 
   const onChangeHandler = (e) =>
     setName({...name, [e.target.name]: e.target.value});
@@ -41,7 +41,7 @@ const DashboardForm = ({history}) => {
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
 
   const validateForm = () =>
-    !!name?.en && name?.ar && name?.ph && name?.hi && icon;
+    !!name?.en && name?.ar && name?.fil && name?.hi && icon;
 
   const submitHandler = async () => {
     dispatch({type: categoriesConstants.CATEGORY_LOADING});
@@ -123,8 +123,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder={t('namePlaceholder')}
-                          value={ph}
-                          name={'ph'}
+                          value={fil}
+                          name={'fil'}
                           onChange={onChangeHandler}
                         />
                       </FormGroup>

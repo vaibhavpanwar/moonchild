@@ -100,8 +100,8 @@ const DashboardForm = ({history}) => {
                         </Label>
                         <Input
                           type="text"
-                          value={subCategory?.name?.ph}
-                          name={'ph'}
+                          value={subCategory?.name?.fil}
+                          name={'fil'}
                           readOnly
                         />
                       </FormGroup>

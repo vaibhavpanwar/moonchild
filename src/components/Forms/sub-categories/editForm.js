@@ -52,7 +52,7 @@ const DashboardForm = ({history}) => {
     en: '',
     hi: '',
     ar: '',
-    ph: '',
+    fil: '',
   });
 
   const {id} = useParams();
@@ -184,8 +184,8 @@ const DashboardForm = ({history}) => {
                         <Input
                           type="text"
                           placeholder={t('namePlaceholder')}
-                          value={name?.ph}
-                          name={'ph'}
+                          value={name?.fil}
+                          name={'fil'}
                           onChange={onChangeHandler}
                         />
                       </FormGroup>

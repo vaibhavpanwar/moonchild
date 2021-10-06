@@ -196,7 +196,11 @@ const Tables = () => {
                   ) : (
                     ads?.map((item) => (
                       <tr key={item?._id}>
-                        <td>{truncate(item?.userId?.name)}</td>
+                        <td>
+                          {item?.userId?.name
+                            ? truncate(item?.userId?.name)
+                            : 'N/A'}
+                        </td>
                         <td>{moment(item?.createdAt).format('DD/MM/YYYY')}</td>
                         <td>{finder(userTypes, item?.userType)?.name}</td>
                         <td>

@@ -69,8 +69,8 @@ const DashboardForm = () => {
   const [quesLoading, setQuesLoading] = useState(false);
   const [subCategLoading, setSubCategLoading] = useState(false);
   const [icon, setIcon] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [skype, setSkype] = useState(null);
+  const [title, setTitle] = useState('');
+  const [skype, setSkype] = useState('');
   const [selectedReligion, setSelectedReligion] = useState(null);
   const [selectedExp, setSelectedExp] = useState(null);
   const [selectedEdu, setSelectedEdu] = useState(null);
@@ -305,11 +305,6 @@ const DashboardForm = () => {
 
   const validateForm = () =>
     title &&
-    skype &&
-    callingCountryCode &&
-    callingPhone &&
-    waCountryCode &&
-    waPhone &&
     userType &&
     countryValidate() &&
     validateQuestions() &&
@@ -358,8 +353,8 @@ const DashboardForm = () => {
       dispatch(
         addAd(
           {
+            icon: imageUrl,
             userType: userType?.enum,
-
             additionalQuestion: answers,
             ...(![3, 4].includes(userType?.enum) && {
               categoryId: selectedCategory?._id,
@@ -709,10 +704,7 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       {' '}
                       <FormGroup>
-                        <Label for="exampleEmail">
-                          {t('skype')}
-                          <sup>*</sup>{' '}
-                        </Label>
+                        <Label for="exampleEmail">{t('skype')}</Label>
                         <Input
                           style={{borderRadius: '0'}}
                           type="text"
@@ -726,10 +718,7 @@ const DashboardForm = () => {
                   <Row>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">
-                          {t('whatsappPhone')}
-                          <sup>*</sup>{' '}
-                        </Label>
+                        <Label for="exampleEmail">{t('whatsappPhone')}</Label>
                         <PhoneInput
                           country={'kw'}
                           containerStyle={{
@@ -750,10 +739,7 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">
-                          {t('callingPhone')}
-                          <sup>*</sup>{' '}
-                        </Label>
+                        <Label for="exampleEmail">{t('callingPhone')}</Label>
                         <PhoneInput
                           country={'kw'}
                           containerStyle={{

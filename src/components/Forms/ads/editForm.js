@@ -42,7 +42,11 @@ import {editAd, getSingleAd} from '../../../redux/actions/ads.actions.js';
 import {useHistory, useParams} from 'react-router-dom';
 import {listUsers} from '../../../redux/actions/users.actions.js';
 import {useTranslation} from 'react-i18next';
-import {finder, multipleFinder} from '../../../utils/dataHelpers.js';
+import {
+  finder,
+  multipleFinder,
+  multipleFinderLang,
+} from '../../../utils/dataHelpers.js';
 import {getImageUrl} from '../../../utils/renderImage.js';
 import countryList from 'react-select-country-list';
 
@@ -78,9 +82,8 @@ const DashboardForm = () => {
   const [answers, setAnswers] = useState([]);
 
   // changes
-
-  const [title, setTitle] = useState(null);
-  const [skype, setSkype] = useState(null);
+  const [title, setTitle] = useState('');
+  const [skype, setSkype] = useState('');
   const [selectedReligion, setSelectedReligion] = useState(null);
   const [selectedExp, setSelectedExp] = useState(null);
   const [selectedEdu, setSelectedEdu] = useState(null);
@@ -146,9 +149,9 @@ const DashboardForm = () => {
   };
 
   const prefChangeHandler = (i) => {
-    const alreadyThere = selectedPref.find((item) => i._id === item._id);
+    const alreadyThere = selectedPref?.find((item) => i._id === item._id);
     if (!!alreadyThere) {
-      setSelectedPref(selectedPref.filter((item) => item._id !== i._id));
+      setSelectedPref(selectedPref?.filter((item) => item._id !== i._id));
     } else {
       setSelectedPref([...selectedPref, i]);
     }
@@ -172,9 +175,9 @@ const DashboardForm = () => {
 
   const showMultipleSelections = (array, obj) => {
     if (obj) {
-      return array.map((item) => item.name[lang]).toString();
+      return array?.map((item) => item.name[lang]).toString();
     } else {
-      return array.map((item) => item.name).toString();
+      return array?.map((item) => item.name).toString();
     }
   };
 
@@ -384,16 +387,10 @@ const DashboardForm = () => {
 
   const validateForm = () =>
     title &&
-    skype &&
-    callingCountryCode &&
-    callingPhone &&
-    waCountryCode &&
-    waPhone &&
     userType &&
     countryValidate() &&
     validateQuestions() &&
-    selectedUserAccount &&
-    icon;
+    selectedUserAccount;
 
   const validateQuestions = () => {
     if (!quesLoading && quesList?.length > 0) {
@@ -438,11 +435,36 @@ const DashboardForm = () => {
         editAd(
           {
             icon: imageUrl,
-            userType: userType?.enum,
-            countryId: selectedCountry?._id,
-            additionalQuestion: answers,
-            userId: selectedUserAccount?._id,
+
             addId: id,
+            userType: userType?.enum,
+            additionalQuestion: answers,
+            ...(![3, 4].includes(userType?.enum) && {
+              categoryId: selectedCategory?._id,
+            }),
+            ...(![3, 4].includes(userType?.enum) && {
+              subCategoryId: selectedSubCategory?._id,
+            }),
+            ...(userType?.enum !== 1 && {countryId: selectedCountry?._id}),
+            ...(userType?.enum === 2 && {
+              religion: selectedReligion.enum,
+              gender: selectedGender.enum,
+              experience: selectedExp.enum,
+              education: selectedEdu.enum,
+              dob: Date.parse(dob),
+              speakingLanguages: selectedLang.map((el) => el.enum),
+              nationality: nationality.label,
+              gccBefore: worked,
+              countryPreferences: selectedPref.map((el) => el._id),
+              martialStatus: selectedMarital.enum,
+            }),
+            userId: selectedUserAccount?._id,
+            contactCallingCode: callingCountryCode,
+            contactNumber: callingPhone,
+            whatsappCallingCode: waCountryCode,
+            whatsappPhoneNumber: waPhone,
+            title,
+            skype,
           },
           history,
         ),
@@ -455,8 +477,10 @@ const DashboardForm = () => {
     dispatch(
       editAd(
         {
-          userType: userType?.enum,
+          icon: ad?.icon,
 
+          addId: id,
+          userType: userType?.enum,
           additionalQuestion: answers,
           ...(![3, 4].includes(userType?.enum) && {
             categoryId: selectedCategory?._id,
@@ -464,18 +488,33 @@ const DashboardForm = () => {
           ...(![3, 4].includes(userType?.enum) && {
             subCategoryId: selectedSubCategory?._id,
           }),
-
           ...(userType?.enum !== 1 && {countryId: selectedCountry?._id}),
+          ...(userType?.enum === 2 && {
+            religion: selectedReligion.enum,
+            gender: selectedGender.enum,
+            experience: selectedExp.enum,
+            education: selectedEdu.enum,
+            dob: Date.parse(dob),
+            speakingLanguages: selectedLang.map((el) => el.enum),
+            nationality: nationality.label,
+            gccBefore: worked,
+            countryPreferences: selectedPref.map((el) => el._id),
+            martialStatus: selectedMarital.enum,
+          }),
           userId: selectedUserAccount?._id,
-          addId: id,
+          contactCallingCode: callingCountryCode,
+          contactNumber: callingPhone,
+          whatsappCallingCode: waCountryCode,
+          whatsappPhoneNumber: waPhone,
+          title,
+          skype,
         },
         history,
       ),
     );
   };
 
-  const submitHandler = async () => editWithIcon();
-  // userType?.enum === 3 && icon ? addWithIcon() : addWithoutIcon();
+  const submitHandler = async () => (icon ? editWithIcon() : editWithoutIcon());
 
   useEffect(() => {
     dispatch(getSingleAd(id));
@@ -484,19 +523,17 @@ const DashboardForm = () => {
   useEffect(() => {
     if (!!ad?._id) {
       if (ad?.userType === 2) {
-        setNationality(ad?.nationality);
+        setNationality(options.find((el) => el?.label === ad?.nationality));
         setWorked(ad?.gccBefore);
         setDob(Date(ad?.dob));
-        setSelectedPref(multipleFinder(countries, ad?.countryPreferences));
+        setSelectedPref(multipleFinder(ad?.countryPreferences, countries));
         setSelectedReligion(finder(religion, ad?.religion));
         setSelectedGender(finder(gender, ad?.gender));
         setSelectedMarital(finder(maritalStatus, ad?.martialStatus));
         setSelectedExp(finder(workerExperience, ad?.experience));
         setSelectedEdu(finder(workerEducation, ad?.education));
-        setSelectedLang(multipleFinder(speakingLanguage, ad?.speakingLanguage));
-        console.log(
-          multipleFinder(speakingLanguage, ad?.speakingLanguage),
-          'ok',
+        setSelectedLang(
+          multipleFinderLang(ad?.speakingLanguages, speakingLanguage),
         );
       }
       setUserType(finder(userTypes, ad?.userType));
@@ -505,7 +542,7 @@ const DashboardForm = () => {
       setSelectedCategory(ad?.categoryId);
       setSelectedUserAccount(ad?.userId);
       setCallingCountryCode(ad?.contactCallingCode);
-      setCallingPhone(ad?.coontactNumber);
+      setCallingPhone(ad?.contactNumber);
       setWaPhone(ad?.whatsappPhoneNumber);
       setWaCountryCode(ad?.whatsappCallingCode);
       setTitle(ad?.title);
@@ -683,18 +720,22 @@ const DashboardForm = () => {
                               src={uploadIcon}
                             />
                           </div>
-                          {ad?.icon && (
-                            <>
-                              {' '}
-                              <br />
-                              <img
-                                alt={'Gulf wrokers'}
-                                src={getImageUrl(ad?.icon, 50, 50)}
-                              />
-                            </>
-                          )}
                         </InputGroup>
                       </FormGroup>
+                      {ad?.icon && (
+                        <>
+                          {' '}
+                          <br />
+                          <img
+                            style={{
+                              position: 'relative',
+                              left: '104px',
+                            }}
+                            alt={'Gulf wrokers'}
+                            src={getImageUrl(ad?.icon, 150, 150)}
+                          />
+                        </>
+                      )}
                     </Col>
                   </Row>
 
@@ -790,10 +831,7 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       {' '}
                       <FormGroup>
-                        <Label for="exampleEmail">
-                          {t('skype')}
-                          <sup>*</sup>{' '}
-                        </Label>
+                        <Label for="exampleEmail">{t('skype')}</Label>
                         <Input
                           style={{borderRadius: '0'}}
                           type="text"
@@ -807,10 +845,7 @@ const DashboardForm = () => {
                   <Row>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">
-                          {t('whatsappPhone')}
-                          <sup>*</sup>{' '}
-                        </Label>
+                        <Label for="exampleEmail">{t('whatsappPhone')}</Label>
                         <PhoneInput
                           country={'kw'}
                           containerStyle={{
@@ -822,6 +857,7 @@ const DashboardForm = () => {
                           inputStyle={{
                             width: '100%',
                           }}
+                          value={waCountryCode + waPhone}
                           // value={countryCode}
                           onChange={(phone, countryData) =>
                             whatsappNumberHandler(phone, countryData)
@@ -831,10 +867,7 @@ const DashboardForm = () => {
                     </Col>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">
-                          {t('callingPhone')}
-                          <sup>*</sup>{' '}
-                        </Label>
+                        <Label for="exampleEmail">{t('callingPhone')}</Label>
                         <PhoneInput
                           country={'kw'}
                           containerStyle={{
@@ -846,6 +879,7 @@ const DashboardForm = () => {
                           inputStyle={{
                             width: '100%',
                           }}
+                          value={callingCountryCode + callingPhone}
                           // value={countryCode}
                           onChange={(phone, countryData) =>
                             callingNumberHandler(phone, countryData)
@@ -1073,7 +1107,7 @@ const DashboardForm = () => {
                                     <DropdownItem
                                       style={{
                                         color: `${
-                                          selectedLang.find(
+                                          selectedLang?.find(
                                             (el) => el._id === item._id,
                                           ) && 'green'
                                         }`,
@@ -1158,7 +1192,7 @@ const DashboardForm = () => {
                                     <DropdownItem
                                       style={{
                                         color: `${
-                                          selectedPref.find(
+                                          selectedPref?.find(
                                             (el) => el._id === item._id,
                                           ) && 'green'
                                         }`,

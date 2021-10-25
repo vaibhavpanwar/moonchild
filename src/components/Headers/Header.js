@@ -52,8 +52,8 @@ const Header = ({cardsVisible = true, data}) => {
                               ? 'text-warning'
                               : 'text-danger'
                           }`}>
-                          <i className="fa fa-arrow-up" /> {data?.users?.margin}{' '}
-                          %
+                          <i className="fa fa-arrow-up" />{' '}
+                          {data?.users?.margin.toFixed(3)} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
@@ -100,7 +100,7 @@ const Header = ({cardsVisible = true, data}) => {
                               : 'text-danger'
                           }`}>
                           <i className="fas fa-arrow-down" />{' '}
-                          {data?.ads?.margin} %
+                          {data?.ads?.margin.toFixed(3)} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
@@ -147,7 +147,7 @@ const Header = ({cardsVisible = true, data}) => {
                               : 'text-danger'
                           }`}>
                           <i className="fas fa-arrow-down" />{' '}
-                          {data?.chats?.margin} %
+                          {data?.chats?.margin.toFixed(3)} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1
@@ -192,7 +192,7 @@ const Header = ({cardsVisible = true, data}) => {
                               : 'text-danger'
                           }`}>
                           <i className="fas fa-arrow-up" />{' '}
-                          {data?.income?.margin} %
+                          {data?.income?.margin.toFixed(3)} %
                         </span>{' '}
                         <span className="card-footer-text-custom">
                           {data?.enum === 1

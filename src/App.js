@@ -15,9 +15,21 @@ import DashboardPage from './layout/dashboard';
 import AppLoading from './components/app-loading';
 import {configureStore} from './redux/store';
 import {useTranslation} from 'react-i18next';
+import {useClearCache} from 'react-clear-cache';
+
 export const history = createHashHistory();
 function App() {
   const {i18n} = useTranslation();
+
+  //cache clear
+  const {isLatestVersion, emptyCacheStorage} = useClearCache();
+  useEffect(() => {
+    console.log(isLatestVersion, 'isLatestVersion');
+    if (!isLatestVersion) {
+      emptyCacheStorage();
+    }
+  });
+
   useEffect(() => {
     //axios headers
     headerSetup();

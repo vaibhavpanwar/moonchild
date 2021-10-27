@@ -840,3 +840,29 @@ td {
   word-break: break-all !important;
   white-space: normal !important;
 }
+
+.mirrored .react-tel-input .flag-dropdown {
+  transform: rotateY(180deg);
+}
+.mirrored .react-tel-input .form-control {
+  padding-right: 0px;
+  padding-left: 48px;
+}
+
+.mirrored .react-tel-input .country-list {
+  transition: auto;
+  transform: rotateY(183deg);
+  position: relative;
+  right: 271px;
+}
+.mirrored .react-tel-input .flag-dropdown {
+  width: 42px;
+}
+
+.mirrored .react-tel-input .selected-flag {
+  background-color: transparent;
+  right: -5px;
+}
+.mirrored .react-tel-input .selected-flag .arrow {
+  left: -13px;
+}

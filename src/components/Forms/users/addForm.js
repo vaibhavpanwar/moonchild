@@ -89,12 +89,15 @@ const DashboardForm = () => {
                           country={'kw'}
                           containerStyle={{
                             border: '1px solid #707070',
+                            direction: 'ltr',
                           }}
                           searchStyle={{
                             width: '100%',
+                            direction: 'ltr',
                           }}
                           inputStyle={{
                             width: '100%',
+                            direction: 'ltr',
                           }}
                           // value={countryCode}
                           onChange={(phone, countryData) =>

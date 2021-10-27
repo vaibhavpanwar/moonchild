@@ -112,6 +112,7 @@ const DashboardForm = () => {
                           }}
                           inputStyle={{
                             width: '100%',
+                            direction: 'ltr',
                           }}
                           // country={getCountryCode()}
                           value={countryCode + phone}

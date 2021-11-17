@@ -20,6 +20,7 @@ import {categoriesConstants} from '../../../redux/constants/categories.constants
 import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import uploadIcon from '../../../assets/images/icons/form/upload-icon.png';
 import {useTranslation} from 'react-i18next';
+import cogoToast from 'cogo-toast';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -33,6 +34,7 @@ const DashboardForm = ({history}) => {
     fil: '',
   });
   const [icon, setIcon] = useState(null);
+  const [aspectRatio, setAspactRatio] = useState();
   const {en, hi, ar, fil} = name;
 
   const onChangeHandler = (e) =>
@@ -44,24 +46,32 @@ const DashboardForm = ({history}) => {
     !!name?.en && name?.ar && name?.fil && name?.hi && icon;
 
   const submitHandler = async () => {
-    dispatch({type: categoriesConstants.CATEGORY_LOADING});
-    const formData = new FormData();
-    formData.append('image', icon);
+    if (aspectRatio === 1) {
+      dispatch({type: categoriesConstants.CATEGORY_LOADING});
+      const formData = new FormData();
+      formData.append('image', icon);
 
-    const imageUrl = await imageUploader(formData);
-    if (imageUrl) {
-      dispatch(
-        addCategory(
-          {
-            name,
-            icon: imageUrl,
-          },
-          history,
-        ),
-      );
+      const imageUrl = await imageUploader(formData);
+      if (imageUrl) {
+        dispatch(
+          addCategory(
+            {
+              name,
+              icon: imageUrl,
+            },
+            history,
+          ),
+        );
+      } else {
+        // pop and error
+      }
     } else {
-      // pop and error
+      cogoToast.error('Please chose image with same width and height');
     }
+  };
+
+  const onLoad = ({target: {offsetHeight, offsetWidth}}) => {
+    setAspactRatio(offsetHeight / offsetWidth);
   };
   const {t} = useTranslation();
   return (
@@ -169,6 +179,14 @@ const DashboardForm = ({history}) => {
                           alt={'gcc'}
                         />
                       )}
+                      {icon && (
+                        <img
+                          className="aspect-ratio-image"
+                          src={renderImage(icon)}
+                          onLoad={onLoad}
+                          alt={'gcc'}
+                        />
+                      )}
                     </Col>
                   </Row>
                 </Form>
@@ -195,3 +213,9 @@ const DashboardForm = ({history}) => {
 };
 
 export default DashboardForm;
+
+// banner 0.4186  0.465 0.5116
+// sub 1
+// category 1
+// ad 1
+// country 1

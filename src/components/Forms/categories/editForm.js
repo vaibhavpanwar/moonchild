@@ -27,6 +27,7 @@ import {categoriesConstants} from '../../../redux/constants/categories.constants
 import {getImageUrl} from '../../../utils/renderImage.js';
 import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {useTranslation} from 'react-i18next';
+import cogoToast from 'cogo-toast';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -34,7 +35,7 @@ const DashboardForm = ({history}) => {
 
   //import loading and error as well
   const {category, loading} = useSelector((state) => state.categoriesReducer);
-
+  const [aspectRatio, setAspactRatio] = useState();
   const [name, setName] = useState({
     en: '',
     hi: '',
@@ -100,7 +101,17 @@ const DashboardForm = ({history}) => {
       ),
     );
 
-  const submitHandler = () => (icon ? editWithIcon() : editWithoutIcon());
+  const onLoad = ({target: {offsetHeight, offsetWidth}}) => {
+    setAspactRatio(offsetHeight / offsetWidth);
+  };
+
+  const submitHandler = () => {
+    if (aspectRatio === 1) {
+      icon ? editWithIcon() : editWithoutIcon();
+    } else {
+      cogoToast.error('Please chose image with same width and height');
+    }
+  };
 
   return (
     <>
@@ -208,6 +219,14 @@ const DashboardForm = ({history}) => {
                         <img
                           alt={'Gulf wrokers'}
                           src={getImageUrl(category?.icon, 50, 50)}
+                        />
+                      )}
+                      {icon && (
+                        <img
+                          className="aspect-ratio-image"
+                          src={renderImage(icon)}
+                          onLoad={onLoad}
+                          alt={'gcc'}
                         />
                       )}
                     </Col>

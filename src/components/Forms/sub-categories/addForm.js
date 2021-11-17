@@ -24,13 +24,14 @@ import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {subCategoriesConstants} from '../../../redux/constants/sub-categories.constants.js';
 import {addSubCategory} from '../../../redux/actions/sub-categories.actions.js';
 import {useTranslation} from 'react-i18next';
+import cogoToast from 'cogo-toast';
 
 const DashboardForm = ({history}) => {
   //redux
   const dispatch = useDispatch();
   const {categories} = useSelector((state) => state.categoriesReducer);
   const {loading} = useSelector((state) => state.subCategoriesReducer);
-
+  const [aspectRatio, setAspactRatio] = useState();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [dropdownOpen, setdropDowOpen] = useState(false);
   const [icon, setIcon] = useState(null);
@@ -56,27 +57,33 @@ const DashboardForm = ({history}) => {
   };
 
   const submitHandler = async () => {
-    dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
-    const formData = new FormData();
-    formData.append('image', icon);
+    if (aspectRatio === 1) {
+      dispatch({type: subCategoriesConstants.SUB_CATEGORY_LOADING});
+      const formData = new FormData();
+      formData.append('image', icon);
 
-    const imageUrl = await imageUploader(formData);
-    if (imageUrl) {
-      dispatch(
-        addSubCategory(
-          {
-            name,
-            icon: imageUrl,
-            categoryId: selectedCategory._id,
-          },
-          history,
-        ),
-      );
+      const imageUrl = await imageUploader(formData);
+      if (imageUrl) {
+        dispatch(
+          addSubCategory(
+            {
+              name,
+              icon: imageUrl,
+              categoryId: selectedCategory._id,
+            },
+            history,
+          ),
+        );
+      } else {
+        // pop and error
+      }
     } else {
-      // pop and error
+      cogoToast.error('Please chose image with same width and height');
     }
   };
-
+  const onLoad = ({target: {offsetHeight, offsetWidth}}) => {
+    setAspactRatio(offsetHeight / offsetWidth);
+  };
   useEffect(() => {
     dispatch(listCategories());
   }, [dispatch]);
@@ -214,6 +221,14 @@ const DashboardForm = ({history}) => {
                         <img
                           src={renderImage(icon)}
                           className="input-image"
+                          alt={'gcc'}
+                        />
+                      )}
+                      {icon && (
+                        <img
+                          className="aspect-ratio-image"
+                          src={renderImage(icon)}
+                          onLoad={onLoad}
                           alt={'gcc'}
                         />
                       )}

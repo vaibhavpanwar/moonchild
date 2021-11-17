@@ -37,7 +37,7 @@ import {listCategories} from '../../../redux/actions/categories.actions.js';
 import {listCountries} from '../../../redux/actions/countries.actions';
 import {getAdQuestions} from '../../../utils/questions.js';
 import {adsConstants} from '../../../redux/constants/ads.constants.js';
-import {imageUploader} from '../../../utils/imageUpload.js';
+import {imageUploader, renderImage} from '../../../utils/imageUpload.js';
 import {editAd, getSingleAd} from '../../../redux/actions/ads.actions.js';
 import {useHistory, useParams} from 'react-router-dom';
 import {listUsers} from '../../../redux/actions/users.actions.js';
@@ -51,6 +51,7 @@ import {getImageUrl} from '../../../utils/renderImage.js';
 import countryList from 'react-select-country-list';
 
 import Select from 'react-select';
+import cogoToast from 'cogo-toast';
 
 const DashboardForm = () => {
   const {id} = useParams();
@@ -105,6 +106,7 @@ const DashboardForm = () => {
   const [callingPhone, setCallingPhone] = useState('');
   const [dob, setDob] = useState(new Date());
   const [nationality, setNationality] = useState('');
+  const [aspectRatio, setAspactRatio] = useState();
 
   const workedHandler = () => {
     setWorked(!worked);
@@ -514,7 +516,13 @@ const DashboardForm = () => {
     );
   };
 
-  const submitHandler = async () => (icon ? editWithIcon() : editWithoutIcon());
+  const submitHandler = async () => {
+    if (icon && aspectRatio !== 1) {
+      cogoToast.error('Please chose image with same width and height');
+    } else {
+      icon ? editWithIcon() : editWithoutIcon();
+    }
+  };
 
   useEffect(() => {
     dispatch(getSingleAd(id));
@@ -561,7 +569,9 @@ const DashboardForm = () => {
 
     // eslint-disable-next-line
   }, [ad?._id]);
-
+  const onLoad = ({target: {offsetHeight, offsetWidth}}) => {
+    setAspactRatio(offsetHeight / offsetWidth);
+  };
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
   return (
@@ -735,6 +745,22 @@ const DashboardForm = () => {
                             src={getImageUrl(ad?.icon, 150, 150)}
                           />
                         </>
+                      )}
+
+                      {icon && (
+                        <img
+                          src={renderImage(icon)}
+                          className="input-image"
+                          alt={'gcc'}
+                        />
+                      )}
+                      {icon && (
+                        <img
+                          className="aspect-ratio-image"
+                          src={renderImage(icon)}
+                          onLoad={onLoad}
+                          alt={'gcc'}
+                        />
                       )}
                     </Col>
                   </Row>

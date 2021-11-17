@@ -1,9 +1,11 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 
 import routes from './routes/index';
 import Sidebar from '../components/Navbars/SideNavbar';
 import AdminNavbar from '../components/Navbars/AdminNavbar';
+import {useDispatch} from 'react-redux';
+import {listContactUs} from '../redux/actions/contactUs.actions';
 
 const Admin = (props) => {
   const mainContent = useRef(null);
@@ -32,6 +34,11 @@ const Admin = (props) => {
   //   console.log('jaja');
   //   i18n.changeLanguage(lan);
   // };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(listContactUs());
+  }, [dispatch]);
 
   return (
     <>

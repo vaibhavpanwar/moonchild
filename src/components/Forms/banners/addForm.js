@@ -27,6 +27,7 @@ import {addBanner} from '../../../redux/actions/banners.actions.js';
 import {useTranslation} from 'react-i18next';
 import {AddType} from './data.js';
 import PhoneInput from 'react-phone-input-2';
+import cogoToast from 'cogo-toast';
 
 const DashboardForm = ({history}) => {
   //redux
@@ -39,6 +40,7 @@ const DashboardForm = ({history}) => {
   const [whatsApp, setWhatsapp] = useState('');
   const [addType, setAddType] = useState(AddType[0]?.addType);
   const [addTypeId, setAddTypeId] = useState(AddType[0]?._id);
+  const [aspectRatio, setAspactRatio] = useState();
 
   const [icon, setIcon] = useState(null);
   const [url, setUrl] = useState('');
@@ -47,28 +49,34 @@ const DashboardForm = ({history}) => {
 
   const validateForm = () => !!icon;
   const submitHandler = async () => {
-    dispatch({type: bannersConstants.BANNER_LOADING});
-    const formData = new FormData();
-    formData.append('image', icon);
+    if (aspectRatio >= 4186 && aspectRatio <= 0.5116) {
+      dispatch({type: bannersConstants.BANNER_LOADING});
+      const formData = new FormData();
+      formData.append('image', icon);
 
-    const imageUrl = await imageUploader(formData);
-    if (imageUrl) {
-      dispatch(
-        addBanner(
-          {
-            bannerType: addTypeId,
-            callingCode: phone ? countryCode : '',
-            link: url,
-            icon: imageUrl,
-            phoneNumber: phone,
-            whatsappCallingCode: whatsApp ? whatsAppCountryCode : '',
-            whatsappPhoneNumber: whatsApp,
-          },
-          history,
-        ),
-      );
+      const imageUrl = await imageUploader(formData);
+      if (imageUrl) {
+        dispatch(
+          addBanner(
+            {
+              bannerType: addTypeId,
+              callingCode: phone ? countryCode : '',
+              link: url,
+              icon: imageUrl,
+              phoneNumber: phone,
+              whatsappCallingCode: whatsApp ? whatsAppCountryCode : '',
+              whatsappPhoneNumber: whatsApp,
+            },
+            history,
+          ),
+        );
+      } else {
+        // pop and error
+      }
     } else {
-      // pop and error
+      cogoToast.error(
+        'Please chose image with aspect ratio between 4:9 to 5:9',
+      );
     }
   };
   const {t} = useTranslation();
@@ -86,7 +94,9 @@ const DashboardForm = ({history}) => {
     setWhatSAppCountryCode('+' + data?.dialCode);
     setWhatsapp(number.slice(data.dialCode.length));
   };
-
+  const onLoad = ({target: {offsetHeight, offsetWidth}}) => {
+    setAspactRatio(offsetHeight / offsetWidth);
+  };
   return (
     <>
       <Header cardsVisible={false} />
@@ -132,6 +142,14 @@ const DashboardForm = ({history}) => {
                         <img
                           src={renderImage(icon)}
                           className="input-image"
+                          alt={'gcc'}
+                        />
+                      )}
+                      {icon && (
+                        <img
+                          className="aspect-ratio-image"
+                          src={renderImage(icon)}
+                          onLoad={onLoad}
                           alt={'gcc'}
                         />
                       )}

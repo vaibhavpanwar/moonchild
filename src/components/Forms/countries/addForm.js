@@ -32,7 +32,7 @@ const DashboardForm = ({history}) => {
     ar: '',
     fil: '',
   });
-
+  const [aspectRatio, setAspactRatio] = useState();
   const {en, hi, ar, fil} = name;
 
   const inputFileHandler = (e) => setIcon(e.target?.files?.[0]);
@@ -42,29 +42,36 @@ const DashboardForm = ({history}) => {
   const validateForm = () => !!name;
 
   const submitHandler = async () => {
-    dispatch({type: countriesConstants.COUNTRY_LOADING});
-    const formData = new FormData();
-    formData.append('image', icon);
+    if (aspectRatio === 1) {
+      dispatch({type: countriesConstants.COUNTRY_LOADING});
+      const formData = new FormData();
+      formData.append('image', icon);
 
-    const imageUrl = await imageUploader(formData);
-    if (imageUrl) {
-      dispatch(
-        addCountry(
-          {
-            name,
-            icon: imageUrl,
-          },
-          history,
-        ),
-      );
+      const imageUrl = await imageUploader(formData);
+      if (imageUrl) {
+        dispatch(
+          addCountry(
+            {
+              name,
+              icon: imageUrl,
+            },
+            history,
+          ),
+        );
+      } else {
+        cogoToast.error('Something went wrong', {
+          hideAfter: 3,
+          position: 'top-right',
+        });
+      }
     } else {
-      cogoToast.error('Something went wrong', {
-        hideAfter: 3,
-        position: 'top-right',
-      });
+      cogoToast.error('Please chose image with same width and height');
     }
   };
 
+  const onLoad = ({target: {offsetHeight, offsetWidth}}) => {
+    setAspactRatio(offsetHeight / offsetWidth);
+  };
   const {t} = useTranslation();
   return (
     <>
@@ -165,6 +172,14 @@ const DashboardForm = ({history}) => {
                         <img
                           src={renderImage(icon)}
                           className="input-image"
+                          alt={'gcc'}
+                        />
+                      )}
+                      {icon && (
+                        <img
+                          className="aspect-ratio-image"
+                          src={renderImage(icon)}
+                          onLoad={onLoad}
                           alt={'gcc'}
                         />
                       )}

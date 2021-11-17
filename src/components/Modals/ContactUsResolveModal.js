@@ -47,11 +47,20 @@ const ResolveModal = ({open, setModalOpen, activeRequest}) => {
         setInputData('');
       }}>
       <div className="modal-header">
-        <h5 className="modal-title" id="exampleModalLabel">
+        <p className="modal-title" id="exampleModalLabel">
           {activeRequest?.status === 1
             ? `${t('resolveNoteFor')}  ${activeRequest?.name}`
             : t('resolved')}
-        </h5>
+          <br />
+          <br />
+          <h6>
+            <span style={{color: 'black', fontWeight: 'bold'}}>
+              {t('message')}: &nbsp;
+            </span>
+
+            {activeRequest?.note}
+          </h6>
+        </p>
 
         <button
           aria-label="Close"

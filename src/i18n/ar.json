@@ -153,5 +153,8 @@
   "nationality": "الجنسية",
   "dob": "تاريخ الميلاد",
   "worked": "هل عملت في دول الخليج؟",
-  "prefCOuntry": "الدولة المفضلة"
+  "prefCOuntry": "الدولة المفضلة",
+
+  "invalidEmail": "Please Enter Valid Email",
+  "phone": "Phone"
 }

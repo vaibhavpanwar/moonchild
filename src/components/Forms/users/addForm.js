@@ -18,6 +18,9 @@ import {addUser} from '../../../redux/actions/users.actions.js';
 import {useHistory} from 'react-router';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import {useTranslation} from 'react-i18next';
+import cogoToast from 'cogo-toast';
+import {validateEmail} from '../../../utils/dataHelpers.js';
 
 const DashboardForm = () => {
   const history = useHistory();
@@ -31,20 +34,29 @@ const DashboardForm = () => {
   const [countryCode, setCountryCode] = useState('');
   const [phone, setPhone] = useState('');
 
+  const {t} = useTranslation();
+
   const validateForm = () => !!name && phone && countryCode;
 
   const submitHandler = async () => {
-    dispatch(
-      addUser(
-        {
-          name,
-          ...(email && {email}),
-          callingCode: countryCode,
-          phoneNumber: phone,
-        },
-        history,
-      ),
-    );
+    if (validateEmail(email)) {
+      dispatch(
+        addUser(
+          {
+            name,
+            ...(email && {email}),
+            callingCode: countryCode,
+            phoneNumber: phone,
+          },
+          history,
+        ),
+      );
+    } else {
+      cogoToast.error(t('invalidEmail'), {
+        position: 'top-right',
+        hideAfter: 3,
+      });
+    }
   };
 
   const phoneInputHanlder = (number, data) => {
@@ -61,14 +73,15 @@ const DashboardForm = () => {
         <Row>
           <div className="col">
             <div className="dashboard-form-container">
-              <h2 className="dashboard-form-header">Add User</h2>
+              <h2 className="dashboard-form-header">{t('addUser')}</h2>
               <div className="dashboard-form-body">
                 <Form>
                   <Row form>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Name<sup>*</sup>{' '}
+                          {t('name')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <Input
                           style={{borderRadius: '0'}}
@@ -83,7 +96,8 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Phone<sup>*</sup>{' '}
+                          {t('phone')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <PhoneInput
                           country={'kw'}
@@ -110,10 +124,10 @@ const DashboardForm = () => {
                   <Row>
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
-                        <Label for="exampleEmail">Email</Label>
+                        <Label for="exampleEmail">{t('emailAddress')}</Label>
                         <Input
                           style={{borderRadius: '0'}}
-                          type="text"
+                          type="email"
                           placeholder="Enter email address"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
@@ -127,13 +141,13 @@ const DashboardForm = () => {
                 <button
                   className="form-cancel-button"
                   onClick={() => history.push('/admin/users')}>
-                  Cancel
+                  {t('cancel')}
                 </button>
                 <button
                   onClick={submitHandler}
                   className="table-header-button"
                   disabled={!validateForm() || loading}>
-                  {loading ? <Spinner color={'info'} /> : 'Add'}
+                  {loading ? <Spinner color={'info'} /> : t('add')}
                 </button>
               </div>
             </div>

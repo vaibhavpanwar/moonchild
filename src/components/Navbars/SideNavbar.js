@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import logoImage from '../../assets/images/logo_primary.png';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../../services/auth';
 // reactstrap components
 import {
@@ -26,18 +26,18 @@ import {
 import routes from '../../layout/routes/index';
 import {getImageUrl} from '../../utils/renderImage';
 import {useTranslation} from 'react-i18next';
+import {getPendingRequestsNumber} from '../../utils/dataHelpers';
 
 const Sidebar = (props) => {
   const [collapseOpen, setCollapseOpen] = useState();
   const dispatch = useDispatch();
+  const {contacts} = useSelector((state) => state.contactUsReducer);
   const {t, i18n} = useTranslation();
   const lang = i18n.language;
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
-    return props.location.pathname.indexOf(routeName) > -1
-      ? 'nav-links-active'
-      : '';
+    return props.location.pathname.indexOf(routeName) > -1;
   };
   // toggles collapse between opened and closed (true/false)
   const toggleCollapse = () => {
@@ -60,9 +60,22 @@ const Sidebar = (props) => {
           <div
             key={key}
             onClick={() => navigateTo(item.path)}
-            className={`nav-links-wrapper ${activeRoute(item.path)}`}>
+            className={`nav-links-wrapper ${
+              activeRoute(item.path) && 'nav-links-active'
+            }`}>
             <span className={item.icon} />
             <p>{t(item.name)}</p>
+            {item.name === 'contactUs' &&
+              getPendingRequestsNumber(contacts) >= 1 && (
+                <span
+                  className={`${
+                    activeRoute(item.path) ? 'counter-active' : 'counter'
+                  }`}>
+                  {getPendingRequestsNumber(contacts) > 10
+                    ? '10+'
+                    : getPendingRequestsNumber(contacts)}
+                </span>
+              )}
           </div>
         )
       );

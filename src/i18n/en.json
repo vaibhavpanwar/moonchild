@@ -154,5 +154,7 @@
   "nationality": "Nationality",
   "dob": "Date of Birth",
   "worked": "Have you worked in gulf countries before?",
-  "prefCOuntry": "Preferred Country"
+  "prefCOuntry": "Preferred Country",
+  "invalidEmail": "Please Enter Valid Email",
+  "phone": "Phone"
 }

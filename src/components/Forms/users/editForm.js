@@ -19,6 +19,8 @@ import {useHistory} from 'react-router';
 import {useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import PhoneInput from 'react-phone-input-2';
+import {validateEmail} from '../../../utils/dataHelpers.js';
+import cogoToast from 'cogo-toast';
 const DashboardForm = () => {
   const history = useHistory();
 
@@ -53,18 +55,25 @@ const DashboardForm = () => {
   const validateForm = () => !!name && phone && countryCode;
 
   const submitHandler = async () => {
-    dispatch(
-      editUser(
-        {
-          name,
-          ...(email && {email}),
-          callingCode: countryCode,
-          phoneNumber: phone,
-          userId: id,
-        },
-        history,
-      ),
-    );
+    if (validateEmail(email)) {
+      dispatch(
+        editUser(
+          {
+            name,
+            ...(email && {email}),
+            callingCode: countryCode,
+            phoneNumber: phone,
+            userId: id,
+          },
+          history,
+        ),
+      );
+    } else {
+      cogoToast.error(t('invalidEmail'), {
+        position: 'top-right',
+        hideAfter: 3,
+      });
+    }
   };
   const phoneInputHanlder = (number, data) => {
     setCountryCode('+' + data?.dialCode);
@@ -101,7 +110,8 @@ const DashboardForm = () => {
                     <Col lg={4} md={6} sm={12}>
                       <FormGroup>
                         <Label for="exampleEmail">
-                          Phone<sup>*</sup>{' '}
+                          {t('phone')}
+                          <sup>*</sup>{' '}
                         </Label>
                         <PhoneInput
                           containerStyle={{
@@ -128,7 +138,7 @@ const DashboardForm = () => {
                       <FormGroup>
                         <Label for="exampleEmail">{t('emailAddress')}</Label>
                         <Input
-                          type="text"
+                          type="email"
                           placeholder={t('emailPlaceholder')}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
